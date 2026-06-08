@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zorthex — Public Attention Diffusion Lag</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/favicon.ico">
 <meta name="description" content="Zorthex measures the gap between when something emerges and when public attention actually reaches it. Three sources. Open method. Replicable data.">
 <meta property="og:title" content="Zorthex — Public Attention Diffusion Lag">
 <meta property="og:description" content="Enter any technology, phenomenon or trend and get a full diffusion lag analysis in seconds.">
@@ -90,8 +90,7 @@
   }
 
   .header-right { display: flex; align-items: center; gap: 12px; }
-  
-  /* Bottoni pulsanti */
+
   .pulse-btn {
     font-family: 'Orbitron', sans-serif;
     font-size: 11px;
@@ -104,15 +103,15 @@
     background: transparent;
     white-space: nowrap;
   }
-  
+
   .how-btn {
     color: var(--cyan);
     border: 1px solid rgba(0,212,255,0.6);
     animation: pulse-cyan 2s ease-in-out infinite;
   }
-  
+
   .how-btn:hover { background: rgba(0,212,255,0.15); }
-  
+
   .research-btn {
     color: var(--green);
     border: 1px solid rgba(68,255,170,0.6);
@@ -122,19 +121,19 @@
     font-weight: 700;
     letter-spacing: 0.12em;
   }
-  .research-btn:hover { 
+  .research-btn:hover {
     background: rgba(68,255,170,0.15);
     transform: translateY(-2px);
     box-shadow: 0 0 20px rgba(68,255,170,0.3);
   }
-  
+
   .custom-btn {
     color: var(--amber);
     border: 1px solid rgba(255,170,68,0.6);
     animation: pulse-amber 2s ease-in-out infinite;
   }
   .custom-btn:hover { background: rgba(255,170,68,0.15); }
-  
+
   .index-btn {
     color: var(--magenta);
     border: 1px solid rgba(204,68,255,0.6);
@@ -162,7 +161,6 @@
     box-shadow: 0 0 12px rgba(0,212,255,0.1);
   }
 
-  /* API KEY BANNER */
   .api-banner {
     background: rgba(0,212,255,0.04);
     border-bottom: 1px solid rgba(0,212,255,0.15);
@@ -195,7 +193,6 @@
 
   @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
 
-  /* HERO */
   .hero {
     padding: 80px 48px 64px;
     max-width: 1000px;
@@ -366,7 +363,6 @@
     display: inline-block;
   }
 
-  /* AI badge */
   .ai-badge {
     display: inline-flex;
     align-items: center;
@@ -450,13 +446,11 @@
   .metric-val.magenta { color: var(--magenta); text-shadow: 0 0 20px var(--magenta); }
   .metric-lbl { font-size: 13px; color: #7a80a0; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
 
-  /* METRIC LEGEND */
   .metric-legend { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 28px; margin-top: -16px; }
   .metric-legend-item { padding: 10px 20px 14px; font-size: 12px; color: var(--text-dim); line-height: 1.55; letter-spacing: 0.01em; border-left: 1px solid var(--border); }
   .metric-legend-item:first-child { border-left: none; }
   .metric-legend-item strong { display: block; color: #7a80a0; font-weight: 500; margin-bottom: 3px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
 
-  /* SIGNAL INTELLIGENCE */
   .signal-block { background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 32px 36px; margin-bottom: 24px; position: relative; overflow: hidden; }
   .signal-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--amber)); }
   .signal-block-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
@@ -487,7 +481,6 @@
   .source-name { font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 600; color: var(--text); text-transform: uppercase; letter-spacing: 0.1em; }
   .source-status { font-size: 15px; color: #c0c8e8; line-height: 1.7; }
 
-  /* WHAT IT MEANS */
   .wim-block { background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 32px 36px; margin-bottom: 24px; position: relative; }
   .wim-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--magenta), var(--cyan)); border-radius: 8px 8px 0 0; }
   .wim-incipit { font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
@@ -506,6 +499,7 @@
   .result-footer { font-size: 14px; color: var(--text-mid); padding-top: 24px; border-top: 1px solid var(--border2); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; letter-spacing: 0.02em; }
   .doi-link { color: var(--cyan); text-decoration: none; text-shadow: 0 0 10px rgba(0,212,255,0.5); font-weight: 500; }
   .doi-link:hover { text-decoration: underline; text-shadow: 0 0 16px var(--cyan); }
+  .doi-ph { color: var(--red); font-weight: 700; }
 
   .disclaimer {
     margin-top: 20px;
@@ -524,7 +518,6 @@
   .page-footer-brand { font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: 0.08em; text-shadow: 0 0 15px rgba(0,212,255,0.2); }
   .page-footer-brand em { color: var(--cyan); font-style: normal; text-shadow: 0 0 15px var(--cyan); }
 
-  /* WHY SECTION */
   .why-section {
     padding: 80px 48px;
     max-width: 1000px;
@@ -659,14 +652,13 @@
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="brand">ZORTH<em>EX</em></div>
   <div class="header-right">
     <a onclick="document.getElementById('howModal').style.display='flex'" class="pulse-btn how-btn">HOW WE MEASURE</a>
     <a href="/custom-report.html" class="pulse-btn custom-btn">✦ CUSTOM REPORTS</a>
     <a href="/research.html" class="pulse-btn research-btn">✦ RESEARCH</a>
-    <span class="version-badge">V1.3</span>
+    <span class="version-badge">V2.0</span>
   </div>
 </div>
 
@@ -682,12 +674,12 @@
  <div class="hero-desc">Measuring the delay between reality and public awareness. Three independent sources. Open method. Replicable data.</div>
 </div>
 
-<!-- INPUT SECTION - between hero and why -->
+<!-- INPUT SECTION -->
 <div style="padding: 60px 48px 0; max-width: 1000px; margin: 0 auto;">
   <div class="input-section" style="margin-bottom:0;">
     <label class="input-label">Enter a name, a technology, a political phenomenon, a product</label>
     <div class="input-row">
-      <input class="input-field" id="queryInput" type="text" placeholder="e.g. mRNA cancer vaccine, Bitcoin, nuclear fusion, tariffs..." style="border-color: rgba(0,212,255,0.8); box-shadow: 0 0 30px rgba(0,212,255,0.15), 0 0 60px rgba(0,212,255,0.06), inset 0 0 20px rgba(0,212,255,0.04);">
+      <input class="input-field" id="queryInput" type="text" placeholder="e.g. green hydrogen, Bitcoin, CRISPR, zero day vulnerability..." style="border-color: rgba(0,212,255,0.8); box-shadow: 0 0 30px rgba(0,212,255,0.15), 0 0 60px rgba(0,212,255,0.06), inset 0 0 20px rgba(0,212,255,0.04);">
       <button class="run-btn" id="runBtn" onclick="runAnalysis()">ANALYZE →</button>
     </div>
     <div id="analyzeHint" style="display:none; align-items:center; gap:10px; margin-bottom:16px; padding:10px 18px; background:rgba(204,68,255,0.07); border:1px solid rgba(204,68,255,0.25); border-radius:6px; font-size:13px; color:#cc44ff; letter-spacing:0.04em; font-family:'Orbitron',sans-serif; font-weight:600;">
@@ -696,11 +688,11 @@
     </div>
     <div class="presets-label">Or start with one of these:</div>
     <div class="presets">
-      <button class="preset" onclick="setPreset('mRNA cancer vaccine')">mRNA cancer vaccine</button>
       <button class="preset" onclick="setPreset('Bitcoin')">Bitcoin</button>
-      <button class="preset" onclick="setPreset('quantitative easing')">Quantitative easing</button>
       <button class="preset" onclick="setPreset('CRISPR')">CRISPR</button>
-      <button class="preset" onclick="setPreset('nuclear fusion')">Nuclear fusion</button>
+      <button class="preset" onclick="setPreset('Stablecoins')">Stablecoins</button>
+      <button class="preset" onclick="setPreset('Zero Day Vulnerability')">Zero day vulnerability</button>
+      <button class="preset" onclick="setPreset('Green Hydrogen')">Green hydrogen</button>
     </div>
   </div>
 </div>
@@ -842,11 +834,11 @@
     </div>
 
     <div class="disclaimer" id="disclaimer" style="display:none">
-      <strong>Note:</strong> This analysis was generated by Claude AI applying the Zorthex v1.3 framework to its training knowledge. Values are estimates based on publicly available historical data. For verified Signal Reports, see <a class="doi-link" href="https://zorthex.com/research.html" target="_blank">zorthex.com/research.html</a>. Manual verification recommended before publication.
+      <strong>Note:</strong> This analysis was generated by Claude AI applying the Zorthex v2.0 framework to its training knowledge. Values are estimates based on publicly available historical data. For verified Signal Reports, see <a class="doi-link" href="https://zorthex.com/research.html" target="_blank">zorthex.com/research.html</a>. Manual verification recommended before publication.
     </div>
 
     <div class="result-footer">
-     <span>© 2026 Zorthex™ — Renato Santi · Zorthex framework v1.3 · CC-BY-NC 4.0 · <a class="doi-link" href="https://doi.org/10.5281/zenodo.20374051" target="_blank">doi.org/10.5281/zenodo.20374051</a> · <a class="doi-link" href="https://github.com/zorthex2026/zorthex-diffusion-lag" target="_blank">GitHub</a></span>
+     <span>© 2026 Zorthex™ — Renato Santi · Zorthex framework v2.0 · CC-BY-NC 4.0 · DOI: <a class="doi-link" href="https://doi.org/10.5281/zenodo.20589503" target="_blank">10.5281/zenodo.20589503</a> · ORCID <a class="doi-link" href="https://orcid.org/0009-0000-9936-1110" target="_blank">0009-0000-9936-1110</a> · <a class="doi-link" href="https://github.com/zorthex2026/zorthex-diffusion-lag" target="_blank">GitHub</a></span>
       <span id="analysisDate">—</span>
     </div>
 
@@ -859,7 +851,7 @@
 </div>
 <div class="page-footer">
   <div class="page-footer-brand">ZORTH<em>EX</em> · BEYOND WHAT'S NEXT</div>
-  <div>Built in public · No team · No investors · Est. MMXXVI · © 2026 Zorthex™ — Renato Santi</div>
+  <div>Est. MMXXVI · © 2026 Zorthex™ — Renato Santi</div>
   <div style="display:flex;align-items:center;gap:20px;">
     <a href="mailto:zorthex.official@gmail.com" style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;color:var(--text-mid);text-decoration:none;padding:6px 14px;border-radius:4px;border:1px solid var(--border2);transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(0,212,255,0.3)';this.style.color='var(--cyan)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text-mid)'">CONTACT US</a>
     <span>Powered by <a href="https://www.anthropic.com" target="_blank" style="color:var(--cyan);text-decoration:none;text-shadow:0 0 10px rgba(0,212,255,0.5);">Claude</a> · zorthex.com</span>
@@ -867,134 +859,84 @@
 </div>
 
 <script>
-// ─── API via Netlify Function ─────────────────────────────────────────────────
-let claudeApiKey = 'server'; // handled server-side
+let claudeApiKey = 'server';
 
-// ─── PRESETS DATA (verified, from Zorthex v1.3) ───────────────────────────────
+// ─── PRESETS DATA (verified · Zorthex v2.0 cassaforte values) ─────────────────
 const PRESETS_DATA = {
-  'mrna cancer vaccine': {
-    title: 'mRNA Cancer Vaccines',
-    tStart: 'Jan 2015', tPeak: 'Sep 2025', L: 126,
-    peakScore: 100, monthsAbove: 9, currentScore: 17,
-    status: 'observation',
-    chartData: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,8,10,12,8,5,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,93,100,64,50,29,64,28,40,28,17],
-    src1: 'Breakout Aug 2025 (93/100). Peak Sep 2025 (100/100). May 2026: 17/100 — below threshold. Critical inflection point.',
-    src2: 'Peak 894 views/day Aug 2025 vs baseline 418/day. Now 239/day. Wikipedia peaked one month before Google — deeper interest peaked first.',
-    src3: 'High-vote posts cluster Aug–Oct 2025. Approx. 40–50% politically driven (RFK Jr. cuts). Declared limitation, not hidden.',
-    interpretation: 'Nine of 12 months above threshold. May 2026 dropped to 17/100 — below the structural line. Whether this is a temporary dip or the start of a decline is the key open question. The next 8–12 weeks are the most informative window available.',
-    monitor: 'Does Google Trends return above 25 for June–July 2026? BioNTech/Moderna Phase 3 melanoma results expected summer 2026. A positive trial would likely restart the attention clock.',
-    whatItMeans: 'Public attention to mRNA cancer vaccines peaked at 100/100 in September 2025 and has since declined to 17/100 in May 2026.\n\nWHAT IT MEANS\n\nNine consecutive months above threshold were recorded — three short of structural consolidation. The curve is in contraction. A phenomenon that reached maximum public visibility is losing oxygen at the same moment clinical development continues at pace. Attention and science are moving in opposite directions. Whether May 2026 marks a temporary contraction or the beginning of a structural exit from the attention cycle remains an open question. The summer 2026 clinical readouts are the next event capable of reversing the trajectory. These values reflect observed attention patterns — not projections.'
-  },
   'bitcoin': {
     title: 'Bitcoin',
-    tStart: 'Jan 2009', tPeak: 'Dec 2017', L: 107,
+    tStart: 'Oct 2008', tPeak: 'Dec 2020', L: 146,
     peakScore: 100, monthsAbove: 36, currentScore: 42,
     status: 'structural',
-    chartData: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,12,18,12,8,5,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,100,70,45,30,28,25,30,35,95,80,55,40,35,30,28,30,35,38,40,38,42,40,38,42],
-    src1: 'First mainstream peak Dec 2017 (100/100). Second peak Nov 2021 (95/100). Currently sustained above threshold at 42/100.',
-    src2: 'Wikipedia "Bitcoin" among the top 1000 most visited pages globally. Consistent above-baseline traffic since 2017.',
-    src3: 'r/Bitcoin has 6M+ members. Multiple active narratives: macro hedge, digital gold, speculation. Sustained high volume.',
-    interpretation: 'Bitcoin has achieved structural consolidation — over 36 months above threshold. The public understanding has evolved from speculative bubble to macro hedge to institutional asset. L = 107 months from genesis block to first mainstream peak.',
-    monitor: 'CBDC developments and regulatory frameworks in major economies. ETF inflows as institutional attention proxy. Inflation expectations correlation.',
-    whatItMeans: 'Bitcoin peaked at 100/100 in December 2017, reached a second peak of 95/100 in November 2021, and currently registers 42/100 in May 2026.\n\nWHAT IT MEANS\n\nThirty-six consecutive months above threshold confirm structural consolidation. This is not a phenomenon in formation — it is a phenomenon that has completed its diffusion cycle and entered a state of sustained public presence. The narrative has shifted multiple times: speculative asset, store of value, institutional hedge, macro instrument. Each shift has maintained attention above the structural floor. The lag of 107 months documents how long a technology can operate at scale before the public assigns it a stable frame. These values reflect observed attention patterns — not projections.'
-  },
-  'quantitative easing': {
-    title: 'Quantitative Easing',
-    tStart: 'Nov 2008', tPeak: 'Mar 2020', L: 136,
-    peakScore: 89, monthsAbove: 14, currentScore: 28,
-    status: 'observation',
-    chartData: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,45,50,42,35,30,28,26,25,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,89,70,55,45,38,35,30,28,28,26,28],
-    src1: 'First peak 2010–2011 (Fed QE1/QE2 era). Major peak Mar 2020 ("money printer go brrr"). Currently above threshold at 28/100.',
-    src2: 'Wikipedia "Quantitative easing" spiked dramatically Mar 2020. Sustained elevated interest vs pre-2008 baseline of near-zero.',
-    src3: 'Reddit r/economics and r/wallstreetbets drove massive awareness 2020–2021. Meme format accelerated public comprehension of a complex monetary concept.',
-    interpretation: 'The clearest case of meme-accelerated diffusion in the Zorthex dataset. A concept understood only by central bankers in 2008 became cultural common knowledge by 2020 via a three-word meme. L = 136 months — but the final compression happened in weeks.',
-    monitor: 'Fed balance sheet reduction (QT) and whether the public tracks the reversal. Inflation expectations as a proxy for monetary literacy in real time.',
-    whatItMeans: 'Quantitative easing entered public discourse as a central bank tool in November 2008. Public attention reached its first significant peak in the 2010–2011 Fed QE era, then peaked at 89/100 in March 2020. It currently registers 28/100 in May 2026 — above the structural threshold.\n\nWHAT IT MEANS\n\nFourteen months above threshold have been recorded. A monetary mechanism that operated for over a decade in near-total public obscurity was compressed into cultural common knowledge in weeks — accelerated by a three-word meme in early 2020. The lag of 136 months is not a measure of how long it took for the policy to work. It is a measure of how long it took for the public to develop a vocabulary for it. Attention currently holds above threshold, sustained by ongoing debates on inflation, central bank credibility and the reversal of the same policies. These values reflect observed attention patterns — not projections.'
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,14,25,35,46,57,68,78,89,100,98,95,93,90,88,86,83,81,78,76,73,71,69,66,64,61,59,56,54,52,49,47,44,42],
+    src1: 'First mainstream peak Dec 2020 (100/100). Sustained above threshold for 36+ months. Current score May 2026: 42/100 — still active.',
+    src2: 'Wikipedia "Bitcoin" approx. 7,265 views/day — among consistently high-traffic pages. Fully legible on both operational and informational signals.',
+    src3: 'r/Bitcoin 6M+ members. Sustained high volume across multiple narratives: macro hedge, digital gold, institutional asset.',
+    interpretation: 'Bitcoin records 36+ months above threshold — structural consolidation confirmed. The all-time peak is historical (Dec 2020), so the diffusion lag of 146 months is stable. Current score holds above threshold at 42/100.',
+    monitor: 'If Google Trends sustains ≥25 through 2026: active structural status continues. ETF flows and regulatory frameworks tracked as institutional-attention proxies. A drop below 10 would shift Current Status to Dormant (classification stays STRUCTURAL).',
+    whatItMeans: 'Bitcoin records a historical peak of 100/100 in December 2020 and a current score of 42/100 in May 2026.\n\nWHAT IT MEANS\n\nThirty-six or more consecutive months above threshold are recorded — structural consolidation confirmed. The all-time peak sits in the past, which makes the documented lag of 146 months stable under the rock rule. The current score holds above the structural threshold. Three independent signals are consistent: search, Wikipedia readership and community discussion all register sustained presence. These values reflect observed attention patterns — not projections.'
   },
   'crispr': {
-    title: 'CRISPR Gene Editing',
-    tStart: 'Jan 2012', tPeak: 'Nov 2018', L: 82,
+    title: 'CRISPR',
+    tStart: 'Jun 2012', tPeak: 'Sep 2020', L: 99,
     peakScore: 78, monthsAbove: 18, currentScore: 31,
     status: 'structural',
-    chartData: [5,5,5,5,5,5,5,5,5,5,5,5,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,65,55,45,38,32,28,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,65,60,55,50,45,40,38,36,34,32,31,31],
-    src1: 'Steady growth 2012–2018. Peak Nov 2018 (He Jiankui gene-edited babies scandal). Sustained above threshold for 18 months.',
-    src2: 'Wikipedia traffic reflects milestones: 2015 Science paper, 2018 scandal, 2020 Nobel Prize. Each event added a distinct layer of public understanding.',
-    src3: 'r/science and r/genetics show consistent engagement. Ethics debates consistently drive larger spikes than scientific papers alone.',
-    interpretation: 'CRISPR has achieved structural consolidation. Driven by scientific breakthroughs and ethical controversies in roughly equal measure. The 2020 Nobel Prize confirmed mainstream status. L = 82 months — one of the faster diffusions in the biotech dataset.',
-    monitor: 'Clinical results for CRISPR-based therapies. Regulatory developments for germline editing. Any major trial failure would test structural consolidation.',
-    whatItMeans: 'CRISPR gene editing emerged as a scientific tool in January 2012. Public attention reached a first significant peak in November 2018 and currently registers 31/100 in May 2026 — above the structural threshold.\n\nWHAT IT MEANS\n\nEighteen months above threshold confirm structural consolidation. The diffusion of CRISPR into public awareness was driven in roughly equal measure by scientific milestones and ethical controversy — the 2018 He Jiankui scandal generated more public attention than any peer-reviewed paper. The 2020 Nobel Prize anchored the concept in mainstream knowledge. At 82 months, this is one of the faster documented diffusions in the biotech dataset. Attention holds above threshold in May 2026, sustained by ongoing clinical development. The gap between what the science can now do and what the public understands remains open. These values reflect observed attention patterns — not projections.'
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,11,20,28,36,45,53,61,70,78,77,75,74,72,71,69,68,66,65,63,62,60,59,57,56,54,53,52,50,49,47,46,44,43,41,40,38,37,35,34,32,31],
+    src1: 'Historical peak Sep 2020 (78/100). 18 months above threshold. Current score May 2026: 31/100 — above threshold.',
+    src2: 'Wikipedia traffic tracks milestones (2018 He Jiankui case, 2020 Nobel). A 2026 Google Trends re-peak is NOT matched by Wikipedia — flagged as cluster noise, not a genuine resurgence.',
+    src3: 'r/science and r/genetics show consistent engagement. Ethics debates drive larger volume spikes than scientific papers alone.',
+    interpretation: 'CRISPR records 18 months above threshold with a historical peak (Sep 2020) — structural consolidation confirmed, lag stable at 99 months. A recent Google Trends uptick is not corroborated by Wikipedia and is treated as renormalization noise. Dual-velocity case: operational attention exceeds informational.',
+    monitor: 'If Wikipedia pageviews rise alongside any new Google Trends surge: a genuine second informational cycle. Clinical-trial outcomes and germline-editing regulation tracked as attention drivers. Without Wikipedia confirmation, GT-only moves stay flagged as cluster noise.',
+    whatItMeans: 'CRISPR records a historical peak of 78/100 in September 2020 and a current score of 31/100 in May 2026.\n\nWHAT IT MEANS\n\nEighteen months above threshold are recorded against a historical peak, so the lag of 99 months is stable. A 2026 uptick on Google Trends is not matched by Wikipedia readership, and is therefore read as a renormalization artifact rather than a new wave. This is a dual-velocity phenomenon: specialists search and act on it more than the general public reads about it. These values reflect observed attention patterns — not projections.'
   },
-  'nuclear fusion': {
-    title: 'Nuclear Fusion',
-    tStart: 'Jan 1950', tPeak: 'Dec 2022', L: 875,
-    peakScore: 100, monthsAbove: 6, currentScore: 22,
-    status: 'bubble',
-    chartData: [5,5,5,6,5,5,5,6,5,5,5,5,5,5,5,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,100,72,48,32,26,22,22,22,22],
-    src1: 'Peak Dec 2022 (NIF ignition breakthrough, 100/100). May 2026: 22/100 — below threshold. First sustained public attention spike in 70+ years of active research.',
-    src2: 'Wikipedia "Nuclear fusion" spike Dec 2022. Historically very low baseline despite decades of research and billions invested worldwide.',
-    src3: 'Reddit r/fusion active but niche. Dec 2022 posts hit 50k+ votes. Now back to baseline community discussion levels.',
-    interpretation: 'Nuclear fusion has the longest documented lag in the Zorthex dataset: L = 875 months — over 70 years. The Dec 2022 NIF ignition was the first real public attention spike. Currently below threshold. Structural consolidation not yet confirmed.',
-    monitor: 'NIF follow-up ignition experiments. Private sector: Commonwealth Fusion Systems, Helion Energy milestones. Any net-energy-gain replication by an independent lab would trigger a new attention cycle.',
-    whatItMeans: 'Nuclear fusion research began in earnest in the early 1950s. Public attention reached its first documented peak at 100/100 in December 2022, following the NIF ignition breakthrough. It currently registers 22/100 in May 2026 — below the structural threshold.\n\nWHAT IT MEANS\n\nSix months above threshold were recorded. Structural consolidation has not been confirmed. The December 2022 spike was the first time in over 70 years of active research that public attention reached maximum relative search volume globally. It did not hold. The attention cycle opened and closed without consolidating. A technology that has absorbed decades of institutional investment and scientific effort has not yet produced a durable frame in public consciousness. The lag of 875 months is the longest in the Zorthex dataset. Whether the next major experimental result generates a second cycle — and whether that cycle consolidates — is the open question. These values reflect observed attention patterns — not projections.'
+  'stablecoins': {
+    title: 'Stablecoins',
+    tStart: 'Oct 2014', tPeak: 'Jun 2025', L: 128,
+    peakScore: 100, monthsAbove: 12, currentScore: 53,
+    status: 'structural',
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,14,25,35,46,57,68,78,89,100,92,84,76,69,61,53],
+    src1: 'Operational breakout Jun–Jul 2025 around the GENIUS Act. Peak 100/100. Current score May 2026: 53/100 — active. Model case (ZCR-2026-001).',
+    src2: 'Wikipedia and Google Trends ignite together Jun–Jul 2025 — full convergence on a regulatory trigger. The clearest three-source convergence in the dataset.',
+    src3: 'Active community discussion across crypto and treasury/finance subreddits, tied to regulatory developments.',
+    interpretation: 'Stablecoins record convergence on a policy trigger (GENIUS Act): Google Trends and Wikipedia ignite in the same window. Lag of 128 months from early issuance to structural public attention. Current score active at 53/100.',
+    monitor: 'Whether 12 consecutive months above threshold complete and hold past the cluster window. Regulatory follow-through (US, EU MiCA) tracked as the primary attention driver. A drop below 25 would re-open the observation window.',
+    whatItMeans: 'Stablecoins record a peak of 100/100 in mid-2025 and a current score of 53/100 in May 2026.\n\nWHAT IT MEANS\n\nThe breakout coincides with a formal regulatory trigger, and all three signals move together — the clearest convergence in the dataset. The documented lag of 128 months measures the distance from early issuance to the moment public attention consolidated around the category. Attention currently holds above threshold. As a recent-trigger case it is monitored on the standard revision cycle. These values reflect observed attention patterns — not projections.'
+  },
+  'zero day vulnerability': {
+    title: 'Zero Day Vulnerability',
+    tStart: 'Jan 2005', tPeak: 'Apr 2024', L: 231,
+    peakScore: 85, monthsAbove: 24, currentScore: 40,
+    status: 'structural',
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,12,21,30,39,49,58,67,76,85,79,74,68,62,57,51,46,40],
+    src1: 'Historical peak Apr 2024 (85/100). 24 months above threshold. Current score May 2026: 40/100 — active. The longest verified lag in the dataset: 231 months.',
+    src2: 'Wikipedia baseline approx. 15 views/day — near-invisible to the general public. A textbook dual-velocity case: high operational search, minimal informational readership.',
+    src3: 'Active in security-professional communities (r/netsec, r/cybersecurity). Technical discourse, not public discourse.',
+    interpretation: 'Zero day vulnerability records 24 months above threshold with a historical peak (Apr 2024) — structural, lag stable at 231 months, the longest verified in the dataset. Pronounced dual-velocity: operational attention is high while informational (Wikipedia) is minimal.',
+    monitor: 'Whether informational signals (Wikipedia) ever rise toward operational levels — they have not. Major disclosed incidents and regulatory disclosure mandates tracked as attention drivers. The dual-velocity gap is the structural signature here.',
+    whatItMeans: 'Zero day vulnerability records a historical peak of 85/100 in April 2024 and a current score of 40/100 in May 2026.\n\nWHAT IT MEANS\n\nWith 24 months above threshold against a historical peak, the lag of 231 months is stable — the longest verified in the dataset. The defining feature is the gap between signals: heavy operational search by professionals, almost no informational readership on Wikipedia (~15 views/day). This is a phenomenon that is fully real inside technical departments and nearly invisible to the public. These values reflect observed attention patterns — not projections.'
+  },
+  'green hydrogen': {
+    title: 'Green Hydrogen',
+    tStart: 'Jan 2005', tPeak: 'Jun 2023', L: 204,
+    peakScore: 80, monthsAbove: 24, currentScore: 80,
+    status: 'structural',
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,12,20,29,37,46,54,63,71,80,80,80,80,80,80,80,80,80,80,80,80],
+    src1: 'Structural and active. Google Trends sustained around 80/100. 24 months above threshold. Lag 204 months from early industry emergence to structural attention.',
+    src2: 'Wikipedia approx. 242 views/day — industry interest, not public. Dual-velocity: the signal lives in the energy sector, not the mainstream.',
+    src3: 'Discussion concentrated in energy, policy and industry communities. Specialist, not public.',
+    interpretation: 'Green hydrogen is structural and currently active, with Google Trends sustained near 80/100. Lag of 204 months. A clear dual-velocity, policy-driven energy case: operationally hot among specialists, informationally quiet for the public.',
+    monitor: 'Whether public/informational signals rise toward the high operational level — currently they do not. Subsidy and policy frameworks (US, EU) tracked as the primary attention drivers for this regime. The operational/informational gap is the structural signature.',
+    whatItMeans: 'Green hydrogen is structural and active, with Google Trends sustained around 80/100 in May 2026.\n\nWHAT IT MEANS\n\nThe documented lag is 204 months, and attention remains high on the operational signal while Wikipedia readership stays modest (~242 views/day). This is the dual-velocity pattern in its clearest form: a phenomenon that is intensely active inside the energy industry and largely off the public radar. Its diffusion is policy-driven, characteristic of the policy-trigger regime. These values reflect observed attention patterns — not projections.'
   }
 };
 
 // ─── CLAUDE API CALL ──────────────────────────────────────────────────────────
 async function analyzeWithClaude(query) {
-  const prompt = `You are the Zorthex Free Layer — an observational signal system applying the Zorthex v1.3 framework.
-
-Your function is strictly observational. You describe what is measurable. You do not interpret historical positioning. You do not compare to other phenomena. You do not infer where this phenomenon sits in a lifecycle. You do not suggest what the data means for decisions or strategy. You do not use temporal framing ("early stage", "late cycle", "peak passed"). You do not produce synthesis. Observation only.
-
-ZORTHEX v1.3 DEFINITIONS (apply exactly):
-- t_start: first documented public appearance of the phenomenon (earliest traceable public signal)
-- t_peak: first month of the first window of 12 consecutive months where Google Trends score ≥ 25/100 Worldwide. If 12 consecutive months not reached, t_peak = month of maximum recorded score.
-- L = t_peak − t_start in months. Empirical indicator only — not a law, not a prediction.
-- STRUCTURAL: ≥ 25/100 for 12+ consecutive months confirmed. Classification is permanent once acquired.
-- OBSERVATION: above threshold but fewer than 12 consecutive months recorded. Status may change.
-- BUBBLE: reached above threshold but dropped below 25 without completing 12 consecutive months. Permanent classification.
-- Current Status: Active (current score ≥ 25), Receding (current score 10–24), Dormant (current score < 10)
-
-WHAT YOU OUTPUT — describe only:
-- The recorded metric values (L, peak score, months above threshold, current score)
-- The current observable state of each of the three sources
-- The classification status as defined above
-- Signals currently observable in the data (not what they mean, only what they show)
-- Events or data points to monitor that could change the observable classification
-
-WHAT YOU NEVER OUTPUT:
-- Temporal positioning ("this is early/late in the cycle")
-- Comparative inference ("faster/slower than similar technologies")
-- Historical interpretation ("consistent with technologies that...")
-- Decision framing ("investors should", "this is the moment to")
-- Predictive language ("this will", "likely to", "trajectory suggests")
-- Synthesis of meaning ("what this means is")
-
-Analyze "${query}" and respond ONLY with valid JSON, no other text, no markdown:
-
-{
-  "title": "clean display name",
-  "tStart": "month/year of first documented public appearance",
-  "tPeak": "month/year of first Google Trends peak ≥25 or absolute maximum if threshold not sustained",
-  "L": integer months between tStart and tPeak,
-  "peakScore": integer Google Trends peak score 0-100,
-  "monthsAbove": integer months recorded above threshold of 25,
-  "currentScore": integer estimated Google Trends score May 2026 (0-100),
-  "status": "structural" or "observation" or "bubble",
-  "chartData": array of 80 integers 0-100 representing attention curve from tStart to May 2026,
-  "src1": "Google Trends: state the recorded scores, dates, and current score. No interpretation of what this means. Example: 'First recorded score above threshold: [month/year]. Peak score: [X]/100 recorded [month/year]. Current score May 2026: [X]/100. Months above threshold: [N].'",
-  "src2": "Wikipedia Pageviews: describe the observable pageview pattern — baseline level, spike dates, current level. No interpretation. Example: 'Baseline pageviews [N]/day pre-[year]. Spike to [N]/day recorded [month/year]. Current level: [N]/day approximate.'",
-  "src3": "Reddit: describe observable community state — subreddit size, activity level, notable volume events. No interpretation. Example: 'r/[name]: [N] members. Activity: [high/moderate/low]. Notable volume event: [month/year].'",
-  "interpretation": "State only what the three sources show in aggregate. Describe the current observable state of the signal. No lifecycle positioning, no comparison, no inference about what this implies. Maximum 3 sentences. Each sentence states a fact derived directly from the metrics.",
-  "monitor": "List 3 specific observable events or data points that, if they occur, would change the current classification or recorded metrics. State what would change and why. No predictions — only conditional observations. Example: 'If Google Trends score returns to ≥25 for June 2026: OBSERVATION status would resume. If 12 consecutive months above threshold are completed: classification upgrades to STRUCTURAL permanently.'",
-  "whatItMeans": "State the recorded peak value, the date of peak, and the current score in one factual sentence. Then write WHAT IT MEANS on its own line. Then write 2-3 sentences describing only what the observable data shows about the current state of public attention — not what it means for anyone, not where it sits in history, not what to do. Close with: 'These values reflect observed attention patterns — not projections.' Never use: revolutionary, game-changer, breakthrough, predicts, suggests, implies, means that."
-}`;
-
   const response = await fetch('/.netlify/functions/analyze', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query })
   });
-
   if (!response.ok) throw new Error('Analysis failed');
   return await response.json();
 }
@@ -1002,6 +944,7 @@ Analyze "${query}" and respond ONLY with valid JSON, no other text, no markdown:
 // ─── UI FUNCTIONS ─────────────────────────────────────────────────────────────
 function setPreset(val) {
   document.getElementById('queryInput').value = val;
+  runAnalysis();
 }
 
 async function runAnalysis() {
@@ -1022,12 +965,12 @@ async function runAnalysis() {
   }
 
   if (isPreset) {
-    const msgs = ['Querying Google Trends...', 'Fetching Wikipedia pageviews...', 'Scanning Reddit signals...', 'Calculating diffusion lag (L)...', 'Applying Zorthex v1.3 framework...'];
+    const msgs = ['Querying Google Trends...', 'Fetching Wikipedia pageviews...', 'Scanning Reddit signals...', 'Calculating diffusion lag (L)...', 'Applying Zorthex v2.0 framework...'];
     let i = 0;
     const iv = setInterval(() => { if (i < msgs.length) document.getElementById('loadingText').textContent = msgs[i++]; }, 640);
     setTimeout(() => { clearInterval(iv); document.getElementById('loading').classList.remove('active'); document.getElementById('analyzeHint').style.display = 'none'; document.getElementById('runBtn').disabled = false; showResults(query, null); }, 3200);
   } else {
-    const msgs = ['Connecting to Claude API...', 'Applying Zorthex v1.3 framework...', 'Estimating diffusion lag (L)...', 'Generating three-source analysis...', 'Building interpretation...'];
+    const msgs = ['Connecting to Claude API...', 'Applying Zorthex v2.0 framework...', 'Estimating diffusion lag (L)...', 'Generating three-source analysis...', 'Building interpretation...'];
     let i = 0;
     const iv = setInterval(() => { if (i < msgs.length) document.getElementById('loadingText').textContent = msgs[i++]; }, 800);
     try {
@@ -1267,7 +1210,7 @@ document.getElementById('queryInput').addEventListener('keydown', e => {
   <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;max-width:640px;width:100%;padding:40px;position:relative;max-height:90vh;overflow-y:auto;">
     <button onclick="document.getElementById('howModal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;">✕</button>
     <div style="font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:0.15em;color:var(--cyan);text-shadow:0 0 10px var(--cyan);margin-bottom:16px;">HOW WE MEASURE</div>
-    <div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:700;color:var(--text);margin-bottom:24px;line-height:1.3;">The Zorthex v1.3 Framework</div>
+    <div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:700;color:var(--text);margin-bottom:24px;line-height:1.3;">The Zorthex v2.0 Framework</div>
     <div style="font-size:15px;color:#c0c8e8;line-height:1.8;margin-bottom:20px;">
       Zorthex measures <strong style="color:var(--text)">public attention</strong> — not understanding, not adoption. Three independent sources. One metric.
     </div>
@@ -1278,7 +1221,7 @@ document.getElementById('queryInput').addEventListener('keydown', e => {
       </div>
       <div style="background:var(--surface2);border:1px solid var(--border2);border-left:2px solid var(--magenta);padding:16px;border-radius:6px;">
         <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--magenta);letter-spacing:0.1em;margin-bottom:8px;">THE THRESHOLD</div>
-        <div style="font-size:13px;color:#c0c8e8;line-height:1.7;">≥ 25/100 on Google Trends (normalised scale, Worldwide). Threshold empirically set based on sensitivity testing across dataset v1.3 — this value provides the most stable separation between sustained and transient attention patterns under tested conditions.</div>
+        <div style="font-size:13px;color:#c0c8e8;line-height:1.7;">≥ 25/100 on Google Trends (normalised scale, Worldwide). Threshold empirically set based on sensitivity testing across the dataset — this value provides the most stable separation between sustained and transient attention patterns under tested conditions.</div>
       </div>
       <div style="background:var(--surface2);border:1px solid var(--border2);border-left:2px solid var(--amber);padding:16px;border-radius:6px;">
         <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px;">THE 12-MONTH RULE</div>
@@ -1286,7 +1229,7 @@ document.getElementById('queryInput').addEventListener('keydown', e => {
       </div>
       <div style="background:var(--surface2);border:1px solid var(--border2);border-left:2px solid var(--green, #44ffaa);padding:16px;border-radius:6px;">
         <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:#44ffaa;letter-spacing:0.1em;margin-bottom:8px;">L — THE LAG</div>
-        <div style="font-size:13px;color:#c0c8e8;line-height:1.7;">L = t_peak − t_start (in months). A descriptive lag metric — not a physical constant. Dependent on t_start definition and dataset selection. mRNA cancer vaccine: L = 126 months — 10 years between first clinical trials and sustained public attention.</div>
+        <div style="font-size:13px;color:#c0c8e8;line-height:1.7;">L = t_peak − t_start (in months). A descriptive lag metric — not a physical constant. Dependent on t_start definition and dataset selection. Stable when the all-time peak is historical; provisional (OBSERVATION) when the peak is recent.</div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
@@ -1296,16 +1239,16 @@ document.getElementById('queryInput').addEventListener('keydown', e => {
       </div>
       <div style="background:rgba(255,170,68,0.06);border:1px solid rgba(255,170,68,0.2);border-radius:6px;padding:14px;text-align:center;">
         <div style="font-family:'Orbitron',sans-serif;font-size:10px;color:var(--amber);letter-spacing:0.1em;margin-bottom:6px;">OBSERVATION</div>
-        <div style="font-size:11px;color:#c0c8e8;line-height:1.5;">1–11 months above threshold — forming</div>
+        <div style="font-size:11px;color:#c0c8e8;line-height:1.5;">1–11 months · or recent peak (provisional L)</div>
       </div>
       <div style="background:rgba(255,68,102,0.06);border:1px solid rgba(255,68,102,0.2);border-radius:6px;padding:14px;text-align:center;">
         <div style="font-family:'Orbitron',sans-serif;font-size:10px;color:var(--red);letter-spacing:0.1em;margin-bottom:6px;">BUBBLE</div>
         <div style="font-size:11px;color:#c0c8e8;line-height:1.5;">Peak without consolidation</div>
       </div>
     </div>
-    <div style="font-size:11px;color:var(--text-dim);padding:10px 12px;border:1px solid var(--border2);border-radius:4px;line-height:1.6;margin-bottom:16px;font-style:italic;">Classifications observed within dataset v1.3 — operational heuristics, not universal laws. L is a descriptive metric sensitive to t_start definition and selection bias. Results not generalizable beyond observed sample.</div>
+    <div style="font-size:11px;color:var(--text-dim);padding:10px 12px;border:1px solid var(--border2);border-radius:4px;line-height:1.6;margin-bottom:16px;font-style:italic;">Classifications observed within the Zorthex dataset — operational heuristics, not universal laws. L is a descriptive metric sensitive to t_start definition and selection bias. Results not generalizable beyond observed sample.</div>
     <div style="font-size:12px;color:var(--text-dim);border-top:1px solid var(--border2);padding-top:16px;">
-      Framework v1.3 · Open method · <a href="https://doi.org/10.5281/zenodo.20374051" target="_blank" style="color:var(--cyan);text-decoration:none;">doi.org/10.5281/zenodo.20374051</a> · <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" target="_blank" style="color:var(--cyan);text-decoration:none;">GitHub</a>
+      Framework v2.0 · Open method · DOI: <a class="doi-link" href="https://doi.org/10.5281/zenodo.20589503" target="_blank">10.5281/zenodo.20589503</a> · <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" target="_blank" style="color:var(--cyan);text-decoration:none;">GitHub</a>
     </div>
   </div>
 </div>
