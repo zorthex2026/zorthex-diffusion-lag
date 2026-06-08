@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZORTHEX — Research & Signal Reports</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -14,6 +16,7 @@
       --accent3: #2dc653;
       --warn: #e63946;
       --amber: #ffaa44;
+      --red: #ff4466;
       --text: #e0e0ff;
       --muted: #6666aa;
       --border: #1a1a3a;
@@ -28,87 +31,13 @@
     nav a:hover { color: var(--accent); }
     main { position: relative; z-index: 1; padding-top: 5rem; }
 
-    .reports-section { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 3rem; border-bottom: 1px solid var(--border); }
-    .reports-eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 0.8rem; text-transform: uppercase; }
-    .reports-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.1; margin-bottom: 1rem; }
-    .reports-title span { color: var(--accent); }
-    .reports-sub { font-size: 0.8rem; color: var(--muted); line-height: 1.8; max-width: 600px; margin-bottom: 2.5rem; }
-    .reports-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
-    .report-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; padding: 1.8rem; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
-    .report-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .report-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
-    .report-card.structural::before { background: linear-gradient(90deg, var(--accent), #7b2d8b); }
-    .report-card.observation::before { background: linear-gradient(90deg, var(--amber), #cc7700); }
-    .report-card-number { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 0.8rem; }
-    .report-card-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text); line-height: 1.3; }
-    .report-card-meta { font-size: 0.7rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.6; }
-    .report-card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.2rem; }
-    .report-stat { background: rgba(0,180,216,0.04); border: 1px solid var(--border); padding: 0.6rem 0.8rem; }
-    .report-stat-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--accent); line-height: 1; margin-bottom: 0.2rem; }
-    .report-card.observation .report-stat-val { color: var(--amber); }
-    .report-stat-lbl { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-    .report-status-badge { display: inline-block; padding: 0.2rem 0.6rem; font-size: 0.6rem; letter-spacing: 0.12em; border: 1px solid; margin-bottom: 1rem; }
-    .badge-structural { color: var(--accent); border-color: var(--accent); }
-    .badge-observation { color: var(--amber); border-color: var(--amber); }
-    .report-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.4rem; }
-    .report-download-btn { display: inline-block; padding: 0.7rem 1.2rem; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-decoration: none; border: 1px solid var(--accent); color: var(--accent); transition: all 0.2s; background: transparent; cursor: pointer; }
-    .report-download-btn:hover { background: var(--accent); color: var(--bg); }
-    .report-card.observation .report-download-btn { border-color: var(--amber); color: var(--amber); }
-    .report-card.observation .report-download-btn:hover { background: var(--amber); color: var(--bg); }
-    .coming-soon { text-align: center; padding: 1.5rem; border: 1px dashed var(--border); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
-
-    .hero { padding: 3rem 2rem 3rem; max-width: 900px; margin: 0 auto; }
-    .status-badge { display: inline-block; padding: 0.3rem 0.8rem; border: 1px solid var(--accent3); color: var(--accent3); font-size: 0.65rem; letter-spacing: 0.15em; margin-bottom: 2rem; }
-    .doi-badge { display: inline-block; padding: 0.3rem 0.8rem; border: 1px solid var(--accent); color: var(--accent); font-size: 0.65rem; letter-spacing: 0.1em; margin-bottom: 2rem; margin-left: 0.8rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; transition: background 0.2s; }
-    .doi-badge:hover { background: rgba(0,180,216,0.1); }
-    h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 2rem; }
+    .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 0.9rem; text-transform: uppercase; }
+    h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin-bottom: 1.2rem; }
     h1 span { color: var(--accent); }
-    .hero-sub { font-size: 0.9rem; line-height: 1.8; color: var(--muted); max-width: 640px; margin-bottom: 2.5rem; }
-    .key-finding { border-left: 3px solid var(--accent); padding: 1.5rem; background: rgba(0,180,216,0.05); margin-bottom: 3rem; font-size: 0.85rem; line-height: 1.8; font-style: italic; color: #aaaacc; }
-    section { max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; }
-    .section-label { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 1rem; text-transform: uppercase; }
-    h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--text); }
-    .def-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 3rem; }
-    .def-item { background: var(--bg2); padding: 1.5rem; }
-    .def-term { font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem; }
-    .def-formula { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; font-style: italic; }
-    .def-desc { font-size: 0.75rem; line-height: 1.7; color: #8888bb; }
-    .tech-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; margin-bottom: 2rem; }
-    .tech-table th { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); color: var(--muted); font-weight: 400; letter-spacing: 0.1em; font-size: 0.65rem; }
-    .tech-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(26,26,58,0.5); color: #aaaacc; }
-    .tech-table tr:hover td { background: rgba(0,180,216,0.03); }
-    .badge { display: inline-block; padding: 0.15rem 0.5rem; font-size: 0.6rem; letter-spacing: 0.1em; border: 1px solid; }
-    .badge-sci { color: var(--accent); border-color: var(--accent); }
-    .badge-ai { color: var(--accent2); border-color: var(--accent2); }
-    .badge-prod { color: #f4a261; border-color: #f4a261; }
-    .badge-slow { color: #ffd166; border-color: #ffd166; }
-    .badge-cens { color: var(--warn); border-color: var(--warn); }
-    .limit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 3rem; }
-    .limit-item { background: var(--bg2); padding: 1.2rem 1.5rem; }
-    .limit-num { font-size: 2rem; font-family: 'Syne', sans-serif; font-weight: 800; color: var(--border); line-height: 1; margin-bottom: 0.5rem; }
-    .limit-title { font-size: 0.8rem; color: var(--warn); margin-bottom: 0.4rem; font-weight: 700; }
-    .limit-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
-    .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
-    .btn { display: inline-block; padding: 0.8rem 1.5rem; font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-decoration: none; transition: all 0.2s; border: 1px solid; }
-    .btn-primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-    .btn-primary:hover { background: transparent; color: var(--accent); }
-    .btn-secondary { background: transparent; color: var(--muted); border-color: var(--border); }
-    .btn-secondary:hover { color: var(--text); border-color: var(--muted); }
-    .btn-zenodo { background: transparent; color: var(--accent3); border-color: var(--accent3); }
-    .btn-zenodo:hover { background: rgba(45,198,83,0.1); }
-    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
-    footer a { color: var(--accent); text-decoration: none; }
+    .hero-sub { font-size: 0.9rem; line-height: 1.85; color: var(--muted); max-width: 640px; margin-bottom: 2.2rem; }
 
-    .sa-section { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 3rem; border-bottom: 1px solid var(--border); }
-    .sa-eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 0.8rem; text-transform: uppercase; }
-    .sa-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.1; margin-bottom: 0.6rem; }
-    .sa-title span { color: var(--accent); }
-    .sa-sub { font-size: 0.78rem; color: var(--muted); line-height: 1.8; max-width: 620px; margin-bottom: 2.5rem; }
-    .sa-grid { display: flex; flex-direction: column; gap: 1.5rem; }
-    .sa-card { background: var(--bg2); border: 2px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s; }
-    .sa-card:hover { border-color: var(--accent); }
-    .sa-card-top { border-top: 2px solid var(--accent); padding: 1.6rem 1.8rem 1.2rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; border-bottom: 1px solid var(--border); }
-    .nav-pills { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2.5rem; }
+    .nav-pills { max-width: 900px; margin: 0 auto 1rem; padding: 0 2rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
     .nav-pill { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.2rem 1rem; border-radius: 6px; text-decoration: none; border: 1px solid; transition: all 0.25s; text-align: center; gap: 0.3rem; position: relative; overflow: hidden; }
     .nav-pill::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.25s; }
     .nav-pill:hover::before { opacity: 1; }
@@ -131,33 +60,53 @@
     .pill-amber .pill-label { color: var(--amber); }
     .pill-magenta .pill-label { color: #cc44ff; }
     .pill-sub { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.06em; }
-    .sa-id { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 0.4rem; text-transform: uppercase; }
-    .sa-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; color: var(--text); margin-bottom: 0.3rem; }
-    .sa-domain { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
-    .sa-status-badge { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.7rem; border: 1px solid; border-radius: 2px; white-space: nowrap; }
-    .sa-status-badge.operational { color: var(--accent); border-color: var(--accent); }
-    .sa-status-badge.compression { color: var(--amber); border-color: var(--amber); }
-    .sa-blocks { display: grid; grid-template-columns: 1fr 1fr; }
-    .sa-block { padding: 1.1rem 1.4rem; border-right: 2px solid var(--border); border-bottom: 2px solid var(--border); font-size: 0.72rem; }
-    .sa-block:nth-child(even) { border-right: none; }
-    .sa-block:nth-last-child(-n+2) { border-bottom: none; }
-    .sa-block-label { font-size: 0.68rem; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.5rem; }
-    .sa-block-val { color: var(--accent); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; line-height: 1.2; margin-bottom: 0.2rem; }
-    .sa-block-val.amber { color: var(--amber); }
-    .sa-block-sub { font-size: 0.78rem; color: #aaaacc; line-height: 1.6; }
-    .sa-block-text { color: #c0c0e0; line-height: 1.75; font-size: 0.82rem; }
-    .sa-block-text li { list-style: none; padding-left: 0; margin-bottom: 0.35rem; }
-    .sa-block-text li::before { content: '→ '; color: var(--muted); }
-    .sa-constraint { padding: 0.8rem 1.4rem; font-size: 0.62rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); letter-spacing: 0.02em; }
+
+    .zcr-section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 2rem; }
+    .zcr-eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.8rem; }
+    .zcr-h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.6rem; }
+    .zcr-intro { font-size: 0.84rem; color: #9090bb; line-height: 1.85; max-width: 660px; margin-bottom: 1.2rem; }
+    .demo-note { font-size: 0.72rem; color: var(--muted); padding: 0.8rem 1rem; border: 1px solid var(--border); border-left: 3px solid var(--accent); background: rgba(0,180,216,0.03); margin-bottom: 2rem; line-height: 1.8; }
+    .demo-note a { color: var(--accent); text-decoration: none; }
+    .demo-note strong { color: #aaaacc; }
+
+    .zcr-card { background: var(--bg2); border-radius: 4px; padding: 1.6rem 1.8rem; margin-bottom: 1.2rem; }
+    .zcr-card.structural { border: 1px solid rgba(45,198,83,0.25); border-top: 2px solid var(--accent3); }
+    .zcr-card.observation { border: 1px solid rgba(204,68,255,0.25); border-top: 2px solid #cc44ff; }
+    .zcr-card.revision { border: 1px solid rgba(255,170,68,0.25); border-top: 2px solid var(--amber); }
+    .zcr-card-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem; }
+    .zcr-id { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .zcr-card.structural .zcr-id { color: var(--accent3); }
+    .zcr-card.observation .zcr-id { color: #cc44ff; }
+    .zcr-card.revision .zcr-id { color: var(--amber); }
+    .zcr-pill { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 3px; border: 1px solid rgba(255,170,68,0.4); color: var(--amber); background: rgba(255,170,68,0.06); }
+    .zcr-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.9rem; }
+    .zcr-stats { display: grid; gap: 0.5rem; margin-bottom: 1rem; }
+    .zcr-stats.s3 { grid-template-columns: repeat(3,1fr); }
+    .zcr-stats.s4 { grid-template-columns: repeat(4,1fr); }
+    .zcr-stat { text-align: center; padding: 0.6rem; background: rgba(0,0,0,0.2); border-radius: 3px; }
+    .zcr-stat-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1; margin-bottom: 0.25rem; }
+    .zcr-stat-lbl { font-size: 0.56rem; color: #5a5a8a; text-transform: uppercase; letter-spacing: 0.08em; }
+    .zcr-desc { font-size: 0.75rem; color: #9090bb; line-height: 1.7; margin-bottom: 1rem; }
+    .zcr-btn { display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-decoration: none; padding: 0.5rem 1rem; border-radius: 3px; transition: background 0.2s; }
+    .zcr-card.structural .zcr-btn { border: 1px solid rgba(255,170,68,0.5); color: var(--amber); }
+    .zcr-card.revision .zcr-btn { border: 1px solid rgba(255,170,68,0.5); color: var(--amber); }
+    .zcr-card.observation .zcr-btn { border: 1px solid rgba(204,68,255,0.5); color: #cc44ff; }
+
+    .tool-strip { max-width: 900px; margin: 1rem auto 0; padding: 0 2rem; }
+    .tool-strip-inner { border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; background: rgba(0,180,216,0.03); padding: 1.4rem 1.6rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .tool-strip-text { font-size: 0.8rem; color: #aaaacc; line-height: 1.7; max-width: 560px; }
+    .tool-strip-text strong { color: var(--text); }
+    .tool-strip-btn { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-decoration: none; padding: 0.7rem 1.3rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; white-space: nowrap; transition: all 0.2s; }
+    .tool-strip-btn:hover { background: var(--accent); color: var(--bg); }
+
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; line-height: 2; }
+    footer a { color: var(--accent); text-decoration: none; }
+    .doi-ph { color: var(--red); font-weight: 700; }
 
     @media (max-width: 600px) {
-      .reports-grid { grid-template-columns: 1fr; }
-      .def-grid { grid-template-columns: 1fr; }
-      .limit-grid { grid-template-columns: 1fr; }
       .nav-pills { grid-template-columns: 1fr; }
-      .sa-blocks { grid-template-columns: 1fr; }
-      .sa-block { border-right: none; }
-      .sa-card-top { grid-template-columns: 1fr; }
+      .zcr-stats.s3, .zcr-stats.s4 { grid-template-columns: 1fr 1fr; }
+      .tool-strip-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -166,260 +115,104 @@
   <a href="/" class="logo">ZORTH<span>EX</span></a>
   <div style="display:flex;gap:2rem;">
     <a href="/">Home</a>
-    <a href="/" style="color:var(--accent)">← Zorthex</a>
+    <a href="/methodology.html">Methodology</a>
+    <a href="/custom-report.html" style="color:var(--amber)">Custom Reports</a>
   </div>
 </nav>
 <main>
 
-  <div class="sa-section">
-    <div class="sa-eyebrow">// signal artifacts · standard format v1.0</div>
-    <h1 class="sa-title">Signal <span>Artifacts</span></h1>
-    <p class="sa-sub">Three phenomena. Same method. Same structure. Directly comparable.</p>
+  <div class="hero">
+    <div class="hero-eyebrow">// research · applied analyses · v2.0</div>
+    <h1>Signal <span>Reports</span></h1>
+    <p class="hero-sub">Applied Zorthex analyses on specific phenomena. Each report maps the diffusion lag (L) empirically across three independent sources — Google Trends, Wikipedia pageviews, and Reddit — with the primary source for t_start declared and the data snapshot locked for replication.</p>
+  </div>
 
-    <div class="nav-pills">
-      <a href="framework.html" class="nav-pill pill-cyan">
-        <span class="pill-icon">⬡</span>
-        <span class="pill-label">Framework</span>
-        <span class="pill-sub">Method & definitions</span>
-      </a>
-      <a href="dataset.html" class="nav-pill pill-amber">
-        <span class="pill-icon">◈</span>
-        <span class="pill-label">Dataset</span>
-        <span class="pill-sub">n=50 · v1.3 results</span>
-      </a>
-      <a href="https://doi.org/10.5281/zenodo.20374051" target="_blank" class="nav-pill pill-magenta">
-        <span class="pill-icon">↗</span>
-        <span class="pill-label">Zenodo</span>
-        <span class="pill-sub">DOI · v1.3 published</span>
-      </a>
+  <div class="nav-pills">
+    <a href="/methodology.html" class="nav-pill pill-cyan">
+      <span class="pill-icon">⬡</span>
+      <span class="pill-label">Methodology</span>
+      <span class="pill-sub">Method &amp; definitions · v2.0</span>
+    </a>
+    <a href="/dataset.html" class="nav-pill pill-amber">
+      <span class="pill-icon">◈</span>
+      <span class="pill-label">Dataset</span>
+      <span class="pill-sub">70 cases · 7 domains</span>
+    </a>
+    <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" target="_blank" class="nav-pill pill-magenta">
+      <span class="pill-icon">↗</span>
+      <span class="pill-label">Repository</span>
+      <span class="pill-sub">Open data · GitHub</span>
+    </a>
+  </div>
+
+  <div class="zcr-section">
+    <div class="zcr-eyebrow">// ZCR Series · Verified Analysis</div>
+    <h2 class="zcr-h2">Published Reports</h2>
+    <p class="zcr-intro">Full-depth verified reports — manually verified data, documented primary sources, three-source verification, regime classification, and a conditional monitoring framework.</p>
+
+    <div class="demo-note">The reports below are <strong>demonstration reports</strong> produced by Zorthex to document the framework in practice. They are not commissioned reports. Commissioned reports are produced on request following the same methodology — <a href="/custom-report.html">contact us to request one</a>.</div>
+
+    <!-- ZCR-001 -->
+    <div class="zcr-card structural">
+      <div class="zcr-card-head">
+        <div class="zcr-id">ZCR-2026-001 · Demonstration Report</div>
+      </div>
+      <div class="zcr-name">Stablecoins as Treasury Infrastructure</div>
+      <div class="zcr-stats s3">
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:#cc44ff;">128 mo</div><div class="zcr-stat-lbl">Lag (L)</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--accent3);">STRUCTURAL</div><div class="zcr-stat-lbl">Status</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);">53/100</div><div class="zcr-stat-lbl">May 2026</div></div>
+      </div>
+      <p class="zcr-desc">Policy-Trigger regime. GENIUS Act as primary trigger — Google Trends and Wikipedia ignite together (full convergence). 128 months from early issuance to structural public attention. The model case for the ZCR format.</p>
+      <a href="ZCR-2026-001-Stablecoins.html" target="_blank" class="zcr-btn">→ VIEW FULL REPORT</a>
     </div>
 
-    <div class="sa-grid">
-      <div class="sa-card">
-        <div class="sa-card-top">
-          <div>
-            <div class="sa-id">ZSA-2026-001 · May 2026</div>
-            <div class="sa-name">Post-Quantum Cryptography</div>
-            <div class="sa-domain">Security · Cryptography</div>
-          </div>
-          <div class="sa-status-badge compression">Under Revision</div>
-        </div>
-        <div class="sa-blocks">
-          <div class="sa-block">
-            <div class="sa-block-label">Status</div>
-            <div class="sa-block-val amber">Under Revision</div>
-            <div class="sa-block-sub">Figures being recalculated against the v2.0 dataset window</div>
-          </div>
-          <div class="sa-block">
-            <div class="sa-block-label">Expected</div>
-            <div class="sa-block-val amber">v2.0</div>
-            <div class="sa-block-sub">Updated artifact published with the v2.0 release</div>
-          </div>
-          <div class="sa-block" style="grid-column: 1 / -1;">
-            <div class="sa-block-label">Note</div>
-            <div class="sa-block-text">This signal artifact is temporarily under revision while the diffusion-lag figures are re-verified against the most recent data window. Updated values will be published shortly.</div>
-          </div>
-        </div>
-        <div class="sa-constraint">Under revision · figures pending re-verification · Zorthex v2.0 in preparation</div>
+    <!-- ZCR-003 -->
+    <div class="zcr-card observation">
+      <div class="zcr-card-head">
+        <div class="zcr-id">ZCR-2026-003 · Demonstration Report</div>
+        <div class="zcr-pill">◎ Observation · Active</div>
       </div>
+      <div class="zcr-name">Real-World Asset Tokenization</div>
+      <div class="zcr-stats s4">
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:#cc44ff;">103 mo</div><div class="zcr-stat-lbl">Lag (L)</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);font-size:0.82rem;">OBSERVATION</div><div class="zcr-stat-lbl">Status</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);">53/100</div><div class="zcr-stat-lbl">May 2026</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--red);">+71 pts</div><div class="zcr-stat-lbl">Aug 2025 jump</div></div>
+      </div>
+      <p class="zcr-desc">Institutional Mass regime. From 14/100 to 85/100 in one month (Aug 2025) — years of invisible infrastructure before a public frame emerged. Recent peak: L provisional under the rock rule, classification OBSERVATION until the 12-month window settles.</p>
+      <a href="ZCR-2026-003-RWA.html" target="_blank" class="zcr-btn">→ VIEW FULL REPORT</a>
+    </div>
 
-      <div class="sa-card">
-        <div class="sa-card-top">
-          <div>
-            <div class="sa-id">ZSA-2026-002 · May 2026</div>
-            <div class="sa-name">AI Agents</div>
-            <div class="sa-domain">Artificial Intelligence</div>
-          </div>
-          <div class="sa-status-badge operational">Operational Window</div>
-        </div>
-        <div class="sa-blocks">
-          <div class="sa-block">
-            <div class="sa-block-label">Position</div>
-            <div class="sa-block-val">Operational Window</div>
-            <div class="sa-block-sub">Active above threshold · 4.6× faster than sector baseline</div>
-          </div>
-          <div class="sa-block">
-            <div class="sa-block-label">Sector Baseline</div>
-            <div class="sa-block-val amber">~119 mo</div>
-            <div class="sa-block-sub">AI/Scientific avg · anomalous diffusion speed confirmed</div>
-          </div>
-          <div class="sa-block" style="grid-column: 1 / -1;">
-            <div class="sa-block-label">Signal</div>
-            <div class="sa-block-text">Infrastructure-layer technologies compress diffusion cycles — AI Agents built on pre-existing generative AI awareness.</div>
-          </div>
-          <div class="sa-block" style="grid-column: 1 / -1;">
-            <div class="sa-block-label">Watch</div>
-            <ul class="sa-block-text">
-              <li>Enterprise deployment rates for agentic workflows</li>
-              <li>Attention divergence between general and vertical-specific agents</li>
-            </ul>
-          </div>
-        </div>
-        <div class="sa-constraint">Observed attention patterns only · No predictive claims · Zorthex v1.3</div>
+    <!-- ZCR-002 -->
+    <div class="zcr-card revision">
+      <div class="zcr-card-head">
+        <div class="zcr-id">ZCR-2026-002 · Demonstration Report</div>
+        <div class="zcr-pill">◷ Under Revision</div>
       </div>
-
-      <div class="sa-card">
-        <div class="sa-card-top">
-          <div>
-            <div class="sa-id">ZSA-2026-003 · May 2026</div>
-            <div class="sa-name">Generative AI</div>
-            <div class="sa-domain">Artificial Intelligence</div>
-          </div>
-          <div class="sa-status-badge compression">Consensus Phase</div>
-        </div>
-        <div class="sa-blocks">
-          <div class="sa-block">
-            <div class="sa-block-label">Position</div>
-            <div class="sa-block-val amber">Consensus Phase</div>
-            <div class="sa-block-sub">Receding from peak · structural classification permanent</div>
-          </div>
-          <div class="sa-block">
-            <div class="sa-block-label">Sector Baseline</div>
-            <div class="sa-block-val">~119 mo</div>
-            <div class="sa-block-sub">AI/Scientific avg · GenAI faster · now receding</div>
-          </div>
-          <div class="sa-block" style="grid-column: 1 / -1;">
-            <div class="sa-block-label">Signal</div>
-            <div class="sa-block-text">Peak attention passed. Sub-concepts now drive independent cycles — the platform phase has begun.</div>
-          </div>
-          <div class="sa-block" style="grid-column: 1 / -1;">
-            <div class="sa-block-label">Watch</div>
-            <ul class="sa-block-text">
-              <li>Whether score stabilizes above 25 or continues toward dormant threshold</li>
-              <li>New sub-concept cycles as proxy for continued structural relevance</li>
-            </ul>
-          </div>
-        </div>
-        <div class="sa-constraint">Observed attention patterns only · No predictive claims · Zorthex v1.3</div>
+      <div class="zcr-name">Post-Quantum Cryptography</div>
+      <div class="zcr-stats s3">
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);">—</div><div class="zcr-stat-lbl">Lag (L)</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);font-size:0.82rem;">UNDER REVISION</div><div class="zcr-stat-lbl">Status</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);">v2.0</div><div class="zcr-stat-lbl">Expected</div></div>
       </div>
+      <p class="zcr-desc">Temporarily under revision. The breakout date, L, and classification are being re-verified against the v2.0 data window before republication. This revision notice is itself part of the method — figures are dated and revisable, never presented as permanent.</p>
+      <a href="ZCR-2026-002-PQC.html" target="_blank" class="zcr-btn">→ VIEW STATUS</a>
     </div>
   </div>
 
-  <!-- SIGNAL REPORTS -->
-  <div class="reports-section">
-    <div class="reports-eyebrow">// signal reports · published</div>
-    <h1 class="reports-title">Signal <span>Reports</span></h1>
-    <p class="reports-sub">Applied Zorthex analyses on specific emerging phenomena. Each report maps the diffusion lag empirically across three independent sources.</p>
-
-    <div class="reports-grid">
-      <div class="report-card observation">
-        <div class="report-card-number">SIGNAL REPORT #002 · UNDER REVISION</div>
-        <div class="report-card-title">Post-Quantum Cryptography</div>
-        <div class="report-card-meta">Cybersecurity · Regulatory trigger · figures under re-verification</div>
-        <div class="report-card-stats">
-          <div class="report-stat"><div class="report-stat-val">—</div><div class="report-stat-lbl">Lag (L)</div></div>
-          <div class="report-stat"><div class="report-stat-val">—</div><div class="report-stat-lbl">Months above threshold</div></div>
-          <div class="report-stat"><div class="report-stat-val">—</div><div class="report-stat-lbl">Peak score</div></div>
-          <div class="report-stat"><div class="report-stat-val">—</div><div class="report-stat-lbl">Current</div></div>
-        </div>
-        <div class="report-status-badge badge-observation">◷ UNDER REVISION</div>
-        <p class="report-desc">This report is temporarily under revision. The diffusion-lag figures are being re-verified against the most recent data window ahead of the v2.0 release. Updated values will be published shortly.</p>
-        <a href="ZCR-2026-002-PQC.html" target="_blank" class="report-download-btn">→ VIEW STATUS</a>
-      </div>
-
-      <div class="report-card observation">
-        <div class="report-card-number">SIGNAL REPORT #001 · MAY 2026</div>
-        <div class="report-card-title">mRNA Cancer Vaccines</div>
-        <div class="report-card-meta">Biotech · Health emergency trigger · Aug 2025 breakout</div>
-        <div class="report-card-stats">
-          <div class="report-stat"><div class="report-stat-val">~126 mo</div><div class="report-stat-lbl">Lag (L)</div></div>
-          <div class="report-stat"><div class="report-stat-val">9</div><div class="report-stat-lbl">Months above threshold</div></div>
-          <div class="report-stat"><div class="report-stat-val">100/100</div><div class="report-stat-lbl">Peak score</div></div>
-          <div class="report-stat"><div class="report-stat-val">17/100</div><div class="report-stat-lbl">Current · May 2026</div></div>
-        </div>
-        <div class="report-status-badge badge-observation">◉ OBSERVATION</div>
-        <p class="report-desc">9 of 12 consecutive months above threshold confirmed. May 2026 dropped below 25/100 — critical inflection point. Structural classification pending.</p>
-        <a href="ZSA-2026-002-mRNA.html" target="_blank" class="report-download-btn">→ VIEW SIGNAL ARTIFACT #001</a>
-      </div>
-    </div>
-
-    <div class="coming-soon">SIGNAL REPORT #003 — IN PREPARATION · Q3 2026</div>
-  </div>
-
-  <!-- ZCR SECTION -->
-  <div style="max-width:1000px;margin:0 auto;padding:3rem 2rem;border-top:1px solid var(--border);">
-    <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;">// ZCR Series · Verified Analysis</div>
-    <h2 style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;">Published Reports</h2>
-    <p style="font-size:0.82rem;color:#9090bb;line-height:1.8;margin-bottom:1rem;max-width:640px;">Full-depth verified reports — manually verified data, documented primary sources, three-source verification, sector benchmarks, and monitoring framework.</p>
-
-    <div style="font-size:0.72rem;color:var(--muted);padding:0.8rem 1rem;border:1px solid var(--border);border-left:3px solid var(--accent);background:rgba(0,180,216,0.03);margin-bottom:2rem;line-height:1.8;">The reports below are <strong style="color:#aaaacc;">demonstration reports</strong> produced by Zorthex to document the framework in practice. They are not commissioned reports. Commissioned reports are produced on request following the same methodology — <a href="/custom-report.html" style="color:var(--accent);text-decoration:none;">contact us to request one</a>.</div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-      <div style="background:#0a0a1e;border:1px solid rgba(255,170,68,0.25);border-top:2px solid var(--amber);border-radius:4px;padding:1.4rem;">
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);margin-bottom:0.4rem;">ZCR-2026-001 · Demonstration Report</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.8rem;">Stablecoins as Treasury Infrastructure</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;margin-bottom:1rem;">
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#cc44ff;">128 mo</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">Lag (L)</div>
-          </div>
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#2dc653;">STRUCTURAL</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">Status</div>
-          </div>
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--amber);">53/100</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">May 2026</div>
-          </div>
-        </div>
-        <p style="font-size:0.75rem;color:#9090bb;line-height:1.7;margin-bottom:1rem;">GENIUS Act as primary trigger. Geographic paradox: Singapore 60/100 vs US 17/100. 128 months from USDT launch to structural public attention.</p>
-        <a href="ZCR-2026-001-Stablecoins.html" target="_blank" style="display:inline-block;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-decoration:none;padding:0.5rem 1rem;border:1px solid rgba(255,170,68,0.5);color:var(--amber);border-radius:3px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,170,68,0.08)'" onmouseout="this.style.background='transparent'">→ VIEW FULL REPORT</a>
-      </div>
-
-      <div style="background:#0a0a1e;border:1px solid rgba(255,170,68,0.25);border-top:2px solid var(--amber);border-radius:4px;padding:1.4rem;">
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);margin-bottom:0.4rem;">ZCR-2026-002 · Demonstration Report · Under Revision</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.8rem;">Post-Quantum Cryptography</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;margin-bottom:1rem;">
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#ffaa44;">—</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">Lag (L)</div>
-          </div>
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;color:#ffaa44;">UNDER REVISION</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">Status</div>
-          </div>
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#ffaa44;">v2.0</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">Expected</div>
-          </div>
-        </div>
-        <p style="font-size:0.75rem;color:#9090bb;line-height:1.7;margin-bottom:1rem;">This report is temporarily under revision. Diffusion-lag figures are being re-verified against the most recent data window ahead of the v2.0 release.</p>
-        <a href="ZCR-2026-002-PQC.html" target="_blank" style="display:inline-block;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-decoration:none;padding:0.5rem 1rem;border:1px solid rgba(255,170,68,0.5);color:var(--amber);border-radius:3px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,170,68,0.08)'" onmouseout="this.style.background='transparent'">→ VIEW STATUS</a>
-      </div>
-    </div>
-
-    <div style="margin-top:1rem;">
-      <div style="background:#0a0a1e;border:1px solid rgba(204,68,255,0.25);border-top:2px solid #cc44ff;border-radius:4px;padding:1.4rem;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
-          <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#cc44ff;">ZCR-2026-003 · Demonstration Report · OBSERVATION ACTIVE</div>
-          <div style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid rgba(255,170,68,0.4);color:#ffaa44;border-radius:3px;background:rgba(255,170,68,0.06);">◎ 2 months to STRUCTURAL</div>
-        </div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.8rem;">Real-World Asset Tokenization</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:1rem;">
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#cc44ff;">103 mo</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">Lag (L)</div>
-          </div>
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;color:#ffaa44;">OBSERVATION</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">Status</div>
-          </div>
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#ffaa44;">53/100</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">May 2026</div>
-          </div>
-          <div style="text-align:center;padding:0.6rem;background:rgba(0,0,0,0.2);border-radius:3px;">
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#ff4466;">+71 pts</div>
-            <div style="font-size:0.58rem;color:#5a5a8a;text-transform:uppercase;letter-spacing:0.08em;">Aug 2025 jump</div>
-          </div>
-        </div>
-        <p style="font-size:0.75rem;color:#9090bb;line-height:1.7;margin-bottom:1rem;">Institutional mass threshold trigger — from 14/100 to 85/100 in one month. 9 years of invisible infrastructure before public frame emerged. June–July 2026 determine STRUCTURAL classification.</p>
-        <a href="ZCR-2026-003-RWA.html" target="_blank" style="display:inline-block;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-decoration:none;padding:0.5rem 1rem;border:1px solid rgba(204,68,255,0.5);color:#cc44ff;border-radius:3px;transition:all 0.2s;" onmouseover="this.style.background='rgba(204,68,255,0.08)'" onmouseout="this.style.background='transparent'">→ VIEW FULL REPORT</a>
-      </div>
+  <!-- LIGHT STRIP TO FREE TOOL -->
+  <div class="tool-strip">
+    <div class="tool-strip-inner">
+      <div class="tool-strip-text"><strong>Want the pulse of any phenomenon?</strong> The free tool on the homepage applies the Zorthex v2.0 framework to any term you enter — an observational estimate, clearly labelled, distinct from these manually-verified reports.</div>
+      <a href="/" class="tool-strip-btn">→ OPEN FREE TOOL</a>
     </div>
   </div>
 
 </main>
-<footer>ZORTHEX.COM — BEYOND WHAT'S NEXT — EST. MMXXVI — <a href="https://zorthex.com">zorthex.com</a> — POWERED BY CLAUDE &nbsp;·&nbsp; <a href="/methodology.html">Methodology</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a></footer>
+<footer>
+  ZORTHEX.COM — BEYOND WHAT'S NEXT — EST. MMXXVI — <a href="https://zorthex.com">zorthex.com</a> — POWERED BY CLAUDE<br>
+  DOI: <a class="doi-link" href="https://doi.org/10.5281/zenodo.20589503" target="_blank">10.5281/zenodo.20589503</a> &nbsp;·&nbsp; ORCID <a href="https://orcid.org/0009-0000-9936-1110" target="_blank">0009-0000-9936-1110</a> &nbsp;·&nbsp; <a href="/methodology.html">Methodology</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a>
+</footer>
 </body>
 </html>
