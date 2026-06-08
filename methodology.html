@@ -29,6 +29,7 @@
   .hero-sub{font-size:0.85rem;color:#8888bb;line-height:1.9;max-width:620px;margin-bottom:2rem;}
   .meta-row{display:flex;gap:1.5rem;flex-wrap:wrap;font-size:0.65rem;color:var(--muted);padding-top:1.5rem;border-top:1px solid var(--border);}
   .meta-row a{color:var(--accent);text-decoration:none;}
+  .doi-ph{color:var(--warn);font-weight:700;letter-spacing:0.05em;}
   .quickstart{background:rgba(0,180,216,0.05);border:1px solid rgba(0,180,216,0.2);border-left:4px solid var(--accent);border-radius:4px;padding:1.4rem 1.8rem;margin:2.5rem 0;}
   .qs-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;}
   .qs-text{font-size:0.88rem;color:#c0c0e8;line-height:1.8;}
@@ -84,10 +85,14 @@
   .cn-structural{color:var(--accent);}
   .cn-observation{color:var(--amber);}
   .cn-bubble{color:var(--warn);}
-  .notif-table{width:100%;border-collapse:collapse;font-size:0.83rem;margin-bottom:1.2rem;}
-  .notif-table th{text-align:left;padding:0.7rem 1rem;background:var(--bg2);border-bottom:2px solid var(--border);color:var(--muted);font-weight:400;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;}
-  .notif-table td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);color:#c8c8e8;vertical-align:top;line-height:1.65;}
-  .notif-table tr:last-child td{border-bottom:none;}
+  .fam-grid{display:grid;gap:1px;background:rgba(0,180,216,0.1);border:1px solid rgba(0,180,216,0.2);border-radius:4px;overflow:hidden;margin-bottom:1.4rem;}
+  .fam-card{background:var(--bg2);padding:1.3rem 1.6rem;}
+  .fam-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;margin-bottom:0.35rem;}
+  .fam-body{font-size:0.83rem;color:#c8c8e8;line-height:1.75;}
+  .src3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.2rem;}
+  .src3 .cell{background:var(--bg2);padding:1.2rem 1.4rem;}
+  .src3 .cell b{display:block;font-family:'Syne',sans-serif;font-size:0.84rem;margin-bottom:0.4rem;color:var(--text);}
+  .src3 .cell span{font-size:0.78rem;color:#b0b0d8;line-height:1.7;}
   .ai-box{background:rgba(204,68,255,0.05);border:1px solid rgba(204,68,255,0.28);border-left:3px solid var(--magenta);border-radius:4px;padding:1.5rem 1.8rem;margin-bottom:1.2rem;}
   .ai-label{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:0.7rem;}
   .ai-body{font-size:0.86rem;color:#c8c8e8;line-height:1.85;}
@@ -106,6 +111,8 @@
   .replication{background:rgba(255,68,102,0.03);border:1px solid rgba(255,68,102,0.15);border-left:3px solid var(--warn);border-radius:4px;padding:1.2rem 1.6rem;margin-top:1.5rem;font-size:0.84rem;color:#c8c8e8;line-height:1.85;}
   .replication strong{color:var(--warn);}
   .replication a{color:var(--accent);text-decoration:none;}
+  .research-note{background:var(--bg2);border:1px solid var(--border2);border-left:3px solid var(--muted);border-radius:4px;padding:1.2rem 1.6rem;margin-top:1.5rem;font-size:0.83rem;color:#b0b0d8;line-height:1.85;}
+  .research-note strong{color:var(--text);}
   footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:2.5rem;text-align:center;font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;line-height:2;}
   footer a{color:var(--accent);text-decoration:none;}
   @media(max-width:640px){
@@ -113,6 +120,7 @@
     .page{padding:0 1.2rem 4rem;}
     .toc-list{grid-template-columns:1fr;}
     .limits-grid{grid-template-columns:1fr;}
+    .src3{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -130,12 +138,12 @@
 <div class="page">
 
   <div class="hero">
-    <div class="eyebrow">// methodology & policy · public document · v1.3</div>
+    <div class="eyebrow">// methodology &amp; policy · public document · v2.0</div>
     <div class="hero-title">How Zorthex <span>measures</span><br>and what it promises</div>
     <p class="hero-sub">Every methodological choice, every data policy, every limitation — declared publicly. This is the implicit contract between Zorthex and anyone who uses, cites, or purchases its outputs. Nothing is hidden. Everything can be verified.</p>
     <div class="meta-row">
-      <span>Framework v1.3 · May 2026</span>
-      <span>DOI: <a href="https://doi.org/10.5281/zenodo.20374051" target="_blank">10.5281/zenodo.20374051</a></span>
+      <span>Framework v2.0 · June 2026</span>
+      <span>DOI: <a class="doi-link" href="https://doi.org/10.5281/zenodo.20589503" target="_blank">10.5281/zenodo.20589503</a></span>
       <span>License: CC-BY-NC 4.0</span>
       <span>© 2026 Zorthex™ — Renato Santi</span>
     </div>
@@ -143,7 +151,7 @@
 
   <div class="quickstart">
     <div class="qs-label">Quick start — before you read</div>
-    <div class="qs-text"><strong>Zorthex is a methodological framework. Claude (Anthropic) is a tool used within it</strong> — for the free app and report drafting. Every verified value in a Custom Report is human-checked. Read <a href="#ai">Section 7</a> for the exact boundary between AI-estimated and human-verified outputs.</div>
+    <div class="qs-text"><strong>Zorthex is a methodological framework. Claude (Anthropic) is a tool used within it</strong> — for the free app and report drafting. Every verified value in a Custom Report is human-checked. Read <a href="#ai">Section 9</a> for the exact boundary between AI-estimated and human-verified outputs.</div>
   </div>
 
   <div class="toc">
@@ -152,12 +160,14 @@
       <li><a href="#definitions"><span class="toc-num">01</span>Core Definitions — L, t_start, t_peak</a></li>
       <li><a href="#tsource"><span class="toc-num">02</span>t_start Source Policy — Levels A–D</a></li>
       <li><a href="#csv"><span class="toc-num">03</span>Google Trends CSV Policy</a></li>
-      <li><a href="#threshold"><span class="toc-num">04</span>The 25/100 Threshold</a></li>
-      <li><a href="#classifications"><span class="toc-num">05</span>Classifications</a></li>
-      <li><a href="#tiers"><span class="toc-num">06</span>Products — What Each Promises</a></li>
-      <li><a href="#ai"><span class="toc-num">07</span>How AI Is Used in This System</a></li>
-      <li><a href="#limitations"><span class="toc-num">08</span>Declared Limitations</a></li>
-      <li><a href="#changelog"><span class="toc-num">09</span>Version Changelog</a></li>
+      <li><a href="#renorm"><span class="toc-num">04</span>Cluster Renormalization &amp; the Rock Rule</a></li>
+      <li><a href="#threesource"><span class="toc-num">05</span>Three-Source Verification</a></li>
+      <li><a href="#threshold"><span class="toc-num">06</span>The 25/100 Threshold</a></li>
+      <li><a href="#classifications"><span class="toc-num">07</span>Classifications</a></li>
+      <li><a href="#tiers"><span class="toc-num">08</span>Products — What Each Promises</a></li>
+      <li><a href="#ai"><span class="toc-num">09</span>How AI Is Used in This System</a></li>
+      <li><a href="#limitations"><span class="toc-num">10</span>Declared Limitations</a></li>
+      <li><a href="#changelog"><span class="toc-num">11</span>Version Changelog</a></li>
     </ul>
   </div>
 
@@ -212,6 +222,9 @@
     <div class="rule">
       <strong>Snapshot-Locking:</strong> Every Zorthex report locks the specific CSV snapshot used for analysis. The analysis is reproducible from that CSV — not from a future re-run. The CSV is available on GitHub for independent verification.
     </div>
+    <div class="rule">
+      <strong>Partial-month exclusion:</strong> The current (in-progress) month is never used. Google Trends does not finalize a month until it closes; the last valid data point is the most recent fully consolidated month. For the v2.0 dataset the observation cut-off is <strong>May 2026</strong>.
+    </div>
     <div class="policy">
       <span class="policy-label">Standard Citation Format — Google Trends Data</span>
       <div class="policy-text">
@@ -219,34 +232,67 @@
         Note: Values are normalized scores (0–100) relative to peak search volume in the selected period. The CSV is available at <code>github.com/zorthex2026/zorthex-diffusion-lag</code> for independent verification.
       </div>
     </div>
+    <div class="rule">
+      <strong>Observation cut-off &amp; revision policy:</strong> Every published figure is dated to an explicit observation cut-off (v2.0: May 2026) with the underlying CSV snapshots locked and archived. All values are <strong>subject to revision · re-verification recommended every 90 days</strong>, mirroring the dated and revisable nature of a credit rating. A value is never presented as permanent: it is the best reading at a declared date, revised on a fixed cycle.
+    </div>
   </div>
 
-  <!-- 04 -->
-  <div class="msec" id="threshold">
+  <!-- 04 — NUOVA -->
+  <div class="msec" id="renorm">
     <div class="sec-eyebrow">// 04</div>
+    <h2>Cluster Renormalization &amp; the Rock Rule</h2>
+    <p>Because Google Trends normalizes every series against the maximum of the downloaded window, a large recent surge in attention rescales the entire history of a term downward. A phenomenon that was already structurally active years earlier can appear, in a freshly downloaded CSV, to have "broken out" only recently. This is the <strong>cluster renormalization effect</strong>, and it is most pronounced for terms caught inside a synchronized attention wave (in this dataset, a broad August 2025 cluster across multiple domains).</p>
+    <div class="rule">
+      <strong>The Rock Rule:</strong> A phenomenon whose all-time peak lies in the <strong>past</strong> has a stable L — the history is settled and renormalization cannot move it ("rock"). A phenomenon whose peak is <strong>recent</strong> (within the current attention wave) carries a provisional L and is marked <strong>OBSERVATION</strong> ("quicksand") — its position may shift on the next consolidated download. A provisional L is never blinded into a permanent value.
+    </div>
+    <p>The rock rule is why the dataset separates stable structural cases from observation-stage cases on the basis of <em>where the peak sits in time</em>, not on the raw score alone. It is also why a second and third source are required: an independent signal that anchors a phenomenon earlier than its Google Trends breakout is direct evidence that the recent surge is a renormalization artifact, not a genuine first emergence.</p>
+  </div>
+
+  <!-- 05 — NUOVA -->
+  <div class="msec" id="threesource">
+    <div class="sec-eyebrow">// 05</div>
+    <h2>Three-Source Verification</h2>
+    <p>Google Trends alone is insufficient. Each case in the v2.0 dataset is positioned using three independent attention signals, each measuring a different kind of attention. They are not averaged into a single number; they are read together.</p>
+    <div class="src3">
+      <div class="cell"><b>◉ Google Trends</b><span>Operational attention — who searches in order to act. L is computed here (the 12-consecutive-month rule). CSV snapshot-locked and archived.</span></div>
+      <div class="cell"><b>◉ Wikipedia</b><span>Informational attention — who reads to understand. Absolute pageviews via the Wikimedia REST API. A corrective to search-index normalization.</span></div>
+      <div class="cell"><b>◉ Reddit</b><span>Community attention — how a topic is discussed. A declared qualitative proxy (absent / nascent / mature), never converted into a number.</span></div>
+    </div>
+    <h3>What the second source corrects</h3>
+    <p>Wikipedia pageviews are the corrective to Google's renormalization. For phenomena such as generative AI and deep learning, Wikipedia shows high and constant readership since 2023 — revealing them as mainstream and structural even where a freshly downloaded Google Trends series, rescaled by a later surge, would understate them.</p>
+    <h3>The Dual-Velocity finding</h3>
+    <p>For B2B-infrastructure and policy-driven phenomena, Wikipedia and Reddit signals are systematically lower than Google Trends scores. This divergence is <strong>declared as a finding, not corrected as an error</strong>: it reflects the structural difference between operational attention (active search by professionals who must use the tool) and informational or community attention (the mainstream public, not yet reached). Attention moves at two velocities, and Zorthex frequently intercepts a phenomenon while it is still confined to technical departments — before it becomes mainstream news. Cases where this pattern holds are flagged as <strong>dual-velocity</strong> in the dataset.</p>
+    <div class="rule">
+      <strong>Convergence reporting:</strong> Each case carries its convergence state. Full convergence = the three signals agree. Partial convergence = a declared B2B / policy divergence pattern. A small number of single-case anomalies (e.g. a topic stronger on Reddit than on Wikipedia) are declared individually rather than smoothed away.
+    </div>
+  </div>
+
+  <!-- 06 -->
+  <div class="msec" id="threshold">
+    <div class="sec-eyebrow">// 06</div>
     <h2>The 25/100 Threshold</h2>
     <p>The threshold of 25/100 on Google Trends (Worldwide, normalized) is the activation point for structural classification. It is empirically set based on sensitivity testing across the dataset.</p>
     <h3>How it was tested</h3>
     <p>Tested at 20, 25, and 30 across the historical dataset. At 25, the separation between confirmed structural phenomena and confirmed transient peaks is most stable. At 20, confirmed bubbles pass the threshold. At 30, confirmed structural phenomena like Bitcoin fail the test.</p>
     <div class="rule">
-      <strong>Important limitation:</strong> The threshold will be re-evaluated as the dataset grows toward n=100.
+      <strong>Important limitation:</strong> The threshold is a tested heuristic, not a validated constant, and will be re-evaluated as the dataset grows toward n=100.
     </div>
   </div>
 
-  <!-- 05 -->
+  <!-- 07 -->
   <div class="msec" id="classifications">
-    <div class="sec-eyebrow">// 05</div>
+    <div class="sec-eyebrow">// 07</div>
     <h2>Classifications</h2>
     <div class="class-grid">
       <div class="class-card">
         <div class="class-name cn-structural">STRUCTURAL</div>
-        <div class="class-rule" style="color:var(--accent);">≥ 25/100 for 12+ consecutive months confirmed</div>
-        <div class="class-body">Permanent classification once acquired. Indicates sustained mainstream public attention. Current Status (Active/Receding/Dormant) tracks today's attention independently.</div>
+        <div class="class-rule" style="color:var(--accent);">≥ 25/100 for 12+ consecutive months confirmed · peak historical (rock rule)</div>
+        <div class="class-body">Permanent classification once acquired, provided the all-time peak is historical. Indicates sustained mainstream public attention. Current Status (Active/Receding/Dormant) tracks today's attention independently.</div>
       </div>
       <div class="class-card">
         <div class="class-name cn-observation">OBSERVATION</div>
-        <div class="class-rule" style="color:var(--amber);">Above threshold · fewer than 12 consecutive months</div>
-        <div class="class-body">Signal forming. Classification may change. If 12 months complete, upgrades permanently to STRUCTURAL. If attention drops and does not recover, becomes BUBBLE.</div>
+        <div class="class-rule" style="color:var(--amber);">Above threshold but &lt;12 consecutive months · OR recent peak (provisional L)</div>
+        <div class="class-body">Signal forming, or a case whose peak sits inside the current attention wave and whose L is therefore provisional under the rock rule. Classification may change. If 12 months complete and the peak settles, upgrades to STRUCTURAL. If attention drops and does not recover, becomes BUBBLE.</div>
       </div>
       <div class="class-card">
         <div class="class-name cn-bubble">BUBBLE</div>
@@ -254,11 +300,14 @@
         <div class="class-body">Permanent classification. BUBBLE does not mean the technology failed — only that public attention did not consolidate into structural phase.</div>
       </div>
     </div>
+    <p>A fourth state, <strong>PRE-dataset / non-stationary</strong>, is used for cases whose origin precedes the Google Trends data window (2004) or whose curve is dominated by an exogenous shock (e.g. a pandemic). These are retained for completeness but excluded from L averaging.</p>
+    <h3>4-Regime Taxonomy</h3>
+    <p>Beyond classification, each case is assigned a regime describing the <em>shape</em> of its diffusion: <strong>Policy-Trigger</strong> (slow ramp, breakout on a regulatory trigger), <strong>Institutional Mass</strong> (multi-year invisibility then institutional adoption), <strong>Market-Narrative</strong> (speculation- and narrative-driven cycles), and <strong>Shock/Spoke</strong> (single-event spike then collapse). The regime is a structural property of the thematic area: knowing the area lets one read the likely regime by analogy — a descriptive read of shape, never a prediction of an individual case.</p>
   </div>
 
-  <!-- 06 — AGGIORNATO -->
+  <!-- 08 -->
   <div class="msec" id="tiers">
-    <div class="sec-eyebrow">// 06</div>
+    <div class="sec-eyebrow">// 08</div>
     <h2>Products — What Each Promises</h2>
     <p>Zorthex offers three distinct products. Each delivers a different type of output with a different data standard. The distinction between AI-estimated and manually-verified outputs is the foundation of this architecture.</p>
 
@@ -299,15 +348,15 @@
     </div>
   </div>
 
-  <!-- 07 -->
+  <!-- 09 -->
   <div class="msec" id="ai">
-    <div class="sec-eyebrow">// 07</div>
+    <div class="sec-eyebrow">// 09</div>
     <h2>How AI Is Used in This System</h2>
     <p>Zorthex uses Claude (Anthropic) as the analytical engine for the free app and as a support tool for report drafting. This is declared explicitly and always.</p>
     <div class="ai-box">
       <div class="ai-label">Free App — AI Estimated</div>
       <div class="ai-body">
-        <p>The free app uses Claude with the Zorthex v1.3 framework applied to its training knowledge. Claude estimates t_start, t_peak, L, and current scores. These are estimates — not verified values. Output is clearly labelled as AI-generated.</p>
+        <p>The free app uses Claude with the Zorthex v2.0 framework applied to its training knowledge. Claude estimates t_start, t_peak, L, and current scores. These are estimates — not verified values. Output is clearly labelled as AI-generated.</p>
       </div>
     </div>
     <div class="ai-box">
@@ -320,20 +369,20 @@
     <p>Zorthex declares its use of Claude as a matter of transparency, not marketing. <strong>Claude is the tool. Zorthex is the method.</strong> This distinction is intentional and permanent.</p>
   </div>
 
-  <!-- 08 -->
+  <!-- 10 -->
   <div class="msec" id="limitations">
-    <div class="sec-eyebrow">// 08</div>
+    <div class="sec-eyebrow">// 10</div>
     <h2>Declared Limitations</h2>
     <p>These are not disclaimers. They are the most operationally honest part of this document.</p>
     <div class="limits-grid">
       <div class="limit"><div class="limit-n">01</div><div class="limit-t">Survival Bias</div><div class="limit-b">Only technologies that reached mainstream attention are included. Technologies that failed to diffuse are not represented.</div></div>
       <div class="limit"><div class="limit-n">02</div><div class="limit-t">Selection Bias</div><div class="limit-b">Technologies chosen for historical prominence, not random sampling. No statistical inference about the general population is valid from this dataset.</div></div>
-      <div class="limit"><div class="limit-n">03</div><div class="limit-t">Small Sample</div><div class="limit-b">n=50 documented cases as of v1.3. Sector averages are descriptive only. Target for v2.0: n≥82 with minimum n=10 per domain.</div></div>
-      <div class="limit"><div class="limit-n">04</div><div class="limit-t">Proxy Limitation</div><div class="limit-b">Google Trends measures search interest — not understanding, adoption, or impact. All three sources are attention proxies, not adoption metrics.</div></div>
+      <div class="limit"><div class="limit-n">03</div><div class="limit-t">Small Sample</div><div class="limit-b">n=70 documented cases as of v2.0, structured as 7 domains × 10 cases. Sector averages are descriptive only and, where a domain has few comparable structural cases, the area read is declared provisional.</div></div>
+      <div class="limit"><div class="limit-n">04</div><div class="limit-t">Proxy Limitation</div><div class="limit-b">Google Trends measures search interest — not understanding, adoption, or impact. All three sources are attention proxies, not adoption metrics. Reddit is an explicitly qualitative proxy.</div></div>
       <div class="limit"><div class="limit-n">05</div><div class="limit-t">t_start Subjectivity</div><div class="limit-b">Identifying the founding event involves judgment. Two analysts may choose different t_start candidates, producing different L values.</div></div>
-      <div class="limit"><div class="limit-n">06</div><div class="limit-t">English-Language Bias</div><div class="limit-b">Google Trends Worldwide data is biased toward English-speaking search behavior.</div></div>
-      <div class="limit"><div class="limit-n">07</div><div class="limit-t">No Predictive Claims</div><div class="limit-b">Zorthex does not predict. L is a descriptive historical metric. Positional labels describe observed historical position — not what happens next.</div></div>
-      <div class="limit"><div class="limit-n">08</div><div class="limit-t">Threshold Calibration Scope</div><div class="limit-b">The 25/100 threshold was tested on n=15 cases. It has not been validated on a larger or independently collected dataset.</div></div>
+      <div class="limit"><div class="limit-n">06</div><div class="limit-t">English-Language Bias</div><div class="limit-b">Google Trends Worldwide data is biased toward English-speaking search behavior. National reads are solid; sub-national and non-English reads are noisier.</div></div>
+      <div class="limit"><div class="limit-n">07</div><div class="limit-t">No Predictive Claims</div><div class="limit-b">Zorthex does not predict. L is a descriptive historical metric. Positional and regime labels describe observed historical position by analogy — not what happens next for an individual case.</div></div>
+      <div class="limit"><div class="limit-n">08</div><div class="limit-t">Renormalization &amp; Provisional L</div><div class="limit-b">Recent-peak cases carry a provisional L under the rock rule and are marked OBSERVATION. Their position may change on the next consolidated download; they are not blinded into permanent values.</div></div>
     </div>
     <div style="border:1px solid rgba(0,180,216,0.2);border-left:3px solid var(--accent);background:rgba(0,180,216,0.03);padding:1.2rem 1.5rem;margin:1.5rem 0;border-radius:0 3px 3px 0;">
       <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;">Positioning Statement</div>
@@ -343,12 +392,28 @@
       <strong>Replication statement:</strong> All data and methodology are publicly available at <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" target="_blank">github.com/zorthex2026/zorthex-diffusion-lag</a>. If you follow this pipeline and obtain different results — that is a contribution, not a problem.<br>
       Contact: <a href="mailto:zorthex.official@gmail.com">zorthex.official@gmail.com</a>
     </div>
+    <div class="research-note">
+      <strong>Research direction.</strong> A second metric — institutional adaptation latency (L₂) — is in development as an extension of the diffusion-lag framework. It is <strong>not part of the public v2.0 dataset</strong> and is noted here only to record its standing within the broader research programme.
+    </div>
   </div>
 
-  <!-- 09 -->
+  <!-- 11 -->
   <div class="msec" id="changelog">
-    <div class="sec-eyebrow">// 09</div>
+    <div class="sec-eyebrow">// 11</div>
     <h2>Version Changelog</h2>
+    <div class="cl-item">
+      <div class="cl-version">v2.0</div>
+      <div class="cl-date">June 2026 · DOI: <a class="doi-link" href="https://doi.org/10.5281/zenodo.20589503" target="_blank">10.5281/zenodo.20589503</a></div>
+      <ul class="cl-list">
+        <li>Dataset expanded to n=70 public, structured as 7 domains × 10 cases</li>
+        <li>Three-source verification formalized (Google Trends + Wikipedia + Reddit)</li>
+        <li>Cluster renormalization effect documented; the rock rule formalized (historical peak = stable L; recent peak = provisional, OBSERVATION)</li>
+        <li>Dual-velocity finding declared for B2B / policy-driven phenomena</li>
+        <li>Observation cut-off (May 2026) and 90-day revision policy adopted</li>
+        <li>Dataset double-verified: by hand on CSV snapshots + automated pipeline on May-2026 consolidated data</li>
+        <li>Research direction recorded: institutional adaptation latency (L₂), in development</li>
+      </ul>
+    </div>
     <div class="cl-item">
       <div class="cl-version">v1.3</div>
       <div class="cl-date">May 2026 · DOI: 10.5281/zenodo.20374051</div>
@@ -395,7 +460,7 @@
 <footer>
   ZORTHEX.COM — BEYOND WHAT'S NEXT — EST. MMXXVI<br>
   © 2026 Zorthex™ — Renato Santi &nbsp;·&nbsp;
-  <a href="https://doi.org/10.5281/zenodo.20374051" target="_blank">doi.org/10.5281/zenodo.20374051</a> &nbsp;·&nbsp;
+  DOI: <a class="doi-link" href="https://doi.org/10.5281/zenodo.20589503" target="_blank">10.5281/zenodo.20589503</a> &nbsp;·&nbsp;
   <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" target="_blank">GitHub</a> &nbsp;·&nbsp;
   Powered by Claude
 </footer>
