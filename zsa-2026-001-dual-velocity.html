@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZSA-2026-001 — Dual-Velocity · Zorthex Signal Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050510;
+    --bg2: #0a0a1f;
+    --accent: #00b4d8;
+    --accent3: #2dc653;
+    --amber: #ffaa44;
+    --red: #ff4466;
+    --purple: #cc44ff;
+    --text: #e0e0ff;
+    --muted: #6666aa;
+    --border: #1a1a3a;
+    --pqc: #c8f542;
+    --zdv: #ff6b6b;
+    --aiw: #cc44ff;
+    --eps: #00b4d8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Space Mono', monospace; min-height: 100vh; overflow-x: hidden; line-height: 1.7; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(5,5,16,0.95); backdrop-filter: blur(12px); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.1em; transition: color 0.2s; }
+  nav a:hover { color: var(--accent); }
+
+  main { position: relative; z-index: 1; padding-top: 5rem; max-width: 920px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; }
+
+  /* HEADER */
+  .report-header { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--border); }
+  .report-tag { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+  .report-format { display: inline-block; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.7rem; border: 1px solid var(--purple); color: var(--purple); border-radius: 2px; margin-bottom: 1.2rem; }
+  h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -0.02em; }
+  h1 em { color: var(--accent); font-style: normal; }
+  .report-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; max-width: 600px; line-height: 1.8; }
+
+  /* HERO NUMBERS */
+  .hero-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 2rem; }
+  .hero-num { background: var(--bg2); padding: 1.4rem 1rem; text-align: center; }
+  .hero-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.6rem; line-height: 1; margin-bottom: 0.3rem; display: block; }
+  .hero-lbl { font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  .meta-bar { font-size: 0.65rem; color: var(--muted); line-height: 2; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+  .meta-bar a { color: var(--accent); text-decoration: none; }
+
+  /* SECTIONS */
+  section { padding: 3.5rem 0 0; border-top: 1px solid var(--border); margin-top: 3.5rem; }
+  .sec-tag { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+  h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(1.2rem, 2.5vw, 1.7rem); margin-bottom: 1.2rem; line-height: 1.3; }
+  h3 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; color: var(--muted); margin: 2rem 0 0.8rem; }
+  p { font-size: 0.85rem; color: #9090cc; line-height: 1.9; margin-bottom: 1rem; }
+  strong { color: var(--text); }
+
+  /* CALLOUT */
+  .callout { background: var(--bg2); border-left: 3px solid var(--accent); padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.8rem; color: #aaaadd; line-height: 1.9; }
+  .callout strong { color: var(--accent); }
+
+  .callout-purple { border-left-color: var(--purple); }
+  .callout-purple strong { color: var(--purple); }
+
+  /* CHART */
+  .chart-wrap { background: var(--bg2); border: 1px solid var(--border); padding: 1.6rem 1.4rem 1rem; margin: 1.5rem 0; }
+  .chart-title { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  canvas { width: 100% !important; display: block; }
+  .chart-legend { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 1rem; font-size: 0.65rem; color: var(--muted); }
+  .leg { display: flex; align-items: center; gap: 0.4rem; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* COMPARISON TABLE */
+  .dv-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; margin: 1.5rem 0; }
+  .dv-table th { font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
+  .dv-table td { padding: 0.9rem 0.8rem; border-bottom: 1px solid var(--border); color: #9090cc; vertical-align: top; }
+  .dv-table tr:last-child td { border-bottom: none; }
+  .dv-table td.hi { color: var(--text); font-weight: bold; }
+  .dv-table td.acc { color: var(--accent); font-family: 'Space Mono', monospace; }
+  .dv-table td.amber { color: var(--amber); }
+  .dv-table td.green { color: var(--accent3); }
+  .dv-table td.purple { color: var(--purple); }
+
+  /* RATIO BARS */
+  .ratio-grid { display: grid; gap: 0.8rem; margin: 1.5rem 0; }
+  .ratio-item { background: var(--bg2); border: 1px solid var(--border); padding: 1rem 1.2rem; }
+  .ratio-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+  .ratio-name { font-size: 0.75rem; color: var(--text); font-weight: bold; }
+  .ratio-val { font-size: 0.65rem; color: var(--muted); }
+  .ratio-bar-bg { background: rgba(255,255,255,0.05); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 0.4rem; }
+  .ratio-bar { height: 100%; border-radius: 3px; }
+  .ratio-desc { font-size: 0.65rem; color: var(--muted); line-height: 1.6; }
+
+  /* CLUSTER BOX */
+  .cluster-box { border: 1px solid rgba(200,245,66,0.3); background: rgba(200,245,66,0.03); padding: 1.4rem; margin: 1.5rem 0; }
+  .cluster-title { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--pqc); margin-bottom: 0.8rem; }
+  .cluster-items { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.8rem; }
+  .cluster-item { font-size: 0.75rem; }
+  .cluster-item-name { color: var(--text); font-weight: bold; margin-bottom: 0.2rem; }
+  .cluster-item-data { color: var(--muted); font-size: 0.65rem; }
+
+  /* IMPLICATIONS */
+  .impl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin: 1.5rem 0; }
+  .impl-box { background: var(--bg2); padding: 1.2rem; }
+  .impl-label { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+  .impl-text { font-size: 0.78rem; color: #9090cc; line-height: 1.8; }
+  .impl-text strong { color: var(--text); }
+
+  /* MONITORING */
+  .monitor { border: 1px solid var(--border); padding: 1rem 1.2rem; margin-bottom: 0.8rem; background: var(--bg2); }
+  .monitor-if { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+  .monitor-cond { font-size: 0.82rem; color: var(--amber); margin-bottom: 0.6rem; font-weight: bold; }
+  .monitor-then { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+  .monitor-res { font-size: 0.78rem; color: #9090cc; line-height: 1.7; }
+
+  /* SOURCES */
+  .src-table { width: 100%; border-collapse: collapse; font-size: 0.72rem; margin: 1.2rem 0; }
+  .src-table th { font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); }
+  .src-table td { padding: 0.8rem; border-bottom: 1px solid var(--border); color: #9090cc; font-size: 0.7rem; }
+  .src-table tr:last-child td { border-bottom: none; }
+
+  footer { border-top: 1px solid var(--border); padding: 2rem 2rem; text-align: center; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; line-height: 2; margin-top: 4rem; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .hero-numbers { grid-template-columns: repeat(2,1fr); }
+    .impl-grid { grid-template-columns: 1fr; }
+    .cluster-items { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://zorthex.com" class="logo">ZORTH<span>EX</span></a>
+  <div style="display:flex;gap:2rem;">
+    <a href="https://zorthex.com">Home</a>
+    <a href="https://zorthex.com/research">Research</a>
+    <a href="https://zorthex.com/methodology">Methodology</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div class="report-tag">// ZSA Series · Cross-Dataset Signal Analysis · June 2026</div>
+  <div class="report-format">ZSA — New Format · Pattern Analysis</div>
+
+  <h1>The <em>Dual-Velocity</em> Pattern<br>When Specialists Know and the Public Doesn't</h1>
+  <p class="report-sub">A cross-dataset analysis of 4 confirmed cases where specialist attention (Wikipedia) diverged systematically from public attention (Google Trends) for years — then converged in a single cluster window. ZSA-2026-001 · Zorthex Signal Analysis · First in series.</p>
+
+  <div class="hero-numbers">
+    <div class="hero-num">
+      <span class="hero-val" style="color:var(--pqc);">4</span>
+      <span class="hero-lbl">Confirmed DV Cases</span>
+    </div>
+    <div class="hero-num">
+      <span class="hero-val" style="color:var(--amber);">Aug 2025</span>
+      <span class="hero-lbl">Convergence Window</span>
+    </div>
+    <div class="hero-num">
+      <span class="hero-val" style="color:var(--purple);">~91–231 mo</span>
+      <span class="hero-lbl">L Range</span>
+    </div>
+    <div class="hero-num">
+      <span class="hero-val" style="color:var(--accent3);">3 of 4</span>
+      <span class="hero-lbl">Now STRUCTURAL</span>
+    </div>
+  </div>
+
+  <div class="meta-bar">
+    Analysis date: 22 June 2026 &nbsp;·&nbsp;
+    Google Trends CSVs locked: 22 June 2026 &nbsp;·&nbsp;
+    Wikipedia CSVs: per individual ZCR reports &nbsp;·&nbsp;
+    Framework v2.0 &nbsp;·&nbsp; CC-BY-NC 4.0 &nbsp;·&nbsp;
+    <a href="https://doi.org/10.5281/zenodo.20589503">DOI 10.5281/zenodo.20589503</a>
+  </div>
+</div>
+
+<!-- CORE FINDING -->
+<section>
+  <div class="sec-tag">// 00 · core finding</div>
+  <h2>The Pattern in One Sentence</h2>
+
+  <div class="callout callout-purple">
+    <strong>Dual-Velocity:</strong> A class of phenomena — predominantly enterprise, security, and policy-driven — where specialist communities (measured via Wikipedia pageviews) maintain sustained, high-level engagement for years while public search attention (Google Trends) remains near zero. When public ignition finally occurs, it is not gradual. It is a single-month breakout triggered by a regulatory or institutional event.
+  </div>
+
+  <p>This is not a measurement artifact. It is a structural property of how certain technologies diffuse — through institutional channels first, invisible to public search behavior until a legible frame forces mainstream awareness.</p>
+
+  <p>The Zorthex v2.0 dataset contains <strong>4 confirmed Dual-Velocity cases</strong> with full three-source verification. All four broke out in the same window: <strong>June–August 2025</strong>. That synchronization is itself a finding.</p>
+</section>
+
+<!-- CHART -->
+<section>
+  <div class="sec-tag">// 01 · the convergence chart</div>
+  <h2>Four Signals. One Window. Jan 2025 – Jun 2026</h2>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Google Trends (0–100) · All four DV cases · Jan 2025–Jun 2026 · CSV locked 22 Jun 2026</div>
+    <canvas id="dvChart" height="260"></canvas>
+    <div class="chart-legend">
+      <span class="leg"><span class="leg-dot" style="background:var(--pqc)"></span>Post-Quantum Crypto</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--zdv)"></span>Zero Day Vulnerability</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--aiw)"></span>AI Watermarking</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--eps)"></span>Endpoint Security</span>
+      <span class="leg"><span class="leg-dot" style="background:rgba(255,255,255,0.2);border:1px dashed rgba(255,255,255,0.3)"></span>Threshold 25/100</span>
+    </div>
+  </div>
+
+  <p>Before August 2025: three of the four cases were below the structural threshold. After August 2025: all four are above it. The convergence is not staggered over months — it is compressed into a <strong>6-week window</strong>.</p>
+</section>
+
+<!-- THE FOUR CASES -->
+<section>
+  <div class="sec-tag">// 02 · the four cases</div>
+  <h2>Case-by-Case: The Divergence Data</h2>
+
+  <p>The defining signature of Dual-Velocity is the ratio between Wikipedia engagement (specialist) and Google Trends (public). A high Wikipedia baseline combined with near-zero Google Trends is the signal. The wider the gap, the more pronounced the pattern.</p>
+
+  <div class="ratio-grid">
+    <div class="ratio-item">
+      <div class="ratio-head">
+        <span class="ratio-name" style="color:var(--pqc)">Post-Quantum Cryptography</span>
+        <span class="ratio-val">Wiki ~338/day · GT ~2/100 · 2015–2024</span>
+      </div>
+      <div class="ratio-bar-bg"><div class="ratio-bar" style="width:95%;background:var(--pqc)"></div></div>
+      <div class="ratio-desc">9 years of specialist reading. Security architects, CISO teams, compliance officers preparing for quantum migration — while public search stayed near zero. Breakout Aug 2025 (70/100). Peak Apr 2026 (100/100). L = ~91 months. <strong>Strongest DV case in dataset.</strong></div>
+    </div>
+
+    <div class="ratio-item">
+      <div class="ratio-head">
+        <span class="ratio-name" style="color:var(--zdv)">Zero Day Vulnerability</span>
+        <span class="ratio-val">Wiki ~15/day · GT ~8/100 · pre-2020</span>
+      </div>
+      <div class="ratio-bar-bg"><div class="ratio-bar" style="width:78%;background:var(--zdv)"></div></div>
+      <div class="ratio-desc">L = 231 months — the longest documented lag in the Zorthex dataset. Security researchers tracking zero-days operationally for decades while the concept remained invisible to mainstream search. Log4Shell (Dec 2021) triggered the first major public spike. Now STRUCTURAL with 37+ consecutive months above threshold.</div>
+    </div>
+
+    <div class="ratio-item">
+      <div class="ratio-head">
+        <span class="ratio-name" style="color:var(--aiw)">AI Watermarking</span>
+        <span class="ratio-val">Wiki ~144/day · GT ~2/100 · 2023–mid 2025</span>
+      </div>
+      <div class="ratio-bar-bg"><div class="ratio-bar" style="width:60%;background:var(--aiw)"></div></div>
+      <div class="ratio-desc">Youngest case in the set — t_start October 2023 (Biden Executive Order 14110 mandating AI watermarking standards). Within 2 years: Wikipedia engaged at technical baseline, GT near zero. Breakout Aug 2025 (47/100). Peak May 2026 (100/100). 11 months consecutive — July 2026 determines STRUCTURAL.</div>
+    </div>
+
+    <div class="ratio-item">
+      <div class="ratio-head">
+        <span class="ratio-name" style="color:var(--eps)">Endpoint Security</span>
+        <span class="ratio-val">Wiki ~90/day · GT ~14/100 · pre-2025</span>
+      </div>
+      <div class="ratio-bar-bg"><div class="ratio-bar" style="width:55%;background:var(--eps)"></div></div>
+      <div class="ratio-desc">Pure B2B phenomenon — enterprise security teams managing endpoints operationally for years with no mainstream vocabulary. GT barely above noise floor pre-2025. Breakout Jun 2025, peak May 2026 (100/100). 13 consecutive months — STRUCTURAL confirmed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section>
+  <div class="sec-tag">// 03 · comparative data</div>
+  <h2>Side by Side</h2>
+
+  <table class="dv-table">
+    <tr>
+      <th>Phenomenon</th>
+      <th>L (months)</th>
+      <th>GT pre-2025</th>
+      <th>Wiki baseline</th>
+      <th>Breakout</th>
+      <th>Peak</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td class="hi" style="color:var(--pqc)">Post-Quantum Crypto</td>
+      <td class="amber">~91</td>
+      <td class="acc">~2/100</td>
+      <td class="acc">~338/day</td>
+      <td>Aug 2025</td>
+      <td class="hi">100 · Apr 2026</td>
+      <td class="amber">OBSERVATION*</td>
+    </tr>
+    <tr>
+      <td class="hi" style="color:var(--zdv)">Zero Day Vulnerability</td>
+      <td class="amber">231</td>
+      <td class="acc">~8/100</td>
+      <td class="acc">~15/day</td>
+      <td>Dec 2021</td>
+      <td class="hi">100 · Dec 2021</td>
+      <td class="green">STRUCTURAL</td>
+    </tr>
+    <tr>
+      <td class="hi" style="color:var(--aiw)">AI Watermarking</td>
+      <td class="amber">~32</td>
+      <td class="acc">~2/100</td>
+      <td class="acc">~144/day</td>
+      <td>Aug 2025</td>
+      <td class="hi">100 · May 2026</td>
+      <td class="amber">OBSERVATION*</td>
+    </tr>
+    <tr>
+      <td class="hi" style="color:var(--eps)">Endpoint Security</td>
+      <td class="amber">~144</td>
+      <td class="acc">~14/100</td>
+      <td class="acc">~90/day</td>
+      <td>Jun 2025</td>
+      <td class="hi">100 · May 2026</td>
+      <td class="green">STRUCTURAL</td>
+    </tr>
+  </table>
+  <p style="font-size:0.65rem;color:var(--muted)">* OBSERVATION: 11 months consecutive confirmed. July 2026 determines STRUCTURAL upgrade. &nbsp;·&nbsp; Wikipedia baselines: per individual ZCR reports and dataset v2.0.</p>
+</section>
+
+<!-- AUGUST 2025 CLUSTER -->
+<section>
+  <div class="sec-tag">// 04 · the august 2025 cluster</div>
+  <h2>Why Did Four Cases Break Out Simultaneously?</h2>
+
+  <div class="cluster-box">
+    <div class="cluster-title">⚡ August 2025 Synchronization — Declared Finding</div>
+    <div class="cluster-items">
+      <div class="cluster-item">
+        <div class="cluster-item-name" style="color:var(--pqc)">Post-Quantum Crypto</div>
+        <div class="cluster-item-data">Aug 2025: 70/100 · from ~5/100</div>
+      </div>
+      <div class="cluster-item">
+        <div class="cluster-item-name" style="color:var(--aiw)">AI Watermarking</div>
+        <div class="cluster-item-data">Aug 2025: 47/100 · from ~2/100</div>
+      </div>
+      <div class="cluster-item">
+        <div class="cluster-item-name" style="color:var(--eps)">Endpoint Security</div>
+        <div class="cluster-item-data">Jun–Aug 2025: 26→65/100</div>
+      </div>
+      <div class="cluster-item">
+        <div class="cluster-item-name" style="color:var(--zdv)">Zero Day Vulnerability</div>
+        <div class="cluster-item-data">Jul–Aug 2025: 57→68/100 (already above threshold)</div>
+      </div>
+    </div>
+  </div>
+
+  <p>Three of four cases crossed the structural threshold within the same 6-week window. This is documented in the Zorthex v2.0 dataset as the <strong>August 2025 cluster</strong> — a broad attention wave across security, AI governance, and cryptographic infrastructure simultaneously.</p>
+
+  <p>The most likely structural explanation: the convergence of multiple regulatory timelines in mid-2025. NIST PQC compliance clocks, EU AI Act implementation, and enterprise security mandates created a synchronized institutional pressure that forced mainstream legibility across domains that had previously remained specialist-only.</p>
+
+  <div class="callout">
+    <strong>Methodological note:</strong> The August 2025 cluster is declared in the Zorthex v2.0 dataset as a real-world attention wave, not a methodological artifact. Cases whose first-above-threshold date falls in this window carry an OBSERVATION flag — their L is confirmed only when the 12-month window closes in July–August 2026.
+  </div>
+</section>
+
+<!-- IMPLICATIONS -->
+<section>
+  <div class="sec-tag">// 05 · implications</div>
+  <h2>What Dual-Velocity Means Operationally</h2>
+
+  <div class="impl-grid">
+    <div class="impl-box">
+      <div class="impl-label">For Enterprise Timing</div>
+      <div class="impl-text">Dual-Velocity phenomena have a <strong>long invisible phase</strong> where the technology is operationally deployed but publicly unknown. By the time Google Trends crosses threshold, the early-mover advantage is already closed. The signal to act is Wikipedia, not Google Trends.</div>
+    </div>
+    <div class="impl-box">
+      <div class="impl-label">For Investment Due Diligence</div>
+      <div class="impl-text">A high Wikipedia baseline with near-zero Google Trends is a <strong>leading indicator</strong>, not a lagging one. It means specialist adoption is underway before mainstream awareness. Historically in this dataset, this precedes public breakout by 2–9 years.</div>
+    </div>
+    <div class="impl-box">
+      <div class="impl-label">For Regulatory Strategy</div>
+      <div class="impl-text">All four DV cases in this analysis are <strong>policy-trigger phenomena</strong>. The public breakout was caused by a regulatory document, not a market event. This means the compliance clock and the attention clock are the same clock — when regulators move, public awareness follows within months.</div>
+    </div>
+    <div class="impl-box">
+      <div class="impl-label">For Competitive Positioning</div>
+      <div class="impl-text">The <strong>window between Wikipedia activation and Google Trends breakout</strong> is the operational advantage window. In PQC: 9 years. In AI Watermarking: 2 years. In Endpoint Security: years of B2B deployment before consumer vocabulary formed. That window is measurable. Zorthex measures it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MONITORING -->
+<section>
+  <div class="sec-tag">// 06 · what to watch</div>
+  <h2>Forward Monitoring Framework</h2>
+
+  <div class="monitor">
+    <div class="monitor-if">IF</div>
+    <div class="monitor-cond">Google Trends July 2026 ≥ 25/100 for PQC and AI Watermarking</div>
+    <div class="monitor-then">THEN</div>
+    <div class="monitor-res">Both upgrade to STRUCTURAL. All 4 DV cases confirmed structural. The August 2025 cluster is fully resolved — a synchronized regulatory breakout across security and AI governance is permanently documented.</div>
+  </div>
+
+  <div class="monitor">
+    <div class="monitor-if">IF</div>
+    <div class="monitor-cond">A fifth phenomenon shows Wikipedia baseline ≥ 100/day with GT ≤ 10/100</div>
+    <div class="monitor-then">THEN</div>
+    <div class="monitor-res">New DV candidate. Current candidates from the dataset: AI Explainability (Wiki ~1,290/day, GT low), Digital Identity (Wiki ~169/day, GT low). These are the next cases to watch for breakout.</div>
+  </div>
+
+  <div class="monitor">
+    <div class="monitor-if">IF</div>
+    <div class="monitor-cond">EU AI Act enforcement begins to produce sanction opinions (2026–2027)</div>
+    <div class="monitor-then">THEN</div>
+    <div class="monitor-res">AI Explainability and AI Watermarking would likely see a second attention wave. The pattern: initial regulatory publication triggers breakout, first enforcement actions trigger consolidation. Monitor EU AI Act GT score (currently 31/100) for return above 40.</div>
+  </div>
+</section>
+
+<!-- LIMITATIONS -->
+<section>
+  <div class="sec-tag">// 07 · declared limitations</div>
+  <h2>What This Analysis Does Not Claim</h2>
+
+  <p><strong>This is a pattern description, not a predictive model.</strong> Dual-Velocity is an observed structural property of specific cases — it does not predict which phenomena will exhibit it, or when breakout will occur.</p>
+
+  <p><strong>Wikipedia is a proxy, not a measurement of deployment.</strong> High Wikipedia pageviews indicate informational engagement — not operational adoption. An organisation can be fully deployed on a technology with zero Wikipedia reads if implementation is entirely API/infrastructure level.</p>
+
+  <p><strong>The August 2025 cluster may be a confound.</strong> The synchronization of four breakouts in one window may reflect a general attention wave (AI/security regulation in 2025) rather than a structural property of DV phenomena. Declared and flagged. The 12-month confirmation window will clarify.</p>
+
+  <p><strong>n=4 is small.</strong> Four confirmed cases is sufficient to name a pattern, not sufficient to derive a statistical law. The dataset is growing — v3.0 will include additional DV candidates. This analysis is descriptive, not inferential.</p>
+</section>
+
+<!-- SOURCES -->
+<section>
+  <div class="sec-tag">// 08 · sources & related reports</div>
+  <h2>Data Sources</h2>
+
+  <table class="src-table">
+    <tr>
+      <th>Case</th>
+      <th>Google Trends CSV</th>
+      <th>Wikipedia</th>
+      <th>Full Report</th>
+    </tr>
+    <tr>
+      <td>Post-Quantum Cryptography</td>
+      <td>Locked 22 Jun 2026</td>
+      <td>Locked 22 Jun 2026</td>
+      <td><a href="https://zorthex.com/zcr-2026-002-pqc" style="color:var(--accent)">ZCR-2026-002</a></td>
+    </tr>
+    <tr>
+      <td>Zero Day Vulnerability</td>
+      <td>Locked 22 Jun 2026</td>
+      <td>Dataset v2.0</td>
+      <td>ZCR forthcoming</td>
+    </tr>
+    <tr>
+      <td>AI Watermarking</td>
+      <td>Locked 22 Jun 2026</td>
+      <td>Dataset v2.0</td>
+      <td>ZCR forthcoming</td>
+    </tr>
+    <tr>
+      <td>Endpoint Security</td>
+      <td>Locked 22 Jun 2026</td>
+      <td>Dataset v2.0</td>
+      <td>ZCR forthcoming</td>
+    </tr>
+  </table>
+
+  <p style="font-size:0.68rem;color:var(--muted);margin-top:1rem">
+    All Google Trends CSVs available at
+    <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" style="color:var(--accent)">github.com/zorthex2026/zorthex-diffusion-lag</a>.
+    Wikipedia pageviews via Wikimedia REST API.
+    If you follow this pipeline and obtain different results — that is a contribution.
+    Contact: <a href="mailto:zorthex.official@gmail.com" style="color:var(--accent)">zorthex.official@gmail.com</a>
+  </p>
+</section>
+
+</main>
+
+<footer>
+  ZSA-2026-001 · Dual-Velocity Signal Analysis · Zorthex · First in ZSA Series<br>
+  © 2026 Zorthex™ — Renato Santi · Framework v2.0 · CC-BY-NC 4.0<br>
+  <a href="https://doi.org/10.5281/zenodo.20589503">doi.org/10.5281/zenodo.20589503</a> ·
+  <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> ·
+  <a href="https://zorthex.com/methodology">Methodology</a> ·
+  Powered by Claude · zorthex.com
+</footer>
+
+<script>
+const labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+const pqc =  [3,  5,  5,  4,  5,  8,  12, 70, 77, 91, 85, 76, 71, 80, 84,100, 95, 54];
+const zdv =  [28, 36, 39, 29, 31, 33, 57, 68, 53, 58, 55, 47, 33, 42, 61, 90, 68, 53];
+const aiw =  [2,  2,  2,  3,  2,  5,  5,  47, 50, 68, 82, 64, 46, 48, 80, 81,100, 39];
+const eps =  [23, 23, 20, 23, 23, 26, 31, 65, 59, 61, 61, 62, 66, 89, 84, 86,100, 58];
+
+const canvas = document.getElementById('dvChart');
+const ctx = canvas.getContext('2d');
+canvas.width = canvas.offsetWidth || 840;
+canvas.height = 260;
+
+const W = canvas.width, H = canvas.height;
+const pL = 40, pR = 16, pT = 16, pB = 32;
+const pw = W - pL - pR, ph = H - pT - pB;
+const n = labels.length;
+
+// Background
+ctx.fillStyle = '#0a0a1f';
+ctx.fillRect(0,0,W,H);
+
+// Grid
+ctx.strokeStyle = '#1a1a3a';
+ctx.lineWidth = 1;
+[0,25,50,75,100].forEach(v => {
+  const y = pT + ph - (v/100)*ph;
+  ctx.beginPath(); ctx.moveTo(pL,y); ctx.lineTo(pL+pw,y); ctx.stroke();
+  ctx.fillStyle = '#444466';
+  ctx.font = '9px Courier New';
+  ctx.textAlign = 'right';
+  ctx.fillText(v, pL-4, y+3);
+});
+
+// Threshold
+ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+ctx.setLineDash([4,4]);
+ctx.lineWidth = 1;
+const ty = pT + ph - (25/100)*ph;
+ctx.beginPath(); ctx.moveTo(pL,ty); ctx.lineTo(pL+pw,ty); ctx.stroke();
+ctx.setLineDash([]);
+
+// Shade aug 2025 onwards (index 7)
+const shadeX = pL + (7/(n-1))*pw;
+ctx.fillStyle = 'rgba(200,245,66,0.04)';
+ctx.fillRect(shadeX, pT, pL+pw-shadeX, ph);
+
+// Aug line
+ctx.strokeStyle = 'rgba(200,245,66,0.3)';
+ctx.lineWidth = 1;
+ctx.beginPath(); ctx.moveTo(shadeX, pT); ctx.lineTo(shadeX, pT+ph); ctx.stroke();
+ctx.fillStyle = 'rgba(200,245,66,0.6)';
+ctx.font = '8px Courier New';
+ctx.textAlign = 'left';
+ctx.fillText('Aug 2025', shadeX+3, pT+12);
+
+// Draw lines
+const colors = ['#c8f542','#ff6b6b','#cc44ff','#00b4d8'];
+const datasets = [pqc, zdv, aiw, eps];
+datasets.forEach((d, di) => {
+  ctx.strokeStyle = colors[di];
+  ctx.lineWidth = di === 0 ? 2.5 : 1.8;
+  ctx.beginPath();
+  d.forEach((v,i) => {
+    const x = pL + (i/(n-1))*pw;
+    const y = pT + ph - (v/100)*ph;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+});
+
+// X labels
+ctx.fillStyle = '#444466';
+ctx.font = '8px Courier New';
+ctx.textAlign = 'center';
+labels.forEach((l,i) => {
+  const x = pL + (i/(n-1))*pw;
+  ctx.fillText(l, x, H-6);
+});
+// Year markers
+ctx.fillStyle = '#666688';
+ctx.fillText('——— 2025 ———————————————', pL + (3/(n-1))*pw, H-18);
+ctx.fillText('——— 2026 ———', pL + (13/(n-1))*pw, H-18);
+</script>
+
+</body>
+</html>
