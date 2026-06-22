@@ -1,94 +1,306 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZCR-2026-002 — Post-Quantum Cryptography · Under Revision</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800;900&display=swap" rel="stylesheet">
+<title>ZCR-2026-002 — Post-Quantum Cryptography · Zorthex</title>
 <style>
-  :root{
-    --bg:#05050f;--bg2:#0a0a1e;--cyan:#00d4ff;--amber:#ffaa44;--green:#2dc653;
-    --text:#e8e8ff;--muted:#5a5a8a;--mid:#9090bb;--border:#1e1e3a;--border2:#2a2a50;
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f2;
+    --grey-1: #1a1a1a;
+    --grey-2: #2a2a2a;
+    --grey-3: #444;
+    --grey-4: #888;
+    --grey-5: #bbb;
+    --accent: #c8f542;
+    --accent-dim: #a0c030;
+    --warn: #f5a623;
+    --structural: #4fc4a0;
+    --observation: #f5a623;
+    --mono: 'Courier New', Courier, monospace;
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;font-size:14px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;}
-  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.015) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
-  body>*{position:relative;z-index:1;}
-  .nav{padding:1rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:rgba(5,5,15,0.95);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
-  .nav-brand{font-family:'Syne',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:0.15em;}
-  .nav-brand span{color:var(--cyan);}
-  .nav-links{display:flex;gap:1.5rem;font-size:0.7rem;letter-spacing:0.1em;}
-  .nav-links a{color:var(--muted);text-decoration:none;transition:color 0.2s;}
-  .nav-links a:hover{color:var(--cyan);}
-  .main{flex:1;max-width:760px;margin:0 auto;padding:5rem 2rem;width:100%;}
-  .tag{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;}
-  .id{font-family:'Syne',sans-serif;font-weight:900;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1;margin-bottom:0.5rem;}
-  .title{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1rem,2.5vw,1.4rem);color:var(--mid);margin-bottom:2rem;line-height:1.3;}
-  .badge{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.45rem 1rem;border:1px solid rgba(255,170,68,0.45);color:var(--amber);border-radius:3px;background:rgba(255,170,68,0.06);margin-bottom:2.5rem;}
-  .panel{background:var(--bg2);border:1px solid var(--border2);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:1.6rem 1.8rem;margin-bottom:1.5rem;}
-  .panel p{font-size:0.84rem;color:#c8c8e8;line-height:1.9;margin-bottom:1rem;}
-  .panel p:last-child{margin-bottom:0;}
-  .panel strong{color:var(--text);}
-  .meta{font-size:0.72rem;color:var(--muted);line-height:1.9;border-top:1px solid var(--border);padding-top:1.5rem;margin-top:2.5rem;}
-  .links{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;}
-  .btn{display:inline-block;padding:0.7rem 1.3rem;font-size:0.72rem;letter-spacing:0.1em;text-decoration:none;border:1px solid var(--border2);color:var(--mid);border-radius:3px;transition:all 0.2s;}
-  .btn:hover{border-color:var(--cyan);color:var(--cyan);}
-  .footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:0.65rem;color:var(--muted);line-height:2;}
-  .footer a{color:var(--cyan);text-decoration:none;}
-</style>
-</head>
-<body>
 
-<nav class="nav">
-  <div class="nav-brand">ZORTH<span>EX</span></div>
-  <div class="nav-links">
-    <a href="https://zorthex.com">Home</a>
-    <a href="https://zorthex.com/research.html">Research</a>
-    <a href="https://zorthex.com/methodology.html">Methodology</a>
-  </div>
-</nav>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-<div class="main">
-  <div class="tag">// Custom Report · ZCR Series</div>
-  <div class="id">ZCR-2026-002</div>
-  <div class="title">Post-Quantum Cryptography —<br>Public Attention Diffusion Lag Analysis</div>
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Georgia', serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
 
-  <div class="badge">◷ Under Revision</div>
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-  <div class="panel">
-    <p>This report is temporarily <strong>under revision</strong>.</p>
-    <p>Zorthex measures diffusion lag from Google Trends data, which is normalized against the peak of the selected observation window. As the underlying window extends, earlier values are rescaled — so figures are periodically re-verified against the most recent data before being treated as final.</p>
-    <p>The diffusion-lag figures for Post-Quantum Cryptography are currently being recalculated against the updated window ahead of the <strong>Zorthex v2.0</strong> release. Updated values will be published here shortly.</p>
-    <p>The phenomenon itself is well documented: the NIST Post-Quantum Cryptography standardization process (competition launch 2017; FIPS 203/204/205 published August 2024) and the subsequent consolidation of institutional attention. What is being re-verified is the precise dating and classification, not the existence of the transition.</p>
-  </div>
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--grey-2);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+  .nav-logo { color: var(--white); font-weight: bold; font-size: 15px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: var(--grey-4); }
 
-  <div class="panel" style="border-left-color:var(--cyan);">
-    <p style="margin-bottom:0.6rem;"><strong>Verified reports remain available:</strong></p>
-    <div class="links" style="margin-top:0.4rem;">
-      <a href="ZCR-2026-001-Stablecoins.html" class="btn">→ ZCR-001 · Stablecoins</a>
-      <a href="ZCR-2026-003-RWA.html" class="btn">→ ZCR-003 · Real-World Assets</a>
-    </div>
-  </div>
+  /* HEADER */
+  .report-header {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px 40px 48px;
+    border-bottom: 1px solid var(--grey-2);
+  }
 
-  <div class="meta">
-    Zorthex applies a declared observation cut-off date to each report, with periodic re-verification (recommended every 30 days) for the most accurate figures. This revision reflects that policy in practice.<br>
-    © 2026 Zorthex™ — Renato Santi · Framework in transition to v2.0 · CC-BY-NC 4.0
-  </div>
+  .report-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--grey-4);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
 
-  <div class="links">
-    <a href="https://zorthex.com/research.html" class="btn">← Back to Research</a>
-    <a href="https://zorthex.com/methodology.html" class="btn">Methodology</a>
-  </div>
-</div>
+  .report-title {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
 
-<div class="footer">
-  ZCR-2026-002 · Post-Quantum Cryptography · Under Revision<br>
-  © 2026 Zorthex™ — Renato Santi ·
-  <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> ·
-  <a href="https://zorthex.com/methodology.html">Methodology</a> ·
-  Powered by Claude · zorthex.com
-</div>
+  .report-subtitle {
+    font-size: 18px;
+    color: var(--grey-5);
+    font-style: italic;
+    margin-bottom: 40px;
+  }
 
-</body>
-</html>
+  /* METRICS ROW */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--grey-2);
+    border: 1px solid var(--grey-2);
+    margin-bottom: 32px;
+  }
+
+  .metric-box {
+    background: var(--grey-1);
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .metric-value {
+    font-family: var(--mono);
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: bold;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .metric-value.obs { color: var(--observation); }
+  .metric-value.str { color: var(--structural); }
+
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--grey-4);
+    text-transform: uppercase;
+  }
+
+  /* META STRIP */
+  .meta-strip {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey-4);
+    line-height: 2;
+    border-top: 1px solid var(--grey-2);
+    padding-top: 20px;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 56px 0 0;
+    border-top: 1px solid var(--grey-2);
+    margin-top: 56px;
+  }
+
+  .section:first-child { border-top: none; margin-top: 0; padding-top: 56px; }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--grey-4);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: normal;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--grey-5);
+    margin: 32px 0 16px;
+    letter-spacing: 0.02em;
+  }
+
+  p { margin-bottom: 20px; color: #d8d8d4; }
+
+  strong { color: var(--white); font-weight: bold; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--grey-1);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--grey-5);
+    line-height: 1.8;
+  }
+
+  .callout strong { color: var(--accent); }
+
+  /* CHART */
+  .chart-container {
+    margin: 36px 0;
+    background: var(--grey-1);
+    border: 1px solid var(--grey-2);
+    padding: 28px 24px 20px;
+  }
+
+  .chart-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--grey-4);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  canvas { width: 100% !important; }
+
+  .chart-legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey-4);
+  }
+
+  .legend-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+    margin: 28px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--grey-2);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 7px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--grey-3);
+    border: 1px solid var(--grey-4);
+  }
+
+  .timeline-item.key::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    width: 11px;
+    height: 11px;
+    left: -25px;
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .timeline-text {
+    color: #d8d8d4;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 24px 0;
+  }
+
+  th {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey-4);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--grey-2);
+  }
+
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--grey-2);
+    color: #d8d8d4;
+    vertical-al
