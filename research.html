@@ -79,6 +79,7 @@
     .zcr-card.observation .zcr-id { color: #cc44ff; }
     .zcr-card.revision .zcr-id { color: var(--amber); }
     .zcr-pill { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 3px; border: 1px solid rgba(255,170,68,0.4); color: var(--amber); background: rgba(255,170,68,0.06); }
+    .zcr-pill.obs { border-color: rgba(204,68,255,0.4); color: #cc44ff; background: rgba(204,68,255,0.06); }
     .zcr-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.9rem; }
     .zcr-stats { display: grid; gap: 0.5rem; margin-bottom: 1rem; }
     .zcr-stats.s3 { grid-template-columns: repeat(3,1fr); }
@@ -101,7 +102,6 @@
 
     footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; line-height: 2; }
     footer a { color: var(--accent); text-decoration: none; }
-    .doi-ph { color: var(--red); font-weight: 700; }
 
     @media (max-width: 600px) {
       .nav-pills { grid-template-columns: 1fr; }
@@ -167,11 +167,28 @@
       <a href="ZCR-2026-001-Stablecoins.html" target="_blank" class="zcr-btn">→ VIEW FULL REPORT</a>
     </div>
 
+    <!-- ZCR-002 -->
+    <div class="zcr-card observation">
+      <div class="zcr-card-head">
+        <div class="zcr-id">ZCR-2026-002 · Demonstration Report · v2.0</div>
+        <div class="zcr-pill obs">◎ Observation · Active</div>
+      </div>
+      <div class="zcr-name">Post-Quantum Cryptography</div>
+      <div class="zcr-stats s4">
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:#cc44ff;">~91 mo</div><div class="zcr-stat-lbl">Lag (L)</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);font-size:0.82rem;">OBSERVATION</div><div class="zcr-stat-lbl">Status</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);">95/100</div><div class="zcr-stat-lbl">May 2026</div></div>
+        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--red);">Jul 2026</div><div class="zcr-stat-lbl">STRUCTURAL?</div></div>
+      </div>
+      <p class="zcr-desc">Policy-Trigger regime. Dual-Velocity confirmed — Wikipedia active at ~338 views/day since 2015 while Google Trends flatlined near zero for 8 years. Breakout August 2025 (70/100), peak April 2026 (100/100). 11 consecutive months above threshold — July 2026 determines STRUCTURAL classification. CSV locked 22 June 2026.</p>
+      <a href="zcr-2026-002-pqc.html" target="_blank" class="zcr-btn">→ VIEW FULL REPORT</a>
+    </div>
+
     <!-- ZCR-003 -->
     <div class="zcr-card observation">
       <div class="zcr-card-head">
         <div class="zcr-id">ZCR-2026-003 · Demonstration Report</div>
-        <div class="zcr-pill">◎ Observation · Active</div>
+        <div class="zcr-pill obs">◎ Observation · Active</div>
       </div>
       <div class="zcr-name">Real-World Asset Tokenization</div>
       <div class="zcr-stats s4">
@@ -184,24 +201,8 @@
       <a href="ZCR-2026-003-RWA.html" target="_blank" class="zcr-btn">→ VIEW FULL REPORT</a>
     </div>
 
-    <!-- ZCR-002 -->
-    <div class="zcr-card revision">
-      <div class="zcr-card-head">
-        <div class="zcr-id">ZCR-2026-002 · Demonstration Report</div>
-        <div class="zcr-pill">◷ Under Revision</div>
-      </div>
-      <div class="zcr-name">Post-Quantum Cryptography</div>
-      <div class="zcr-stats s3">
-        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);">—</div><div class="zcr-stat-lbl">Lag (L)</div></div>
-        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);font-size:0.82rem;">UNDER REVISION</div><div class="zcr-stat-lbl">Status</div></div>
-        <div class="zcr-stat"><div class="zcr-stat-val" style="color:var(--amber);">v2.0</div><div class="zcr-stat-lbl">Expected</div></div>
-      </div>
-      <p class="zcr-desc">Temporarily under revision. The breakout date, L, and classification are being re-verified against the v2.0 data window before republication. This revision notice is itself part of the method — figures are dated and revisable, never presented as permanent.</p>
-      <a href="ZCR-2026-002-PQC.html" target="_blank" class="zcr-btn">→ VIEW STATUS</a>
-    </div>
   </div>
 
-  <!-- LIGHT STRIP TO FREE TOOL -->
   <div class="tool-strip">
     <div class="tool-strip-inner">
       <div class="tool-strip-text"><strong>Want the pulse of any phenomenon?</strong> The free tool on the homepage applies the Zorthex v2.0 framework to any term you enter — an observational estimate, clearly labelled, distinct from these manually-verified reports.</div>
@@ -212,7 +213,7 @@
 </main>
 <footer>
   ZORTHEX.COM — BEYOND WHAT'S NEXT — EST. MMXXVI — <a href="https://zorthex.com">zorthex.com</a> — POWERED BY CLAUDE<br>
-  DOI: <a class="doi-link" href="https://doi.org/10.5281/zenodo.20589503" target="_blank">10.5281/zenodo.20589503</a> &nbsp;·&nbsp; ORCID <a href="https://orcid.org/0009-0000-9936-1110" target="_blank">0009-0000-9936-1110</a> &nbsp;·&nbsp; <a href="/methodology.html">Methodology</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a>
+  DOI: <a href="https://doi.org/10.5281/zenodo.20589503" target="_blank">10.5281/zenodo.20589503</a> &nbsp;·&nbsp; ORCID <a href="https://orcid.org/0009-0000-9936-1110" target="_blank">0009-0000-9936-1110</a> &nbsp;·&nbsp; <a href="/methodology.html">Methodology</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a>
 </footer>
 </body>
 </html>
