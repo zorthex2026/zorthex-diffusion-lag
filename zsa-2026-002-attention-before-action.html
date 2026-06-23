@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZSA-2026-002 — Attention Before Action · Zorthex Signal Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050510;
+    --bg2: #0a0a1f;
+    --accent: #00b4d8;
+    --accent3: #2dc653;
+    --amber: #ffaa44;
+    --red: #ff4466;
+    --purple: #cc44ff;
+    --text: #e0e0ff;
+    --muted: #6666aa;
+    --border: #1a1a3a;
+    --ob: #00b4d8;
+    --sc: #c8f542;
+    --bnpl: #cc44ff;
+    --gallup: #ff6b6b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Space Mono', monospace; min-height: 100vh; overflow-x: hidden; line-height: 1.7; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(5,5,16,0.95); backdrop-filter: blur(12px); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.1em; transition: color 0.2s; }
+  nav a:hover { color: var(--accent); }
+
+  main { position: relative; z-index: 1; padding-top: 5rem; max-width: 920px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; }
+
+  .report-header { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--border); }
+  .report-tag { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+  .report-format { display: inline-block; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.7rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 2px; margin-bottom: 1.2rem; }
+  h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 0.6rem; }
+  h1 em { color: var(--accent); font-style: normal; }
+  .report-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; max-width: 640px; line-height: 1.8; }
+
+  .hero-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 2rem; }
+  .hero-num { background: var(--bg2); padding: 1.4rem 1rem; text-align: center; }
+  .hero-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; line-height: 1; margin-bottom: 0.3rem; display: block; }
+  .hero-lbl { font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  .meta-bar { font-size: 0.65rem; color: var(--muted); line-height: 2; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+  .meta-bar a { color: var(--accent); text-decoration: none; }
+
+  section { padding: 3.5rem 0 0; border-top: 1px solid var(--border); margin-top: 3.5rem; }
+  .sec-tag { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+  h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(1.2rem, 2.5vw, 1.7rem); margin-bottom: 1.2rem; line-height: 1.3; }
+  h3 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; color: var(--muted); margin: 2rem 0 0.8rem; }
+  p { font-size: 0.85rem; color: #9090cc; line-height: 1.9; margin-bottom: 1rem; }
+  strong { color: var(--text); }
+
+  .callout { background: var(--bg2); border-left: 3px solid var(--accent); padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.8rem; color: #aaaadd; line-height: 1.9; }
+  .callout strong { color: var(--accent); }
+  .callout-amber { border-left-color: var(--amber); }
+  .callout-amber strong { color: var(--amber); }
+
+  .chart-wrap { background: var(--bg2); border: 1px solid var(--border); padding: 1.6rem 1.4rem 1rem; margin: 1.5rem 0; }
+  .chart-title { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  canvas { width: 100% !important; display: block; }
+  .chart-legend { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 1rem; font-size: 0.65rem; color: var(--muted); }
+  .leg { display: flex; align-items: center; gap: 0.4rem; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .leg-dash { width: 16px; height: 3px; flex-shrink: 0; }
+
+  .two-signal { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin: 1.5rem 0; }
+  .signal-box { background: var(--bg2); padding: 1.4rem; }
+  .signal-label { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.8rem; }
+  .signal-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.6rem; }
+  .signal-desc { font-size: 0.75rem; color: #9090cc; line-height: 1.7; }
+
+  .case-grid { display: grid; gap: 0.8rem; margin: 1.5rem 0; }
+  .case-item { background: var(--bg2); border: 1px solid var(--border); padding: 1.2rem 1.4rem; }
+  .case-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem; }
+  .case-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
+  .case-l { font-size: 0.7rem; color: var(--muted); font-family: 'Space Mono'; }
+  .case-timeline { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 0.6rem; }
+  .case-t { background: rgba(0,0,0,0.3); padding: 0.5rem; text-align: center; border-radius: 2px; }
+  .case-t-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.2rem; }
+  .case-t-lbl { font-size: 0.5rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .case-finding { font-size: 0.72rem; color: #9090cc; line-height: 1.6; }
+
+  .conclusion-box { border: 1px solid rgba(0,180,216,0.3); background: rgba(0,180,216,0.03); padding: 1.6rem; margin: 1.5rem 0; }
+  .conclusion-title { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .conclusion-text { font-size: 0.85rem; color: #aaaadd; line-height: 1.9; }
+  .conclusion-text strong { color: var(--accent); }
+
+  .limit-item { display: grid; grid-template-columns: 28px 1fr; gap: 16px; margin-bottom: 1.2rem; align-items: start; }
+  .limit-num { font-family: 'Space Mono'; font-size: 0.65rem; color: var(--muted); padding-top: 2px; }
+
+  footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; line-height: 2; margin-top: 4rem; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .hero-numbers { grid-template-columns: repeat(2,1fr); }
+    .two-signal { grid-template-columns: 1fr; }
+    .case-timeline { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://zorthex.com" class="logo">ZORTH<span>EX</span></a>
+  <div style="display:flex;gap:2rem;">
+    <a href="https://zorthex.com">Home</a>
+    <a href="https://zorthex.com/research">Research</a>
+    <a href="https://zorthex.com/methodology">Methodology</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="report-header">
+  <div class="report-tag">// ZSA Series · Cross-Dataset Signal Analysis · June 2026</div>
+  <div class="report-format">ZSA-2026-002 · Second in Series</div>
+
+  <h1>Attention Before <em>Action</em></h1>
+  <p class="report-sub">Understanding technology adoption requires two independent signals — one that measures when a phenomenon enters public awareness, and one that measures when it enters operational behaviour. They are not the same signal. They are not interchangeable. Together, they tell a complete story.</p>
+
+  <div class="hero-numbers">
+    <div class="hero-num">
+      <span class="hero-val" style="color:var(--accent);">3</span>
+      <span class="hero-lbl">Finance Cases</span>
+    </div>
+    <div class="hero-num">
+      <span class="hero-val" style="color:var(--amber);">2 signals</span>
+      <span class="hero-lbl">Attention + Adoption</span>
+    </div>
+    <div class="hero-num">
+      <span class="hero-val" style="color:var(--accent3);">Always</span>
+      <span class="hero-lbl">Attention Leads</span>
+    </div>
+    <div class="hero-num">
+      <span class="hero-val" style="color:var(--purple);">75–157 mo</span>
+      <span class="hero-lbl">L Range</span>
+    </div>
+  </div>
+
+  <div class="meta-bar">
+    Analysis date: 23 June 2026 &nbsp;·&nbsp;
+    Google Trends CSVs locked: 23 June 2026 &nbsp;·&nbsp;
+    Adoption reference: Gallup Workplace Panel 2023–Q1:2026 (NBER) &nbsp;·&nbsp;
+    Framework v2.0 &nbsp;·&nbsp; CC-BY-NC 4.0 &nbsp;·&nbsp;
+    <a href="https://doi.org/10.5281/zenodo.20589503">DOI 10.5281/zenodo.20589503</a>
+  </div>
+</div>
+
+<!-- CORE FINDING -->
+<section>
+  <div class="sec-tag">// 00 · the question</div>
+  <h2>What Does It Mean to "Adopt" a Technology?</h2>
+
+  <p>The word adoption is used loosely. It can mean that people are aware of something, that they are searching for it, that they have read about it, or that they are using it daily in their work. These are different things — and they happen at different times.</p>
+
+  <p>Recent data from the Gallup Workplace Panel (2023–Q1:2026) documents a sharp acceleration in AI use among finance and insurance workers — from roughly 8% frequent users in 2023 to nearly 45% by early 2026. The study identifies regulatory change as the primary driver: when compliance constraints eased, operational adoption followed.</p>
+
+  <p>This is one half of the story. The other half is: <strong>where was public attention before that adoption curve moved?</strong></p>
+
+  <div class="callout">
+    <strong>Core finding:</strong> Across three finance phenomena tracked in the Zorthex dataset — Open Banking, Stablecoins, and Buy Now Pay Later — public attention (Google Trends) moved measurably before operational adoption (Gallup). In every case, the attention signal was already present when adoption began to accelerate. Awareness preceded behaviour. The signal was upstream.
+  </div>
+</section>
+
+<!-- TWO SIGNALS -->
+<section>
+  <div class="sec-tag">// 01 · two signals, two measurements</div>
+  <h2>The Two Signals Are Not the Same</h2>
+
+  <div class="two-signal">
+    <div class="signal-box">
+      <div class="signal-label" style="color:var(--accent)">Signal 1 — Zorthex</div>
+      <div class="signal-name">Public Attention</div>
+      <div class="signal-desc">Measured via Google Trends (search intent) and Wikipedia pageviews (informational engagement). Captures when a phenomenon enters public consciousness — when people begin searching, reading, and forming an opinion. Three independent sources, locked CSVs, methodology open.</div>
+    </div>
+    <div class="signal-box">
+      <div class="signal-label" style="color:var(--gallup)">Signal 2 — Gallup Workplace Panel</div>
+      <div class="signal-name">Operational Adoption</div>
+      <div class="signal-desc">Measured via longitudinal survey of US workers (20–65), tracking AI use frequency quarterly from Q2:2023 to Q1:2026. Captures when a technology enters daily operational behaviour — when people are actually using it, multiple times per week or daily.</div>
+    </div>
+  </div>
+
+  <p>These signals measure different things. A person can be aware of a technology for years without using it. An organisation can be deploying a technology without the general public knowing. The gap between these two states — between awareness and behaviour — is where the most useful information lives.</p>
+
+  <p><strong>Attention is a necessary condition for adoption, but not a sufficient one.</strong> You cannot adopt what you do not know exists. But knowing it exists does not mean you will adopt it. The triggers that convert awareness into behaviour — regulatory change, cost reduction, competitive pressure, organisational capacity — operate in the gap between the two signals.</p>
+</section>
+
+<!-- CHART -->
+<section>
+  <div class="sec-tag">// 02 · the attention curve</div>
+  <h2>Public Attention in Finance — Three Cases · 2019–2026</h2>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Google Trends (0–100) · Open Banking, Stablecoins, Buy Now Pay Later · CSV locked 23 Jun 2026</div>
+    <canvas id="attentionChart" height="260"></canvas>
+    <div class="chart-legend">
+      <span class="leg"><span class="leg-dot" style="background:var(--ob)"></span>Open Banking (L=75mo)</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--sc)"></span>Stablecoins (L=128mo)</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--bnpl)"></span>Buy Now Pay Later (L=157mo)</span>
+      <span class="leg"><span class="leg-dash" style="background:rgba(255,107,107,0.6)"></span>Gallup adoption: 8.4% → 44.9%</span>
+    </div>
+  </div>
+
+  <p>The Gallup adoption curve runs from roughly 8% in 2023 to 45% by Q1:2026 — a steep acceleration concentrated between 2024 and 2026. All three Zorthex attention curves were already moving before that acceleration began. Buy Now Pay Later had been above the structural threshold since 2019. Open Banking was present and stable from 2020. Stablecoins ignited in mid-2025, driven by the GENIUS Act — precisely the kind of regulatory trigger the Gallup study identifies as the primary adoption driver.</p>
+</section>
+
+<!-- THREE CASES -->
+<section>
+  <div class="sec-tag">// 03 · three cases</div>
+  <h2>Case by Case</h2>
+
+  <div class="case-grid">
+
+    <div class="case-item">
+      <div class="case-head">
+        <span class="case-name" style="color:var(--ob)">Open Banking</span>
+        <span class="case-l">L = 75 months · Policy-Trigger · STRUCTURAL</span>
+      </div>
+      <div class="case-timeline">
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--ob)">Jul 2020</span>
+          <span class="case-t-lbl">First above threshold</span>
+        </div>
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--amber)">22/100</span>
+          <span class="case-t-lbl">GT avg 2023–2024</span>
+        </div>
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--accent3)">100/100</span>
+          <span class="case-t-lbl">Peak May 2026</span>
+        </div>
+      </div>
+      <p class="case-finding">Attention was present and stable for three years before the Gallup adoption acceleration began. The public awareness infrastructure was already built when regulatory conditions allowed operational adoption to scale. The signal was upstream by years.</p>
+    </div>
+
+    <div class="case-item">
+      <div class="case-head">
+        <span class="case-name" style="color:var(--sc)">Stablecoins</span>
+        <span class="case-l">L = 128 months · Policy-Trigger · STRUCTURAL</span>
+      </div>
+      <div class="case-timeline">
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--sc)">Jun 2025</span>
+          <span class="case-t-lbl">First above threshold</span>
+        </div>
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--amber)">5/100</span>
+          <span class="case-t-lbl">GT avg 2023–2024</span>
+        </div>
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--accent3)">100/100</span>
+          <span class="case-t-lbl">Peak May 2026</span>
+        </div>
+      </div>
+      <p class="case-finding">The clearest case of regulatory trigger alignment. Stablecoins had 128 months of institutional development before the GENIUS Act (July 2025) ignited public attention. The attention breakout and the adoption acceleration are simultaneous — driven by the same regulatory event. This is the model case for Policy-Trigger phenomena.</p>
+    </div>
+
+    <div class="case-item">
+      <div class="case-head">
+        <span class="case-name" style="color:var(--bnpl)">Buy Now Pay Later</span>
+        <span class="case-l">L = 157 months · Market-Narrative · STRUCTURAL</span>
+      </div>
+      <div class="case-timeline">
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--bnpl)">Nov 2019</span>
+          <span class="case-t-lbl">First above threshold</span>
+        </div>
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--amber)">41/100</span>
+          <span class="case-t-lbl">GT avg 2023–2024</span>
+        </div>
+        <div class="case-t">
+          <span class="case-t-val" style="color:var(--accent3)">100/100</span>
+          <span class="case-t-lbl">Peak May 2026</span>
+        </div>
+      </div>
+      <p class="case-finding">The longest lead time in the set. BNPL had been above the structural attention threshold for four years before the Gallup adoption curve began its steepest ascent. Public awareness was a necessary but far-from-sufficient condition — the conversion from awareness to operational behaviour required a decade of ecosystem development, regulatory clarification, and organisational capacity building.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHAT THE GAP TELLS US -->
+<section>
+  <div class="sec-tag">// 04 · what the gap tells us</div>
+  <h2>The Gap Between Attention and Adoption Is Not Noise</h2>
+
+  <p>In all three cases, public attention preceded operational adoption. But the lead times are very different: Open Banking had a 3-year lead, Stablecoins a near-simultaneous breakout, BNPL a 4-year lead. What explains the variation?</p>
+
+  <p>The Gallup study points to regulatory change as the primary driver of Finance AI adoption. The Zorthex data suggests this is consistent with a broader pattern: <strong>attention moves when a topic becomes publicly legible; adoption moves when the operational conditions — regulatory, organisational, economic — are ready.</strong></p>
+
+  <p>The gap between these two events is not random. It is shaped by:</p>
+
+  <div class="callout callout-amber">
+    <strong>Regulatory readiness:</strong> How long until a compliance framework allows or requires the technology?<br><br>
+    <strong>Organisational capacity:</strong> Do workers and institutions have the skills and processes to convert awareness into workflow?<br><br>
+    <strong>Economic conditions:</strong> Is the cost of adoption below the threshold of friction?<br><br>
+    The attention signal tells you the technology is ready in the public mind. The adoption signal tells you the operational conditions have caught up. Neither alone is sufficient to understand where a technology actually is in its diffusion cycle.
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section>
+  <div class="sec-tag">// 05 · conclusion</div>
+  <h2>Two Keys, Not One</h2>
+
+  <div class="conclusion-box">
+    <div class="conclusion-title">// ZSA-2026-002 · Core Finding</div>
+    <div class="conclusion-text">
+      Understanding technology adoption requires two independent measurements. <strong>Attention data</strong> (Zorthex: Google Trends, Wikipedia, Reddit) measures when a phenomenon enters public consciousness — the cognitive signal. <strong>Adoption data</strong> (Gallup Workplace Panel and equivalent longitudinal surveys) measures when it enters operational behaviour — the behavioural signal.<br><br>
+      Across the three finance cases analysed, attention consistently preceded adoption. The attention signal is a leading indicator — not of how much adoption will occur, but of when the conditions for adoption have become publicly legible.<br><br>
+      Neither signal is sufficient alone. Attention without adoption data tells you that a technology is known but not whether it is being used. Adoption data without attention data tells you behaviour has changed but not how long the awareness infrastructure was already in place.<br><br>
+      <strong>Together, they map the full diffusion arc — from the moment a technology becomes thinkable to the moment it becomes operational.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITATIONS -->
+<section>
+  <div class="sec-tag">// 06 · declared limitations</div>
+  <h2>What This Analysis Does Not Claim</h2>
+
+  <div class="limit-item">
+    <div class="limit-num">01</div>
+    <div><strong>The Gallup data covers US finance and insurance workers specifically.</strong> The Zorthex attention data is global. The geographic scope is different. The comparison is indicative, not precise.</div>
+  </div>
+
+  <div class="limit-item">
+    <div class="limit-num">02</div>
+    <div><strong>Attention is not a sufficient predictor of adoption.</strong> Many phenomena show high public attention without subsequent operational adoption. The attention signal tells you awareness is present — it does not predict whether adoption will follow or when.</div>
+  </div>
+
+  <div class="limit-item">
+    <div class="limit-num">03</div>
+    <div><strong>The three cases are not a statistical sample.</strong> They are selected from the Zorthex v2.0 dataset as Finance phenomena with verified L values. The pattern observed is consistent but not proven across a larger sample.</div>
+  </div>
+
+  <div class="limit-item">
+    <div class="limit-num">04</div>
+    <div><strong>Google Trends peaks are recent for all three cases.</strong> The Rock Rule applies — L values are provisional under the current renormalization conditions. Values are declared as of 23 June 2026 and subject to revision on the next 90-day cycle.</div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section>
+  <div class="sec-tag">// 07 · sources</div>
+  <h2>Data Sources</h2>
+
+  <p style="font-size:0.78rem;color:#9090cc;line-height:1.9">
+    <strong>Zorthex attention data:</strong> Google Trends CSVs locked 23 June 2026; Wikipedia pageviews via Wikimedia REST API; methodology at zorthex.com/methodology; dataset at zorthex.com/dataset.<br><br>
+    <strong>Adoption reference:</strong> Gallup Workplace Panel 2023–Q1:2026, published via NBER-SAIF Conference on AI and Financial Markets, Spring 2026. The panel tracks AI use frequency among US workers aged 20–65 across sectors, quarterly.<br><br>
+    <strong>Regulatory trigger reference:</strong> Decline in finance regulatory restriction density 2024–2025 as identified in the Gallup study — associated with approximately 4.7 percentage-point increase in frequent AI use in Finance.<br><br>
+    All Zorthex CSVs available for independent verification at <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" style="color:var(--accent)">github.com/zorthex2026/zorthex-diffusion-lag</a>.
+  </p>
+</section>
+
+</main>
+
+<footer>
+  ZSA-2026-002 · Attention Before Action · Zorthex · Second in ZSA Series<br>
+  © 2026 Zorthex™ — Renato Santi · Framework v2.0 · CC-BY-NC 4.0<br>
+  <a href="https://doi.org/10.5281/zenodo.20589503">doi.org/10.5281/zenodo.20589503</a> ·
+  <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> ·
+  <a href="https://zorthex.com/methodology">Methodology</a> ·
+  Powered by Claude · zorthex.com
+</footer>
+
+<script>
+const labels = ['2019','2020','2021','2022','2023','2024','H1-25','H2-25','H1-26'];
+const ob =   [14, 20, 18, 19, 23, 22, 35, 58, 84];
+const sc =   [2,  3,  8,  5,  4,  6,  18, 67, 80];
+const bnpl = [38, 45, 55, 52, 41, 42, 50, 65, 89];
+
+// Gallup overlay — mapped to same x positions
+// 2023=idx4, 2024=idx5, Q2-Q4 2025=idx6-7, Q1 2026=idx8
+const gallupPoints = [
+  {x: 4, y: 8.4},
+  {x: 5, y: 15.9},
+  {x: 6, y: 32.6},
+  {x: 7, y: 36.0},
+  {x: 8, y: 44.9}
+];
+
+const canvas = document.getElementById('attentionChart');
+const ctx = canvas.getContext('2d');
+canvas.width = canvas.offsetWidth || 840;
+canvas.height = 260;
+
+const W = canvas.width, H = canvas.height;
+const pL = 44, pR = 50, pT = 16, pB = 32;
+const pw = W - pL - pR, ph = H - pT - pB;
+const n = labels.length;
+
+ctx.fillStyle = '#0a0a1f';
+ctx.fillRect(0,0,W,H);
+
+// Grid
+ctx.strokeStyle = '#1a1a3a';
+ctx.lineWidth = 1;
+[0,25,50,75,100].forEach(v => {
+  const y = pT + ph - (v/100)*ph;
+  ctx.beginPath(); ctx.moveTo(pL,y); ctx.lineTo(pL+pw,y); ctx.stroke();
+  ctx.fillStyle = '#444466';
+  ctx.font = '9px Courier New';
+  ctx.textAlign = 'right';
+  ctx.fillText(v, pL-4, y+3);
+});
+
+// Gallup right axis
+ctx.fillStyle = 'rgba(255,107,107,0.6)';
+ctx.font = '8px Courier New';
+ctx.textAlign = 'left';
+[0,25,50].forEach(v => {
+  const y = pT + ph - (v/50)*ph;
+  ctx.fillText(v+'%', pL+pw+4, y+3);
+});
+
+// Draw lines
+const colors = [getComputedStyle(document.documentElement).getPropertyValue('--ob') || '#00b4d8',
+                '#c8f542', '#cc44ff'];
+const datasets = [ob, sc, bnpl];
+
+datasets.forEach((d, di) => {
+  ctx.strokeStyle = ['#00b4d8','#c8f542','#cc44ff'][di];
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  d.forEach((v,i) => {
+    const x = pL + (i/(n-1))*pw;
+    const y = pT + ph - (v/100)*ph;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+});
+
+// Gallup dashed line
+ctx.strokeStyle = 'rgba(255,107,107,0.8)';
+ctx.lineWidth = 2.5;
+ctx.setLineDash([6,4]);
+ctx.beginPath();
+gallupPoints.forEach((pt, i) => {
+  const x = pL + (pt.x/(n-1))*pw;
+  const y = pT + ph - (pt.y/50)*ph;
+  if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+});
+ctx.stroke();
+ctx.setLineDash([]);
+
+// X labels
+ctx.fillStyle = '#444466';
+ctx.font = '9px Courier New';
+ctx.textAlign = 'center';
+labels.forEach((l,i) => {
+  const x = pL + (i/(n-1))*pw;
+  ctx.fillText(l, x, H-6);
+});
+
+// Gallup label
+ctx.fillStyle = 'rgba(255,107,107,0.8)';
+ctx.font = '8px Courier New';
+ctx.textAlign = 'right';
+ctx.fillText('Gallup →', pL+pw-2, pT+ph-(44.9/50)*ph - 8);
+</script>
+
+</body>
+</html>
