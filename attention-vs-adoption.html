@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zorthex and the Diffusion Models — Rogers, Bass, and What Was Missing</title>
+<title>Attention vs Adoption: Between and Beyond Bass and Rogers · Zorthex</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#05050f;--bg2:#0a0a1e;--cyan:#00d4ff;--amber:#ffaa44;--green:#2dc653;--red:#ff4466;--text:#e8e8ff;--muted:#5a5a8a;--mid:#9090bb;--border:#1e1e3a;--border2:#2a2a50;}
@@ -26,24 +26,18 @@ h2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;margin:3rem 0 
 h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin:2rem 0 0.6rem;color:var(--cyan);}
 p{color:var(--mid);line-height:1.9;margin-bottom:1rem;font-size:0.85rem;}
 strong{color:var(--text);}
-
-/* HERO BOXES */
 .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin:2rem 0;}
 .tcell{background:var(--bg2);padding:1.5rem 1.2rem;}
 .tc-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
 .tc-name{font-family:'Syne',sans-serif;font-weight:900;font-size:1.1rem;margin-bottom:0.4rem;}
 .tc-year{font-size:0.7rem;color:var(--amber);margin-bottom:0.8rem;}
 .tc-desc{font-size:0.75rem;color:var(--mid);line-height:1.7;}
-
-/* CALLOUT */
 .callout{background:var(--bg2);border-left:3px solid var(--cyan);padding:1.2rem 1.4rem;margin:1.5rem 0;font-size:0.82rem;color:var(--mid);line-height:1.9;}
 .callout strong{color:var(--cyan);}
 .callout-amber{border-left-color:var(--amber);}
 .callout-amber strong{color:var(--amber);}
 .callout-green{border-left-color:var(--green);}
 .callout-green strong{color:var(--green);}
-
-/* COMPARISON TABLE */
 .ctable{width:100%;border-collapse:collapse;font-size:0.78rem;margin:2rem 0;}
 .ctable th{text-align:left;padding:0.8rem 1rem;background:var(--bg2);border-bottom:2px solid var(--border2);color:var(--muted);font-weight:400;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;}
 .ctable td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);color:var(--mid);vertical-align:top;line-height:1.7;}
@@ -52,31 +46,29 @@ strong{color:var(--text);}
 .ctable td.z{color:var(--cyan);}
 .ctable td.r{color:#cc88ff;}
 .ctable td.b{color:var(--amber);}
-
-/* USE TABLE */
 .utable{width:100%;border-collapse:collapse;font-size:0.78rem;margin:1.5rem 0;}
 .utable th{text-align:left;padding:0.7rem 1rem;background:var(--bg2);border-bottom:2px solid var(--border2);color:var(--muted);font-weight:400;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;}
 .utable td{padding:0.8rem 1rem;border-bottom:1px solid var(--border);color:var(--mid);vertical-align:top;}
 .utable td:first-child{color:var(--text);}
 .utable td:nth-child(2){color:var(--cyan);font-weight:700;}
-
-/* DUAL VELOCITY BOX */
 .dv-box{border:1px solid rgba(0,212,255,0.3);background:rgba(0,212,255,0.03);padding:1.8rem;margin:2rem 0;border-radius:4px;}
 .dv-title{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;}
 .dv-cases{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem;}
 .dv-case{background:var(--bg2);padding:1rem;border:1px solid var(--border);}
 .dv-case-name{font-size:0.8rem;font-weight:700;color:var(--text);margin-bottom:0.3rem;}
 .dv-case-data{font-size:0.7rem;color:var(--muted);line-height:1.6;}
-
-/* DIVIDER */
+/* SIX PERSPECTIVES */
+.six-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin:1.5rem 0;}
+.six-item{background:var(--bg2);padding:1.4rem 1.2rem;}
+.six-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;margin-bottom:0.6rem;}
+.six-desc{font-size:0.75rem;color:var(--mid);line-height:1.75;}
 .divider{border:none;border-top:1px solid var(--border);margin:3rem 0;}
-
 .foot{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:0.65rem;color:var(--muted);line-height:2;margin-top:4rem;}
 .foot a{color:var(--cyan);text-decoration:none;}
-
 @media(max-width:680px){
   .three-col{grid-template-columns:1fr;}
   .dv-cases{grid-template-columns:1fr;}
+  .six-grid{grid-template-columns:1fr;}
   .ctable td:nth-child(3),.ctable th:nth-child(3){display:none;}
 }
 </style>
@@ -94,31 +86,31 @@ strong{color:var(--text);}
 
 <div class="wrap">
 
-  <div class="tag">// Framework · Positioning · June 2026</div>
-  <h1>Rogers, Bass, and <em>What Was Missing</em></h1>
-  <p class="sub">Two foundational models have shaped how we understand technology diffusion for sixty years. Zorthex does not replace them. It measures something they were not designed to capture — and the gap turns out to matter.</p>
+  <div class="tag">// Framework · Attention vs Adoption · June 2026</div>
+  <h1>Attention vs Adoption<br><em>Between and Beyond Bass and Rogers</em></h1>
+  <p class="sub">More than seventy frameworks try to explain how technologies transform markets and societies. Most study adoption. None of them measure when a phenomenon becomes publicly visible. That is the gap Zorthex was built to fill.</p>
 
-  <!-- THREE MODELS -->
-  <h2>The Three Models</h2>
+  <!-- THREE CORE MODELS -->
+  <h2>The Three Core Models</h2>
 
   <div class="three-col">
     <div class="tcell">
       <div class="tc-label">Model 01</div>
       <div class="tc-name" style="color:#cc88ff;">Rogers</div>
       <div class="tc-year">Diffusion of Innovations · 1962</div>
-      <div class="tc-desc">Qualitative and sociological. Describes <strong>who</strong> adopts and in what sequence — Innovators, Early Adopters, Early Majority, Late Majority, Laggards. Explains the decision process inside the organisation or individual. Does not predict timing.</div>
+      <div class="tc-desc">Qualitative and sociological. Describes <strong>who</strong> adopts and in what sequence — Innovators, Early Adopters, Early Majority, Late Majority, Laggards. Explains the decision process. Does not predict timing.</div>
     </div>
     <div class="tcell">
       <div class="tc-label">Model 02</div>
       <div class="tc-name" style="color:var(--amber);">Bass</div>
       <div class="tc-year">Diffusion Model · 1969</div>
-      <div class="tc-desc">Mathematical and quantitative. Models the cumulative adoption curve using two coefficients: innovation (p) and imitation (q). Assumes <strong>gradual, continuous diffusion</strong> driven by word-of-mouth. Strong for forecasting consumer products.</div>
+      <div class="tc-desc">Mathematical and quantitative. Models the cumulative adoption curve using innovation (p) and imitation (q) coefficients. Assumes <strong>gradual, continuous diffusion</strong>. Strong for forecasting consumer products.</div>
     </div>
     <div class="tcell">
       <div class="tc-label">Model 03</div>
       <div class="tc-name" style="color:var(--cyan);">Zorthex</div>
       <div class="tc-year">Diffusion Lag Framework · 2026</div>
-      <div class="tc-desc">Empirical and descriptive. Measures the <strong>lag between when a phenomenon becomes operationally real and when public attention consolidates around it</strong>. 70 verified cases, three independent sources, modern digital proxies. Does not predict — classifies and measures.</div>
+      <div class="tc-desc">Empirical and descriptive. Measures the <strong>lag between when a phenomenon becomes operationally real and when public attention consolidates around it</strong>. 70 verified cases, three independent sources, modern digital proxies.</div>
     </div>
   </div>
 
@@ -131,15 +123,86 @@ strong{color:var(--text);}
   <p>Rogers is concerned with the <strong>individual or organisational adoption decision</strong>. He asks: why do some people adopt earlier than others? What attributes of the innovation matter? How does the social system shape uptake? Rogers works from the inside out — his unit of analysis is the adopter.</p>
 
   <h3>Bass — the aggregate curve</h3>
-  <p>Bass translates Rogers's intuition into a mathematical model. He asks: given historical adoption data, can we fit a curve and forecast future uptake? His model works well for consumer goods with clear sales data — televisions, washing machines, smartphones. It assumes that adoption spreads gradually through imitation, following a smooth S-curve.</p>
+  <p>Bass translates Rogers's intuition into a mathematical model. He asks: given historical adoption data, can we fit a curve and forecast future uptake? His model works well for consumer goods with clear sales data. It assumes that adoption spreads gradually through imitation, following a smooth S-curve.</p>
 
   <h3>Zorthex — the visibility gap</h3>
   <p>Zorthex asks a different question: <strong>when does a technology become visible to the public?</strong> Not when it is invented. Not when it is adopted. When it generates sustained, structural attention — measured through modern digital proxies: Google Trends (operational signal), Wikipedia pageviews (informational signal), Reddit (community proxy).</p>
 
-  <p>The metric is L = t_peak − t_start: the gap in months between first documented emergence and structural public attention consolidation. Across 70 verified cases, this gap averages years, not months — and it varies systematically by domain and regime.</p>
+  <p>The metric is L = t_peak − t_start: the gap in months between first documented emergence and structural public attention consolidation. Across 70 verified cases, this gap averages years — and varies systematically by domain and regime.</p>
 
   <div class="callout">
     <strong>The key distinction:</strong> Rogers and Bass study diffusion — adoption spreading through a population. Zorthex studies attention diffusion — awareness spreading through public consciousness. They are measuring different phenomena. Both matter. Neither replaces the other.
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHERE ZORTHEX CHALLENGES BASS -->
+  <h2>Where Zorthex Challenges Bass</h2>
+
+  <p>The Bass model rests on an assumption of gradual diffusion — adoption spreads continuously through imitation, producing a smooth S-curve. This works well for consumer products. It breaks down for a specific class of technologies.</p>
+
+  <div class="callout callout-amber">
+    <strong>The Dual-Velocity challenge to Bass:</strong> In B2B, security, cryptographic infrastructure, and policy-driven domains, the diffusion pattern is not gradual. Specialist attention (Wikipedia) runs at sustained high levels for years — sometimes decades — while public search attention (Google Trends) stays near zero. Then, triggered by a regulatory event, public attention ignites in a single month. The S-curve never forms. The breakout is vertical.
+  </div>
+
+  <div class="dv-box">
+    <div class="dv-title">⚡ Dual-Velocity — Four Confirmed Cases</div>
+    <p style="font-size:0.78rem;color:var(--mid);margin-bottom:1rem;">All four cases broke out in the same 6-week window — August 2025 — triggered by converging regulatory timelines. Bass would predict staggered, gradual adoption. The data shows synchronised, vertical ignition.</p>
+    <div class="dv-cases">
+      <div class="dv-case">
+        <div class="dv-case-name" style="color:#c8f542;">Post-Quantum Cryptography</div>
+        <div class="dv-case-data">Wikipedia ~338/day · GT ~2/100 · 2015–2024<br>L = ~91 months · Breakout Aug 2025<br><strong>9 years of specialist engagement. Zero public search.</strong></div>
+      </div>
+      <div class="dv-case">
+        <div class="dv-case-name" style="color:#ff6b6b;">Zero Day Vulnerability</div>
+        <div class="dv-case-data">Wikipedia ~15/day · GT ~8/100 · pre-2020<br>L = 231 months · STRUCTURAL<br><strong>Longest documented lag in the dataset.</strong></div>
+      </div>
+      <div class="dv-case">
+        <div class="dv-case-name" style="color:#cc44ff;">AI Watermarking</div>
+        <div class="dv-case-data">Wikipedia ~144/day · GT ~2/100 · 2023–2025<br>L = ~32 months · Breakout Aug 2025<br><strong>Biden EO triggered specialist layer. Regulatory breakout followed.</strong></div>
+      </div>
+      <div class="dv-case">
+        <div class="dv-case-name" style="color:var(--cyan);">Endpoint Security</div>
+        <div class="dv-case-data">Wikipedia ~90/day · GT ~14/100 · pre-2025<br>L = ~144 months · STRUCTURAL<br><strong>Pure B2B — years of deployment before public vocabulary formed.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SIX PERSPECTIVES -->
+  <h2>Six Perspectives, One Gap</h2>
+  <p>More than seventy frameworks have been proposed to explain technology diffusion. Here is where Zorthex fits relative to six of the most cited — and what each one leaves unmeasured.</p>
+
+  <div class="six-grid">
+    <div class="six-item">
+      <div class="six-name" style="color:#cc88ff;">Everett Rogers · Diffusion of Innovations (1962)</div>
+      <div class="six-desc">Classifies <strong>who</strong> adopts and in what sequence — Innovators to Laggards. Qualitative, sociological. Zorthex adds the temporal public dimension: how long before consolidated attention forms around what specialists already know.</div>
+    </div>
+    <div class="six-item">
+      <div class="six-name" style="color:var(--amber);">Frank Bass · Bass Model (1969)</div>
+      <div class="six-desc">Predicts adoption curves mathematically via innovation and imitation coefficients. Assumes gradual diffusion. Dual-Velocity <strong>challenges this assumption</strong> for policy-driven domains — the curve is flat for years, then vertical in a single month.</div>
+    </div>
+    <div class="six-item">
+      <div class="six-name" style="color:#cc88ff;">Fred Davis · TAM (1989)</div>
+      <div class="six-desc">Measures <strong>why</strong> individuals accept or resist a technology — perceived usefulness and ease of use. Psychological, individual-level. Zorthex measures <strong>when</strong> the public sees it. Complementary, non-overlapping.</div>
+    </div>
+    <div class="six-item">
+      <div class="six-name" style="color:var(--amber);">Geoffrey Moore · Crossing the Chasm (1991)</div>
+      <div class="six-desc">Describes the gap between early adopters and early majority — qualitatively. The Dual-Velocity pattern <strong>is</strong> the chasm in data form: Wikipedia high + Google Trends near zero is the chasm made visible. Zorthex measures empirically what Moore describes narratively.</div>
+    </div>
+    <div class="six-item">
+      <div class="six-name" style="color:var(--cyan);">Brian Arthur · Path Dependence (1989)</div>
+      <div class="six-desc">Explains why certain standards win through historical inertia, not merit — QWERTY, VHS. In the Zorthex dataset, the <strong>Market-Narrative regime</strong> is often path-dependent: the frame that arrives first at breakout tends to dominate the attention cycle.</div>
+    </div>
+    <div class="six-item">
+      <div class="six-name" style="color:var(--cyan);">Bruno Latour · Actor-Network Theory</div>
+      <div class="six-desc">Technology diffuses through networks of human and non-human actors. The regulatory trigger in Dual-Velocity is exactly this: <strong>a single actor that unblocks the entire network</strong> — explaining why four phenomena converge in six weeks.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <strong>The shared gap:</strong> Rogers, Bass, Moore, Davis, Arthur and Latour all study adoption dynamics, organisational behaviour, or sociotechnical networks. None of them measure when a phenomenon becomes publicly visible — the lag between operational reality and consolidated public attention. That is what Zorthex measures.
   </div>
 
   <hr class="divider">
@@ -175,8 +238,8 @@ strong{color:var(--text);}
     <tr>
       <td>Key drivers</td>
       <td class="r">Innovation attributes + social system</td>
-      <td class="b">Innovation coefficient (p) + imitation (q)</td>
-      <td class="z">Policy/regulatory trigger + diffusion regime</td>
+      <td class="b">Innovation (p) + imitation (q)</td>
+      <td class="z">Policy trigger + diffusion regime</td>
     </tr>
     <tr>
       <td>Predictive?</td>
@@ -187,14 +250,8 @@ strong{color:var(--text);}
     <tr>
       <td>Data used</td>
       <td class="r">Historical case studies</td>
-      <td class="b">Historical sales / adoption data</td>
+      <td class="b">Historical sales data</td>
       <td class="z">Google Trends + Wikipedia + Reddit · 70 verified cases</td>
-    </tr>
-    <tr>
-      <td>Key concept</td>
-      <td class="r">5 adopter categories</td>
-      <td class="b">Innovators vs Imitators</td>
-      <td class="z">Dual-Velocity + Diffusion Lag (L)</td>
     </tr>
     <tr>
       <td>Best for</td>
@@ -206,46 +263,8 @@ strong{color:var(--text);}
 
   <hr class="divider">
 
-  <!-- WHERE ZORTHEX CHALLENGES BASS -->
-  <h2>Where Zorthex Challenges Bass</h2>
-
-  <p>The Bass model rests on an assumption of gradual diffusion — adoption spreads continuously through imitation, producing a smooth S-curve. This works well for consumer products. It breaks down for a specific class of technologies.</p>
-
-  <div class="callout callout-amber">
-    <strong>The Dual-Velocity challenge to Bass:</strong> In B2B, security, cryptographic infrastructure, and policy-driven domains, the diffusion pattern is not gradual. Specialist attention (Wikipedia) runs at sustained high levels for years — sometimes decades — while public search attention (Google Trends) stays near zero. Then, triggered by a regulatory event, public attention ignites in a single month. The S-curve never forms. The breakout is vertical.
-  </div>
-
-  <p>Bass's model would smooth this into a gradual curve. The data shows something different: a long invisible phase followed by a single-month ignition. The mechanism is not imitation — it is institutional legibility. When regulators move, the public suddenly has a frame for something specialists have known for years.</p>
-
-  <div class="dv-box">
-    <div class="dv-title">⚡ Dual-Velocity — Four Confirmed Cases</div>
-    <p style="font-size:0.78rem;color:var(--mid);margin-bottom:1rem;">All four cases broke out in the same 6-week window — August 2025 — triggered by converging regulatory timelines. Bass would predict staggered, gradual adoption. The data shows synchronised, vertical ignition.</p>
-    <div class="dv-cases">
-      <div class="dv-case">
-        <div class="dv-case-name" style="color:#c8f542;">Post-Quantum Cryptography</div>
-        <div class="dv-case-data">Wikipedia ~338/day · GT ~2/100 · 2015–2024<br>L = ~91 months · Breakout Aug 2025 (70/100)<br><strong>9 years of specialist engagement. Zero public search.</strong></div>
-      </div>
-      <div class="dv-case">
-        <div class="dv-case-name" style="color:#ff6b6b;">Zero Day Vulnerability</div>
-        <div class="dv-case-data">Wikipedia ~15/day · GT ~8/100 · pre-2020<br>L = 231 months · STRUCTURAL<br><strong>Longest documented lag in the dataset.</strong></div>
-      </div>
-      <div class="dv-case">
-        <div class="dv-case-name" style="color:#cc44ff;">AI Watermarking</div>
-        <div class="dv-case-data">Wikipedia ~144/day · GT ~2/100 · 2023–2025<br>L = ~32 months · Breakout Aug 2025<br><strong>Biden EO triggered specialist layer. Regulatory breakout followed.</strong></div>
-      </div>
-      <div class="dv-case">
-        <div class="dv-case-name" style="color:var(--cyan);">Endpoint Security</div>
-        <div class="dv-case-data">Wikipedia ~90/day · GT ~14/100 · pre-2025<br>L = ~144 months · STRUCTURAL<br><strong>Pure B2B phenomenon — years of operational deployment before public vocabulary formed.</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
   <!-- HOW THEY FIT TOGETHER -->
-  <h2>How the Three Models Fit Together</h2>
-
-  <p>The models are not competitors. They answer different questions. Used together, they provide a more complete picture of how technologies move through societies and markets.</p>
+  <h2>How the Models Fit Together</h2>
 
   <table class="utable">
     <tr>
@@ -256,44 +275,44 @@ strong{color:var(--text);}
     <tr>
       <td>Forecast sales or adoption volume</td>
       <td>Bass</td>
-      <td>Mathematical formula, strong historical track record for consumer products</td>
+      <td>Mathematical formula, strong for consumer products</td>
     </tr>
     <tr>
-      <td>Understand which market segments to target first</td>
-      <td>Rogers</td>
-      <td>Explains who adopts early and what drives their decision</td>
+      <td>Understand which segments to target first</td>
+      <td>Rogers / Moore</td>
+      <td>Explains who adopts early and what drives the chasm</td>
+    </tr>
+    <tr>
+      <td>Understand individual resistance to adoption</td>
+      <td>Davis (TAM)</td>
+      <td>Perceived usefulness and ease of use at individual level</td>
     </tr>
     <tr>
       <td>Know when a technology will become publicly visible</td>
       <td style="color:var(--cyan);">Zorthex</td>
-      <td>Measures the lag between operational reality and public attention with modern digital proxies</td>
+      <td>Measures the lag between operational reality and public attention</td>
     </tr>
     <tr>
       <td>Navigate B2B, regulated, or policy-driven technologies</td>
       <td style="color:var(--cyan);">Zorthex (Dual-Velocity)</td>
-      <td>Shows that these often do not follow Bass's gradual curve — specialist layer activates years before the public trigger</td>
+      <td>Shows that these often do not follow Bass's gradual curve</td>
     </tr>
     <tr>
       <td>Build a complete picture</td>
-      <td style="color:var(--green);">All three</td>
-      <td>Rogers + Bass = adoption dynamics. Zorthex = timing of public visibility. Complementary, not alternative.</td>
+      <td style="color:var(--green);">All together</td>
+      <td>Rogers + Bass + Moore = adoption dynamics. Davis = individual psychology. Arthur = path dependency. Latour = network dynamics. Zorthex = timing of public visibility.</td>
     </tr>
   </table>
 
-  <div class="callout callout-green">
-    <strong>In summary:</strong> Rogers and Bass study the diffusion of adoption. Zorthex studies the diffusion of attention. For most consumer technologies, the two coincide closely enough that the distinction does not matter. For complex, regulated, and B2B technologies — where specialists operate for years before the public has a vocabulary — the gap between adoption and attention is measurable, systematic, and operationally significant. That is where Zorthex works.
-  </div>
-
   <hr class="divider">
 
-  <!-- LINKS -->
   <h2>Further Reading</h2>
   <p>The Dual-Velocity pattern is documented in full in <a href="https://zorthex.com/zsa-2026-001-dual-velocity" style="color:var(--cyan);">ZSA-2026-001</a>. The underlying dataset covering 70 phenomena is available at <a href="https://zorthex.com/dataset" style="color:var(--cyan);">zorthex.com/dataset</a> and on Zenodo at <a href="https://doi.org/10.5281/zenodo.20589503" style="color:var(--cyan);">DOI 10.5281/zenodo.20589503</a>. The methodology is documented at <a href="https://zorthex.com/methodology" style="color:var(--cyan);">zorthex.com/methodology</a>.</p>
 
 </div>
 
 <footer class="foot">
-  Zorthex · Framework Positioning · June 2026<br>
+  Attention vs Adoption · Between and Beyond Bass and Rogers · Zorthex · June 2026<br>
   © 2026 Zorthex™ — Renato Santi · CC-BY-NC 4.0<br>
   <a href="https://doi.org/10.5281/zenodo.20589503">DOI 10.5281/zenodo.20589503</a> ·
   <a href="https://zorthex.com/methodology">Methodology</a> ·
