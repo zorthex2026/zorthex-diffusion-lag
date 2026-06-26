@@ -29,7 +29,6 @@
   .hero-sub{font-size:0.85rem;color:#8888bb;line-height:1.9;max-width:620px;margin-bottom:2rem;}
   .meta-row{display:flex;gap:1.5rem;flex-wrap:wrap;font-size:0.65rem;color:var(--muted);padding-top:1.5rem;border-top:1px solid var(--border);}
   .meta-row a{color:var(--accent);text-decoration:none;}
-  .doi-ph{color:var(--warn);font-weight:700;letter-spacing:0.05em;}
   .quickstart{background:rgba(0,180,216,0.05);border:1px solid rgba(0,180,216,0.2);border-left:4px solid var(--accent);border-radius:4px;padding:1.4rem 1.8rem;margin:2.5rem 0;}
   .qs-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;}
   .qs-text{font-size:0.88rem;color:#c0c0e8;line-height:1.8;}
@@ -85,10 +84,6 @@
   .cn-structural{color:var(--accent);}
   .cn-observation{color:var(--amber);}
   .cn-bubble{color:var(--warn);}
-  .fam-grid{display:grid;gap:1px;background:rgba(0,180,216,0.1);border:1px solid rgba(0,180,216,0.2);border-radius:4px;overflow:hidden;margin-bottom:1.4rem;}
-  .fam-card{background:var(--bg2);padding:1.3rem 1.6rem;}
-  .fam-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;margin-bottom:0.35rem;}
-  .fam-body{font-size:0.83rem;color:#c8c8e8;line-height:1.75;}
   .src3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.2rem;}
   .src3 .cell{background:var(--bg2);padding:1.2rem 1.4rem;}
   .src3 .cell b{display:block;font-family:'Syne',sans-serif;font-size:0.84rem;margin-bottom:0.4rem;color:var(--text);}
@@ -113,6 +108,13 @@
   .replication a{color:var(--accent);text-decoration:none;}
   .research-note{background:var(--bg2);border:1px solid var(--border2);border-left:3px solid var(--muted);border-radius:4px;padding:1.2rem 1.6rem;margin-top:1.5rem;font-size:0.83rem;color:#b0b0d8;line-height:1.85;}
   .research-note strong{color:var(--text);}
+  .theory-box{background:rgba(44,214,83,0.04);border:1px solid rgba(44,214,83,0.2);border-left:3px solid var(--green);border-radius:4px;padding:1.5rem 1.8rem;margin-bottom:1.2rem;}
+  .theory-label{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--green);margin-bottom:0.7rem;}
+  .theory-body{font-size:0.86rem;color:#c8c8e8;line-height:1.85;}
+  .theory-body p{margin-bottom:0.8rem;}
+  .theory-body p:last-child{margin-bottom:0;}
+  .theory-body strong{color:var(--text);}
+  .theory-body em{color:#b0b0d8;font-style:italic;}
   footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:2.5rem;text-align:center;font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;line-height:2;}
   footer a{color:var(--accent);text-decoration:none;}
   @media(max-width:640px){
@@ -157,6 +159,7 @@
   <div class="toc">
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
+      <li><a href="#foundations"><span class="toc-num">00</span>Theoretical Foundations</a></li>
       <li><a href="#definitions"><span class="toc-num">01</span>Core Definitions — L, t_start, t_peak</a></li>
       <li><a href="#tsource"><span class="toc-num">02</span>t_start Source Policy — Levels A–D</a></li>
       <li><a href="#csv"><span class="toc-num">03</span>Google Trends CSV Policy</a></li>
@@ -169,6 +172,39 @@
       <li><a href="#limitations"><span class="toc-num">10</span>Declared Limitations</a></li>
       <li><a href="#changelog"><span class="toc-num">11</span>Version Changelog</a></li>
     </ul>
+  </div>
+
+  <!-- 00 — THEORETICAL FOUNDATIONS -->
+  <div class="msec" id="foundations">
+    <div class="sec-eyebrow">// 00</div>
+    <h2>Theoretical Foundations</h2>
+    <p>Zorthex builds on three bodies of work without claiming to replace them.</p>
+
+    <div class="theory-box">
+      <div class="theory-label">Everett Rogers — Diffusion of Innovations (1962)</div>
+      <div class="theory-body">
+        <p>Rogers established that innovations spread through social systems over time, identifying five adopter categories and making time an explicit variable in diffusion theory. His definition remains precise after sixty years: <em>"Diffusion is the process by which an innovation is communicated through certain channels, over time, among the members of a social system."</em></p>
+        <p>Zorthex extends this by measuring the temporal gap empirically with digital proxies unavailable in 1962. Where Rogers describes <strong>who</strong> adopts and <strong>how</strong> they decide, Zorthex measures <strong>when</strong> a phenomenon becomes publicly visible — a question Rogers could not answer with the instruments of his time.</p>
+      </div>
+    </div>
+
+    <div class="theory-box">
+      <div class="theory-label">Frank Bass — A New Product Growth Model (1969)</div>
+      <div class="theory-body">
+        <p>Bass formalised diffusion mathematically, modelling time as a continuous variable driven by innovators (p) and imitators (q). His differential equation dN/dt gave diffusion a mathematical clock for the first time. The Bass model assumes endogenous, gradual diffusion — the wave builds from within, word of mouth does the work, the curve is smooth.</p>
+        <p>Zorthex documents cases where diffusion is <strong>discontinuous and exogenously triggered</strong> — a pattern the Bass model does not capture. In Policy-Trigger regimes, the curve is flat for years, then switches regime on a regulatory event. This is not a refutation of Bass; it is a regime distinction his model was not designed to accommodate.</p>
+      </div>
+    </div>
+
+    <div class="theory-box">
+      <div class="theory-label">Geoffrey Moore — Crossing the Chasm (1991)</div>
+      <div class="theory-body">
+        <p>Moore identified the structural gap between Early Adopters and the Early Majority — the Chasm that most innovations never cross. Pragmatists require peer references and a complete ecosystem before they move; visionari are not credible references for pragmatists.</p>
+        <p>The <strong>Dual-Velocity pattern</strong> in the Zorthex dataset is the empirical expression of Moore's Chasm: specialist attention (Wikipedia) running high for years while mainstream attention (Google Trends) stays near zero. In Policy-Trigger regimes, the Chasm is crossed not by peer references but by regulatory mandate — and the whole product ecosystem is built after the crossing, not before.</p>
+      </div>
+    </div>
+
+    <p style="font-size:0.84rem;color:#8888bb;font-style:italic;margin-top:1rem;">Zorthex is descriptive where Rogers is qualitative, empirical where Bass is mathematical, and data-driven where Moore is practitioner-observational. The three frameworks are complementary, not competing.</p>
   </div>
 
   <!-- 01 -->
@@ -237,7 +273,7 @@
     </div>
   </div>
 
-  <!-- 04 — NUOVA -->
+  <!-- 04 -->
   <div class="msec" id="renorm">
     <div class="sec-eyebrow">// 04</div>
     <h2>Cluster Renormalization &amp; the Rock Rule</h2>
@@ -248,7 +284,7 @@
     <p>The rock rule is why the dataset separates stable structural cases from observation-stage cases on the basis of <em>where the peak sits in time</em>, not on the raw score alone. It is also why a second and third source are required: an independent signal that anchors a phenomenon earlier than its Google Trends breakout is direct evidence that the recent surge is a renormalization artifact, not a genuine first emergence.</p>
   </div>
 
-  <!-- 05 — NUOVA -->
+  <!-- 05 -->
   <div class="msec" id="threesource">
     <div class="sec-eyebrow">// 05</div>
     <h2>Three-Source Verification</h2>
@@ -310,7 +346,6 @@
     <div class="sec-eyebrow">// 08</div>
     <h2>Products — What Each Promises</h2>
     <p>Zorthex offers three distinct products. Each delivers a different type of output with a different data standard. The distinction between AI-estimated and manually-verified outputs is the foundation of this architecture.</p>
-
     <div class="tier-wrap">
       <table class="tier-table">
         <thead>
@@ -338,11 +373,9 @@
         </tbody>
       </table>
     </div>
-
     <div class="rule">
       <strong>On published ZCR reports:</strong> The reports published on zorthex.com/research.html — ZCR-2026-001 (Stablecoins), ZCR-2026-002 (Post-Quantum Cryptography), ZCR-2026-003 (Real-World Asset Tokenization) — are <strong>demonstration reports</strong> produced by Zorthex to document the framework in practice. They are not commissioned reports. Commissioned Custom Reports are produced on request for the client's specific topic and domain. Contact: <a href="mailto:zorthex.official@gmail.com">zorthex.official@gmail.com</a>
     </div>
-
     <div class="rule">
       <strong>The fundamental rule:</strong> A user of the Free App cannot reliably infer the verified temporal positioning without accessing the manually-verified tier. The paywall is semantic — the Free Layer is explicitly designed to provide observational estimates, not verified positioning.
     </div>
@@ -412,6 +445,7 @@
         <li>Observation cut-off (May 2026) and 90-day revision policy adopted</li>
         <li>Dataset double-verified: by hand on CSV snapshots + automated pipeline on May-2026 consolidated data</li>
         <li>Research direction recorded: institutional adaptation latency (L₂), in development</li>
+        <li>Theoretical Foundations section added (Rogers, Bass, Moore)</li>
       </ul>
     </div>
     <div class="cl-item">
