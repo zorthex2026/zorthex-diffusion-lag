@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZCR-2026-002 — Post-Quantum Cryptography · Zorthex</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f2;
+    --grey-1: #1a1a1a;
+    --grey-2: #2a2a2a;
+    --grey-3: #444;
+    --grey-4: #888;
+    --grey-5: #bbb;
+    --accent: #c8f542;
+    --accent-dim: #a0c030;
+    --warn: #f5a623;
+    --structural: #4fc4a0;
+    --observation: #f5a623;
+    --mono: 'Courier New', Courier, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Georgia', serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--grey-2);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+  .nav-logo { color: var(--white); font-weight: bold; font-size: 15px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: var(--grey-4); }
+
+  /* HEADER */
+  .report-header {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px 40px 48px;
+    border-bottom: 1px solid var(--grey-2);
+  }
+
+  .report-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--grey-4);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .report-title {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .report-subtitle {
+    font-size: 18px;
+    color: var(--grey-5);
+    font-style: italic;
+    margin-bottom: 40px;
+  }
+
+  /* METRICS ROW */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--grey-2);
+    border: 1px solid var(--grey-2);
+    margin-bottom: 32px;
+  }
+
+  .metric-box {
+    background: var(--grey-1);
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .metric-value {
+    font-family: var(--mono);
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: bold;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .metric-value.obs { color: var(--observation); }
+  .metric-value.str { color: var(--structural); }
+
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--grey-4);
+    text-transform: uppercase;
+  }
+
+  /* META STRIP */
+  .meta-strip {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey-4);
+    line-height: 2;
+    border-top: 1px solid var(--grey-2);
+    padding-top: 20px;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 56px 0 0;
+    border-top: 1px solid var(--grey-2);
+    margin-top: 56px;
+  }
+
+  .section:first-child { border-top: none; margin-top: 0; padding-top: 56px; }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--grey-4);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: normal;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--grey-5);
+    margin: 32px 0 16px;
+    letter-spacing: 0.02em;
+  }
+
+  p { margin-bottom: 20px; color: #d8d8d4; }
+
+  strong { color: var(--white); font-weight: bold; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--grey-1);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--grey-5);
+    line-height: 1.8;
+  }
+
+  .callout strong { color: var(--accent); }
+
+  /* CHART */
+  .chart-container {
+    margin: 36px 0;
+    background: var(--grey-1);
+    border: 1px solid var(--grey-2);
+    padding: 28px 24px 20px;
+  }
+
+  .chart-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--grey-4);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  canvas { width: 100% !important; }
+
+  .chart-legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey-4);
+  }
+
+  .legend-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+    margin: 28px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--grey-2);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 7px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--grey-3);
+    border: 1px solid var(--grey-4);
+  }
+
+  .timeline-item.key::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    width: 11px;
+    height: 11px;
+    left: -25px;
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .timeline-text {
+    color: #d8d8d4;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 24px 0;
+  }
+
+  th {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey-4);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--grey-2);
+  }
+
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--grey-2);
+    color: #d8d8d4;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  td.mono { font-family: var(--mono); font-size: 13px; }
+  td.accent { color: var(--accent); font-family: var(--mono); }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  .badge-obs { background: rgba(245, 166, 35, 0.15); color: var(--observation); border: 1px solid var(--observation); }
+  .badge-str { background: rgba(79, 196, 160, 0.15); color: var(--structural); border: 1px solid var(--structural); }
+
+  /* DUAL VELOCITY */
+  .dv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--grey-2);
+    margin: 24px 0;
+  }
+
+  .dv-box {
+    background: var(--grey-1);
+    padding: 24px;
+  }
+
+  .dv-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-4);
+    margin-bottom: 12px;
+  }
+
+  .dv-value {
+    font-size: 22px;
+    font-family: var(--mono);
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .dv-desc { font-size: 14px; color: var(--grey-5); line-height: 1.5; }
+
+  /* MONITORING */
+  .monitor-item {
+    border: 1px solid var(--grey-2);
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    background: var(--grey-1);
+  }
+
+  .monitor-if {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey-4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .monitor-condition {
+    color: var(--warn);
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .monitor-then {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey-4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .monitor-result { color: #d8d8d4; font-size: 15px; }
+
+  /* LIMITATIONS */
+  .limit-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: start;
+  }
+
+  .limit-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--grey-4);
+    padding-top: 2px;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--grey-2);
+    padding: 32px 40px;
+    max-width: 860px;
+    margin: 0 auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grey-4);
+    line-height: 2;
+  }
+
+  /* ROCK RULE INDICATOR */
+  .rock-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 6px 14px;
+    border: 1px solid var(--observation);
+    color: var(--observation);
+    background: rgba(245, 166, 35, 0.08);
+    margin: 16px 0;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .report-header, .content, footer { padding-left: 20px; padding-right: 20px; }
+    .metrics-row { grid-template-columns: repeat(2, 1fr); }
+    .dv-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo"><a href="https://zorthex.com" style="color:var(--white)">ZORTHEX</a></span>
+  <div class="nav-links">
+    <a href="https://zorthex.com">Home</a>
+    <a href="https://zorthex.com/research">Research</a>
+    <a href="https://zorthex.com/methodology">Methodology</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="report-header">
+  <div class="report-tag">// Custom Report · ZCR Series · Verified Data · v2.1 · September 2026 (revised)</div>
+
+  <h1 class="report-title">Post-Quantum Cryptography</h1>
+  <p class="report-subtitle">Public Attention Diffusion Lag Analysis — ZCR-2026-002</p>
+
+  <div class="metrics-row">
+    <div class="metric-box">
+      <span class="metric-value obs">~91 mo</span>
+      <span class="metric-label">Diffusion Lag (L)</span>
+    </div>
+    <div class="metric-box">
+      <span class="metric-value obs">OBSERVATION</span>
+      <span class="metric-label">Classification</span>
+    </div>
+    <div class="metric-box">
+      <span class="metric-value">100/100</span>
+      <span class="metric-label">Peak Score</span>
+    </div>
+    <div class="metric-box">
+      <span class="metric-value">24/100</span>
+      <span class="metric-label">August 2026</span>
+    </div>
+  </div>
+
+  <div class="rock-indicator">
+    ⚠ Rock Rule confirmed · Breakout reached 100/100 (Jun 2026) then retreated below threshold (Aug 2026: 24/100) · 5 consecutive months above 25 — short of the 12 required for STRUCTURAL · Classification: OBSERVATION (breakout occurred, not yet consolidated)
+  </div>
+
+  <div class="meta-strip">
+    t_start: January 2017 · Level A (NIST PQC Standardization Project launch) &nbsp;·&nbsp;
+    t_peak: August 2025 (first month above 25/100) &nbsp;·&nbsp;
+    Peak: June 2026 · 100/100 (confirmed) &nbsp;·&nbsp;
+    Google Trends CSV locked: 1 September 2026 &nbsp;·&nbsp;
+    Wikipedia CSV locked: 1 September 2026 &nbsp;·&nbsp;
+    Framework v2.0 &nbsp;·&nbsp; CC-BY-NC 4.0 &nbsp;·&nbsp;
+    <a href="https://doi.org/10.5281/zenodo.20589503">DOI 10.5281/zenodo.20589503</a>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- SIGNAL SUMMARY -->
+  <div class="section">
+    <div class="section-tag">// 00 · signal summary</div>
+    <h2>What the Data Shows</h2>
+
+    <div class="callout">
+      <strong>Core finding:</strong> Post-Quantum Cryptography existed as a formal research programme from January 2017. For eight years it remained technically invisible — Google Trends below 5/100, public search near zero. Then, in August 2025, it crossed the structural threshold in a single month. By April 2026 it had reached 100/100 — the maximum possible score. The technology moved from specialist invisibility to peak global attention in under 12 months.<br><br>
+      <strong>Classification status:</strong> 11 consecutive months above threshold (Aug 2025–Jun 2026). One month remains to confirm STRUCTURAL. July 2026 is the decisive month.
+    </div>
+
+    <p>Three signals. Three different audiences. All pointing in the same direction — but at different speeds. This is the clearest Dual-Velocity case in the Zorthex v2.0 dataset.</p>
+  </div>
+
+  <!-- CHART -->
+  <div class="section">
+    <div class="section-tag">// 01 · attention curve</div>
+    <h2>The Diffusion Curve — Google Trends & Wikipedia</h2>
+
+    <div class="chart-container">
+      <div class="chart-title">Google Trends (0–100) & Wikipedia Pageviews/month · 2015–2026</div>
+      <canvas id="mainChart" height="280"></canvas>
+      <div class="chart-legend">
+        <span><span class="legend-dot" style="background:var(--accent)"></span>Google Trends (0–100)</span>
+        <span><span class="legend-dot" style="background:#6688cc"></span>Wikipedia pageviews (÷ 1000)</span>
+        <span><span class="legend-dot" style="background:rgba(200,80,80,0.6)"></span>Threshold 25/100</span>
+      </div>
+    </div>
+
+    <p>The chart reveals two completely different curves. Wikipedia (blue) was already active and rising from 2015 — the specialist community was reading and engaging years before the public noticed. Google Trends (green) flatlined near zero for eight years, then broke upward in a single month.</p>
+
+    <p>This is not gradual diffusion. It is <strong>delayed ignition</strong> — years of invisible institutional momentum, then a single regulatory event that forces mainstream legibility.</p>
+  </div>
+
+  <!-- T_START -->
+  <div class="section">
+    <div class="section-tag">// 02 · t_start definition</div>
+    <h2>When Did Post-Quantum Cryptography Begin?</h2>
+
+    <p>t_start selection is the most consequential methodological choice in any ZCR report. For PQC, three candidates exist. The choice between them produces materially different L values.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">2001</div>
+        <div class="timeline-text">Shor's algorithm well understood; academic PQC research active. Excluded — no formal institutional programme, no documented operational emergence.</div>
+      </div>
+
+      <div class="timeline-item key">
+        <div class="timeline-date">JANUARY 2017 ★ t_start selected</div>
+        <div class="timeline-text"><strong>NIST launches the Post-Quantum Cryptography Standardization Project.</strong> First Round announced December 2016, submissions open January 2017. This is the first government-mandated, formally scoped programme to replace public-key cryptography. Source: NIST.gov official announcement · Level A. Rationale: operational institutional emergence with a documented mandate, scope, and timeline. This is when PQC stopped being academic research and became a compliance trajectory.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">JULY 2022</div>
+        <div class="timeline-text">NIST announces four finalist algorithms. First concrete standardization output. Wikipedia views begin rising. Google Trends still near zero (3/100). Dual-Velocity visible but not yet confirmed.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">AUGUST 2024</div>
+        <div class="timeline-text">NIST publishes final PQC standards (FIPS 203, 204, 205). The compliance clock starts for regulated sectors. Wikipedia: 37,490 views in December 2024 — peak month, clearly triggered by this event.</div>
+      </div>
+
+      <div class="timeline-item key">
+        <div class="timeline-date">AUGUST 2025 ★ t_peak</div>
+        <div class="timeline-text"><strong>Google Trends crosses 25/100 for the first time — 70/100.</strong> Structural threshold reached. The 12-month window begins. Public attention ignites 8 years after the institutional programme launched.</div>
+      </div>
+
+      <div class="timeline-item key">
+        <div class="timeline-date">APRIL 2026 ★ Peak</div>
+        <div class="timeline-text"><strong>Google Trends reaches 100/100.</strong> Maximum global attention. Wikipedia: 28,133 views in the same month. Full convergence confirmed.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">JUNE 2026 · now</div>
+        <div class="timeline-text">Google Trends reached 100/100 in June 2026 (all-time maximum confirmed), held at 54/100 in July, then retreated to 24/100 in August. The 12-month consecutive window was not reached (5 months). Breakout confirmed; consolidation not yet achieved.</div>
+      </div>
+    </div>
+
+    <p><strong>Alternative t_start declared:</strong> If t_start is set to August 2024 (NIST final standards publication), L = 12 months. This is methodologically defensible but operationally misleading — it ignores eight years of institutional momentum. The January 2017 date reflects the moment PQC became a formal compliance trajectory, not merely an academic pursuit.</p>
+  </div>
+
+  <!-- THREE SOURCE -->
+  <div class="section">
+    <div class="section-tag">// 03 · three-source verification</div>
+    <h2>Signal Across Three Independent Sources</h2>
+
+    <h3>Google Trends</h3>
+    <p>Query: <span style="font-family:var(--mono);color:var(--accent)">'post-quantum cryptography'</span> · Worldwide · 2004–present · Downloaded 1 September 2026</p>
+
+    <table>
+      <tr><th>Event</th><th>Date</th><th>Score</th></tr>
+      <tr><td>First non-zero signal</td><td class="mono">Oct 2009</td><td class="accent">2/100</td></tr>
+      <tr><td>Consistent low signal begins</td><td class="mono">2017–2024</td><td class="accent">1–5/100</td></tr>
+      <tr><td>First above threshold</td><td class="mono">Aug 2025</td><td class="accent">70/100</td></tr>
+      <tr><td>Peak (all-time maximum)</td><td class="mono">Jun 2026</td><td class="accent">100/100</td></tr>
+      <tr><td>May 2026</td><td class="mono">May 2026</td><td class="accent">90/100</td></tr>
+      <tr><td>June 2026</td><td class="mono">Jun 2026</td><td class="accent">100/100</td></tr>
+      <tr><td>July 2026</td><td class="mono">Jul 2026</td><td class="accent">54/100</td></tr>
+      <tr><td>August 2026</td><td class="mono">Aug 2026</td><td class="accent">24/100</td></tr>
+      <tr><td>Consecutive months above 25</td><td class="mono">Aug 2025–Jun 2026</td><td class="accent">11 months</td></tr>
+    </table>
+
+    <div class="callout">
+      <strong>Rock Rule assessment (revised September 2026):</strong> The all-time peak (100/100) occurred in June 2026 — confirmed on the consolidated download. PQC reached 5 consecutive months above threshold (March–July 2026) before retreating to 24/100 in August. The 12-month consecutive window required for STRUCTURAL classification has not been met. L = ~91 months remains provisional. <strong>Classification: OBSERVATION — breakout occurred and retreated. The phenomenon spiked to maximum global attention and pulled back below threshold in a single month. Monitor for renewed consolidation on NIST migration deadlines and quantum threat events.</strong>
+    </div>
+
+    <h3>Wikipedia Pageviews</h3>
+    <p>Page: en.wikipedia.org/wiki/Post-quantum_cryptography · Downloaded 1 September 2026</p>
+
+    <table>
+      <tr><th>Period</th><th>Monthly avg</th><th>Daily avg</th></tr>
+      <tr><td>Baseline 2015–2019</td><td class="mono">~10,150</td><td class="accent">~338/day</td></tr>
+      <tr><td>2022 (NIST finalists announced)</td><td class="mono">~13,000</td><td class="accent">~433/day</td></tr>
+      <tr><td>2024</td><td class="mono">~20,950</td><td class="accent">~698/day</td></tr>
+      <tr><td>December 2024 peak (NIST final standards)</td><td class="mono">37,490</td><td class="accent">~1,250/day</td></tr>
+      <tr><td>2025 average</td><td class="mono">~23,320</td><td class="accent">~777/day</td></tr>
+      <tr><td>2026 average (Jan–May)</td><td class="mono">~21,970</td><td class="accent">~732/day</td></tr>
+    </table>
+
+    <p><strong>Key Wikipedia finding:</strong> The baseline of ~338 views/day from 2015–2019 is not low for a technical cryptography topic — it is high. Sustained specialist readership for years before public awareness. The December 2024 spike (37,490 views) tracks directly to the NIST final standards publication — the clearest event-to-signal mapping in the dataset. By 2026 Wikipedia has stabilized at ~732/day — more than 2× the pre-2022 baseline.</p>
+
+    <h3>Reddit Community</h3>
+    <p>Primary: r/crypto, r/netsec, r/quantum, r/cybersecurity (qualitative analysis)</p>
+    <p>Pre-2024: PQC discussed in specialist communities (r/netsec, r/crypto) — technical framing, migration timelines, algorithm comparisons. Post-NIST 2024: narrative shifts to enterprise compliance, migration urgency, and cost of delay. 2025–2026: cross-posting to r/technology, r/programming, general tech communities begins. The audience is widening from specialist to technical-generalist.</p>
+  </div>
+
+  <!-- DUAL VELOCITY -->
+  <div class="section">
+    <div class="section-tag">// 04 · dual-velocity finding</div>
+    <h2>The Clearest Dual-Velocity Case in the Dataset</h2>
+
+    <p>Post-Quantum Cryptography is the most pronounced Dual-Velocity case documented in Zorthex v2.0. The gap between specialist attention and public attention is not a measurement artifact — it is a structural feature of how cryptographic infrastructure diffuses.</p>
+
+    <div class="dv-grid">
+      <div class="dv-box">
+        <div class="dv-label">Velocity 1 — Specialist (Wikipedia)</div>
+        <div class="dv-value">2015–2024</div>
+        <div class="dv-desc">~338–698 views/day for nine years. Cryptographers, security architects, compliance officers, CISO staff. The community that must migrate existing systems was reading and planning long before the public was aware.</div>
+      </div>
+      <div class="dv-box">
+        <div class="dv-label">Velocity 2 — Public (Google Trends)</div>
+        <div class="dv-value">Aug 2025 →</div>
+        <div class="dv-desc">Near-zero for eight years, then 70/100 in a single month. The mainstream audience did not gradually discover PQC — it was activated by an event. Classic Policy-Trigger ignition pattern.</div>
+      </div>
+    </div>
+
+    <p>The operational implication is significant: <strong>the organisations that needed to act had already been watching for years.</strong> The public attention wave of 2025–2026 does not represent the start of awareness — it represents the moment the topic escaped its specialist container. The compliance clock had already started in 2024. Public attention is trailing institutional urgency, not leading it.</p>
+
+    <p>This pattern — specialist invisibility followed by regulatory breakout — is consistent across the Policy-Trigger regime in the Zorthex dataset: Stablecoins (GENIUS Act 2025), PQC (NIST standards 2024), Quantitative Easing (Fed announcements 2008). In each case, a regulatory document did what years of market development could not: it gave the public a legible frame.</p>
+  </div>
+
+  <!-- BENCHMARK -->
+  <div class="section">
+    <div class="section-tag">// 05 · sector benchmark</div>
+    <h2>Where PQC Sits in the Dataset</h2>
+
+    <p>At L ≈ 91 months, PQC falls within the Policy-Trigger cluster of the Zorthex v2.0 dataset. The following comparison positions it within comparable phenomena.</p>
+
+    <table>
+      <tr>
+        <th>Phenomenon</th>
+        <th>L (months)</th>
+        <th>Regime</th>
+        <th>Primary trigger</th>
+      </tr>
+      <tr>
+        <td>Quantitative Easing</td>
+        <td class="accent mono">136</td>
+        <td>Policy-Trigger</td>
+        <td>Fed announcements + cultural meme</td>
+      </tr>
+      <tr>
+        <td>Stablecoins</td>
+        <td class="accent mono">128</td>
+        <td>Policy-Trigger</td>
+        <td>GENIUS Act July 2025</td>
+      </tr>
+      <tr>
+        <td>Bitcoin</td>
+        <td class="accent mono">107</td>
+        <td>Market-Narrative</td>
+        <td>Market cycle + media</td>
+      </tr>
+      <tr>
+        <td style="color:var(--accent)"><strong>Post-Quantum Crypto ◀</strong></td>
+        <td class="accent mono"><strong>~91</strong></td>
+        <td>Policy-Trigger</td>
+        <td>NIST standards Aug 2024</td>
+      </tr>
+      <tr>
+        <td>CRISPR</td>
+        <td class="accent mono">82</td>
+        <td>Institutional Mass</td>
+        <td>Nobel Prize + controversy</td>
+      </tr>
+    </table>
+
+    <p>At ~91 months, PQC shows a shorter lag than comparable financial infrastructure phenomena — consistent with the higher urgency created by a hard compliance deadline (quantum threat timeline) versus a market opportunity (stablecoins, QE). <strong>Hard deadlines compress diffusion lags.</strong> This is an observable pattern across the dataset worth tracking as more cases accumulate.</p>
+  </div>
+
+  <!-- MONITORING -->
+  <div class="section">
+    <div class="section-tag">// 06 · monitoring framework</div>
+    <h2>What to Watch — Conditional Monitoring Framework</h2>
+
+    <p>The following framework defines specific observable events and their implications. This is not prediction — it is conditional observation.</p>
+
+    <div class="monitor-item">
+      <div class="monitor-if">IF</div>
+      <div class="monitor-condition">Google Trends July 2026 ≥ 25/100</div>
+      <div class="monitor-then">THEN</div>
+      <div class="monitor-result">12 consecutive months confirmed. Classification upgrades to <strong>STRUCTURAL</strong> — permanent. L = 91 months locked. This is the single most important observable event for this report.</div>
+    </div>
+
+    <div class="monitor-item">
+      <div class="monitor-if">IF</div>
+      <div class="monitor-condition">Google Trends July 2026 &lt; 25/100</div>
+      <div class="monitor-then">THEN</div>
+      <div class="monitor-result">Breakout reached 100/100 (June 2026) then retreated to 24/100 (August 2026). 5 consecutive months above threshold — short of 12 for STRUCTURAL. Classification remains OBSERVATION. The spike-and-retreat pattern suggests attention is event-driven (NIST announcements, quantum threat news) rather than sustained. Next test: whether September–December 2026 returns above threshold on NIST migration deadlines.</div>
+    </div>
+
+    <div class="monitor-item">
+      <div class="monitor-if">IF</div>
+      <div class="monitor-condition">US/EU government mandates quantum-safe migration deadline (2027–2030)</div>
+      <div class="monitor-then">THEN</div>
+      <div class="monitor-result">Second attention wave likely. Google Trends would return to 60–80/100 range. Wikipedia would register 30,000+ views/month. This would be the "implementation trigger" — distinct from the current "standardization trigger."</div>
+    </div>
+
+    <div class="monitor-item">
+      <div class="monitor-if">IF</div>
+      <div class="monitor-condition">First publicly documented "harvest now, decrypt later" attack confirmed</div>
+      <div class="monitor-then">THEN</div>
+      <div class="monitor-result">Crisis-driven spike. Google Trends would reach 100/100 again. Unlike a policy event, this would drive sustained operational search (what systems are vulnerable, how to migrate). Distinct from the current regulatory-awareness pattern.</div>
+    </div>
+
+    <div class="monitor-item">
+      <div class="monitor-if">IF</div>
+      <div class="monitor-condition">Google Trends drops below 25/100 for 3+ consecutive months post-STRUCTURAL confirmation</div>
+      <div class="monitor-then">THEN</div>
+      <div class="monitor-result">Current Status shifts from Active → Receding. STRUCTURAL classification permanent. Indicates the technology is normalizing as infrastructure — being deployed rather than discovered. This is the expected long-term trajectory.</div>
+    </div>
+  </div>
+
+  <!-- LIMITATIONS -->
+  <div class="section">
+    <div class="section-tag">// 07 · declared limitations</div>
+    <h2>Limitations of This Report</h2>
+
+    <div class="limit-item">
+      <div class="limit-num">01</div>
+      <div><strong>Rock Rule — provisional L (updated September 2026).</strong> The all-time peak moved to June 2026 (100/100, confirmed). L = ~91 months remains provisional. The spike-and-retreat pattern (100→24 in two months) suggests the phenomenon has not yet reached sustained consolidation. Re-verification recommended December 2026 or on next major quantum/NIST event.</div>
+    </div>
+
+    <div class="limit-item">
+      <div class="limit-num">02</div>
+      <div><strong>t_start alternative.</strong> January 2017 (NIST programme launch) is the selected t_start. An alternative of August 2024 (NIST final standards) produces L = 12 months. Both are methodologically defensible. The choice is declared. The 2017 date is preferred because it captures the full institutional trajectory, not just the public-facing output.</div>
+    </div>
+
+    <div class="limit-item">
+      <div class="limit-num">03</div>
+      <div><strong>Query specificity.</strong> 'post-quantum cryptography' is a technical term. A broader query ('quantum security', 'quantum safe') would produce different results. The technical term was selected because it is the formal designation used in regulatory documents — the closest match to the institutional phenomenon being measured.</div>
+    </div>
+
+    <div class="limit-item">
+      <div class="limit-num">04</div>
+      <div><strong>Wikipedia English-language bias.</strong> Non-English Wikipedia pages for PQC may show different baselines. The English-language page is used as the primary proxy — it is the most referenced in regulatory and standards documents globally.</div>
+    </div>
+
+    <div class="limit-item">
+      <div class="limit-num">05</div>
+      <div><strong>Attention ≠ adoption.</strong> Google Trends and Wikipedia measure search and reading interest — not deployment. An organisation can have fully migrated to quantum-safe algorithms with zero public search behavior if migration was handled at the infrastructure level. The gap between attention and deployment is the operational unknown this framework cannot resolve.</div>
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="section">
+    <div class="section-tag">// 08 · source documentation</div>
+    <h2>Primary Sources</h2>
+
+    <table>
+      <tr>
+        <th>Data</th>
+        <th>Source</th>
+        <th>Level</th>
+        <th>Date</th>
+      </tr>
+      <tr>
+        <td>t_start definition</td>
+        <td>NIST Post-Quantum Cryptography Standardization Project — official programme announcement</td>
+        <td class="mono">A</td>
+        <td class="mono">Jan 2017</td>
+      </tr>
+      <tr>
+        <td>Google Trends CSV</td>
+        <td>trends.google.com · 'post-quantum cryptography' · Worldwide · 2004–present</td>
+        <td class="mono">Primary</td>
+        <td class="mono">22 Jun 2026</td>
+      </tr>
+      <tr>
+        <td>Wikipedia pageviews CSV</td>
+        <td>pageviews.wmcloud.org · Post-quantum_cryptography · all-access · user</td>
+        <td class="mono">Primary</td>
+        <td class="mono">22 Jun 2026</td>
+      </tr>
+      <tr>
+        <td>NIST final standards</td>
+        <td>FIPS 203, 204, 205 — official NIST publication</td>
+        <td class="mono">A</td>
+        <td class="mono">Aug 2024</td>
+      </tr>
+      <tr>
+        <td>Reddit signal</td>
+        <td>r/netsec, r/crypto, r/cybersecurity — qualitative narrative analysis</td>
+        <td class="mono">Qualitative</td>
+        <td class="mono">Jun 2026</td>
+      </tr>
+    </table>
+
+    <p style="margin-top:20px;font-family:var(--mono);font-size:12px;color:var(--grey-4)">
+      Google Trends CSV and Wikipedia pageviews CSV available for independent verification at
+      <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">github.com/zorthex2026/zorthex-diffusion-lag</a>.
+      If you follow this pipeline and obtain different results — that is a contribution, not a problem.
+      Contact: <a href="mailto:zorthex.official@gmail.com">zorthex.official@gmail.com</a>
+    </p>
+  </div>
+
+</div><!-- /content -->
+
+<footer>
+  ZCR-2026-002 · Post-Quantum Cryptography · Zorthex Custom Report · v2.0<br>
+  © 2026 Zorthex™ — Renato Santi · Framework v2.0 · CC-BY-NC 4.0<br>
+  <a href="https://doi.org/10.5281/zenodo.20589503">doi.org/10.5281/zenodo.20589503</a> ·
+  <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> ·
+  <a href="https://zorthex.com/methodology">Methodology</a> ·
+  Powered by Claude · zorthex.com
+</footer>
+
+<!-- CHART SCRIPT -->
+<script>
+  // Data
+  const labels = ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025-Q1','2025-Q2','2025-Q3','2025-Q4','2026-Q1','2026-Q2'];
+
+  const gtData = [0, 0, 0.5, 0.4, 0.7, 0.7, 0.5, 2, 2, 2.5, 4.7, 6, 73, 84, 88, 74];
+  const wikiData = [8.8, 7.1, 10.5, 11.5, 9.9, 9.3, 8.1, 11.5, 15.5, 25.6, 27.7, 22.5, 19.7, 21.3, 23.0, 21.4];
+
+  const canvas = document.getElementById('mainChart');
+  const ctx = canvas.getContext('2d');
+
+  // Set canvas size
+  canvas.width = canvas.offsetWidth || 780;
+  canvas.height = 280;
+
+  const W = canvas.width;
+  const H = canvas.height;
+  const padL = 48, padR = 20, padT = 20, padB = 36;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+
+  // Grid
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(0, 0, W, H);
+
+  // Threshold line
+  const thresh = (25/100) * plotH;
+  ctx.strokeStyle = 'rgba(200,80,80,0.5)';
+  ctx.setLineDash([4, 4]);
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padL, padT + plotH - thresh);
+  ctx.lineTo(padL + plotW, padT + plotH - thresh);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Grid lines
+  ctx.strokeStyle = '#2a2a2a';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = padT + (plotH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(padL + plotW, y);
+    ctx.stroke();
+  }
+
+  // Y axis labels (GT)
+  ctx.fillStyle = '#888';
+  ctx.font = '10px Courier New';
+  ctx.textAlign = 'right';
+  ['100','75','50','25','0'].forEach((v, i) => {
+    ctx.fillText(v, padL - 6, padT + (plotH / 4) * i + 4);
+  });
+
+  // Shade threshold crossing area
+  ctx.fillStyle = 'rgba(200,245,66,0.05)';
+  const shadeStart = 12; // index of Aug 2025
+  const sx = padL + (shadeStart / (labels.length - 1)) * plotW;
+  ctx.fillRect(sx, padT, plotW - (sx - padL), plotH);
+
+  // Draw GT line
+  ctx.strokeStyle = '#c8f542';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  gtData.forEach((v, i) => {
+    const x = padL + (i / (labels.length - 1)) * plotW;
+    const y = padT + plotH - (v / 100) * plotH;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // Draw Wiki line (scaled: max ~28 → 100%)
+  const wikiMax = 35;
+  ctx.strokeStyle = '#6688cc';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  wikiData.forEach((v, i) => {
+    const x = padL + (i / (labels.length - 1)) * plotW;
+    const y = padT + plotH - (v / wikiMax) * plotH;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // X axis labels
+  ctx.fillStyle = '#666';
+  ctx.font = '9px Courier New';
+  ctx.textAlign = 'center';
+  const xLabels = ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','Q1','Q2','Q3','Q4','Q1','Q2'];
+  xLabels.forEach((label, i) => {
+    const x = padL + (i / (labels.length - 1)) * plotW;
+    ctx.fillText(label, x, H - 8);
+  });
+
+  // Year markers
+  ctx.fillStyle = '#555';
+  ctx.font = '9px Courier New';
+  ctx.fillText('2025 →', padL + (10 / (labels.length - 1)) * plotW + 2, H - 8);
+  ctx.fillText('2026 →', padL + (14 / (labels.length - 1)) * plotW + 2, H - 8);
+
+  // Annotations
+  ctx.fillStyle = 'rgba(200,245,66,0.9)';
+  ctx.font = 'bold 10px Courier New';
+  ctx.textAlign = 'left';
+  // Peak annotation
+  const peakX = padL + (14 / (labels.length - 1)) * plotW;
+  const peakY = padT + 8;
+  ctx.fillText('↑ 100/100', peakX - 40, peakY + 12);
+
+  // NIST annotation
+  const nistX = padL + (9 / (labels.length - 1)) * plotW;
+  ctx.fillStyle = '#6688cc';
+  ctx.font = '9px Courier New';
+  ctx.fillText('NIST std', nistX - 20, padT + plotH - (33 / wikiMax) * plotH - 8);
+</script>
+
+</body>
+</html>
