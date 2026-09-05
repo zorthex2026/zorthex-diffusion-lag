@@ -150,6 +150,19 @@
     Framework v2.0 &nbsp;·&nbsp; CC-BY-NC 4.0 &nbsp;·&nbsp;
     <a href="https://doi.org/10.5281/zenodo.20589503">DOI 10.5281/zenodo.20589503</a>
   </div>
+
+  <!-- ═══ BLOCCO 1: SEPTEMBER 2026 UPDATE ═══ -->
+  <div style="border:1px solid #66bb6a; border-radius:4px; padding:20px 24px; margin:32px 0 40px; background:rgba(102,187,106,0.03);">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#66bb6a; margin-bottom:10px;">◉ SEPTEMBER 2026 UPDATE</div>
+    <p style="font-size:14px; color:#e4e4ef; line-height:1.7; margin:0;">
+      The three cases analysed in this report have now reached the <strong style="color:#fff;">phase beyond</strong> what was documented here. <strong style="color:#fff;">Stablecoins</strong> shows the Infrastructure Paradox — attention down 42%, while card top-ups cross $1B/month and on-ramp share hits 60%. The full cycle is now visible: attention → adoption → invisibility. <strong style="color:#fff;">Buy Now Pay Later</strong> is now classified Dominant (89 consecutive months — Financial domain record). <strong style="color:#fff;">Open Banking</strong> shows dual-velocity transizionale: Wikipedia pageviews down 34% year-over-year while Google Trends holds above threshold. All three cases confirm and strengthen the original thesis: attention precedes adoption. What this update adds is the next chapter — what happens after adoption absorbs attention.
+    </p>
+    <p style="font-size:13px; color:#8888a0; margin:12px 0 0; line-height:1.6;">
+      Updated reports: <a href="https://zorthex.com/zcr-2026-001-stablecoins" style="color:#4fc3f7;">ZCR-001 Stablecoins (Infrastructure Paradox)</a> · <a href="https://zorthex.com/dataset" style="color:#4fc3f7;">Dataset v2.2 (71 cases, operational status)</a>
+    </p>
+  </div>
+  <!-- ═══ FINE BLOCCO 1 ═══ -->
+
 </div>
 
 <!-- CORE FINDING -->
@@ -347,9 +360,55 @@
   </div>
 </section>
 
-<!-- SOURCES -->
+<!-- ═══ BLOCCO 2: WHY NOT SOCIAL MEDIA? ═══ -->
 <section>
-  <div class="sec-tag">// 07 · sources</div>
+  <div class="sec-tag">// 07 · methodological note</div>
+  <h2>Why Not Social Media?</h2>
+
+  <p>A frequent question: why doesn't Zorthex use social media data — Twitter/X impressions, LinkedIn engagement, TikTok views, Instagram reach — as an attention source? The answer is architectural, not practical.</p>
+
+  <p>Zorthex measures <strong>intentional attention</strong> — a person decides to search for something (Google Trends) or decides to read about it (Wikipedia). Both are acts of cognitive demand: the person initiates the query. This is fundamentally different from <strong>passive exposure</strong>, where an algorithm decides what appears in your feed and you may scroll past it in 0.3 seconds.</p>
+
+  <p>The distinction matters for what the framework claims to measure. When Google Trends shows "stablecoins" rising from 5/100 to 100/100, that means more people are <em>choosing</em> to type the word and look for information. It's a revealed preference. When a LinkedIn post about stablecoins gets 50,000 impressions, that means an algorithm decided 50,000 people should see it. The first is demand. The second is supply.</p>
+
+  <div style="background:#12121a; border:1px solid #2a2a3a; border-radius:4px; padding:24px; margin:24px 0;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#66bb6a; letter-spacing:1px; margin-bottom:10px;">INTENTIONAL ATTENTION (ZORTHEX)</div>
+        <p style="font-size:13px; color:#8888a0; line-height:1.6; margin:0;">
+          <strong style="color:#e4e4ef;">Google Trends</strong> — person types a query. Cognitive demand.<br>
+          <strong style="color:#e4e4ef;">Wikipedia</strong> — person navigates to a page. Informational demand.<br>
+          <strong style="color:#e4e4ef;">Reddit</strong> — person enters a community discussion. Declared qualitative.<br><br>
+          <span style="color:#66bb6a;">Reproducible.</span> CSV locked, timestamped, archived. Anyone can re-run the same query and verify.<br>
+          <span style="color:#66bb6a;">Resistant to manipulation.</span> No paid promotion on Google Trends. No bots on Wikipedia pageview counts.<br>
+          <span style="color:#66bb6a;">Measures demand.</span> What the public wants to know.
+        </p>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#ef5350; letter-spacing:1px; margin-bottom:10px;">PASSIVE EXPOSURE (NOT USED)</div>
+        <p style="font-size:13px; color:#8888a0; line-height:1.6; margin:0;">
+          <strong style="color:#e4e4ef;">Twitter/X impressions</strong> — algorithm shows content. Algorithmic supply.<br>
+          <strong style="color:#e4e4ef;">LinkedIn engagement</strong> — feed placement, not search. Platform-mediated.<br>
+          <strong style="color:#e4e4ef;">TikTok/Instagram</strong> — passive scroll. Sub-second exposure ≠ attention.<br><br>
+          <span style="color:#ef5350;">Non-reproducible.</span> Feeds are personalised. No two users see the same content. No locked CSV possible.<br>
+          <span style="color:#ef5350;">Manipulable.</span> Bots, paid amplification, engagement farming, viral mechanics all inflate metrics.<br>
+          <span style="color:#ef5350;">Measures supply.</span> What algorithms decide you should see.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <p>This report demonstrates why the distinction is operationally critical. The Gallup adoption data shows when people <em>use</em> a technology. The Zorthex attention data shows when people <em>choose to learn about</em> a technology. Social media data would show when people <em>were shown content about</em> a technology. Only the middle signal — intentional attention — has a documented empirical relationship with the adoption signal. Passive exposure correlates with virality, not with the sustained cognitive engagement that precedes adoption.</p>
+
+  <p>There is a second, practical reason. Google Trends data is normalised, timestamped, and freely available. Wikipedia pageviews are published via an open API with daily granularity. Both can be downloaded, archived, and independently verified by anyone. Social media metrics are platform-proprietary, API-gated, subject to retroactive changes, and increasingly paywalled. A framework that depends on social data inherits the platform's instability. A framework built on search and encyclopaedic data inherits the open web's durability.</p>
+
+  <p><strong>The design choice is deliberate:</strong> Zorthex measures what people seek, not what they are shown. The difference between these two signals is the difference between a thermometer and a heater. One measures temperature; the other changes it. Social media is a heater. Zorthex reads the thermometer.</p>
+</section>
+<!-- ═══ FINE BLOCCO 2 ═══ -->
+
+<!-- SOURCES - RINUMERATA A 08 -->
+<section>
+  <div class="sec-tag">// 08 · sources</div>
   <h2>Data Sources</h2>
 
   <p style="font-size:0.78rem;color:#9090cc;line-height:1.9">
