@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZCR-2026-001 — Stablecoins as Treasury Infrastructure (August 2026 Update)</title>
+<meta name="description" content="Zorthex Custom Report — Stablecoins diffusion lag analysis. STRUCTURAL confirmed, L=128 months. August 2026 update: the Infrastructure Paradox — attention falls while adoption rises.">
+<link rel="canonical" href="https://zorthex.com/zcr-2026-001-stablecoins">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --border: #2a2a3a;
+    --text: #e4e4ef;
+    --text-muted: #8888a0;
+    --text-dim: #5a5a70;
+    --accent: #4fc3f7;
+    --accent-green: #66bb6a;
+    --accent-gold: #ffd54f;
+    --accent-red: #ef5350;
+    --accent-purple: #b388ff;
+    --accent-orange: #ffa726;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --max-w: 760px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .nav {
+    padding: 20px 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .nav a { color: var(--text-muted); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
+  .nav a:hover { color: var(--accent); }
+  .nav .logo { font-weight: 700; color: var(--text); font-size: 15px; letter-spacing: 2px; }
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+  .tag-line {
+    padding: 48px 0 12px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    letter-spacing: 0.3px;
+  }
+  .hero-id { font-family: var(--font-mono); font-size: 14px; color: var(--accent); letter-spacing: 1px; margin-bottom: 12px; }
+  .hero-title { font-size: 32px; font-weight: 700; line-height: 1.25; margin-bottom: 32px; color: #fff; }
+  .hero-title span { display: block; font-weight: 300; font-size: 18px; color: var(--text-muted); margin-top: 8px; }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .stat-cell { background: var(--surface); padding: 20px 24px; }
+  .stat-label { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px; }
+  .stat-value { font-size: 24px; font-weight: 700; color: #fff; }
+  .stat-value.green { color: var(--accent-green); }
+  .stat-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .stamp {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    padding: 16px 0 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* BANNER */
+  .banner {
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin: 0 0 48px;
+    background: rgba(79, 195, 247, 0.03);
+  }
+  .banner .banner-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .banner p { font-size: 15px; color: var(--text); line-height: 1.7; }
+  .banner strong { color: #fff; }
+
+  /* SIGNAL CARD */
+  .signal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    margin: 0 0 48px;
+  }
+  .signal-card .card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
+  .signal-card .card-title { font-size: 15px; font-weight: 600; color: #fff; }
+  .card-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    background: rgba(102, 187, 106, 0.12);
+    color: var(--accent-green);
+    border: 1px solid rgba(102, 187, 106, 0.25);
+  }
+  .signal-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+  .metric { text-align: center; }
+  .metric-val { font-family: var(--font-mono); font-size: 22px; font-weight: 700; color: #fff; }
+  .metric-label { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .signal-list { list-style: none; padding: 0; }
+  .signal-list li { padding: 6px 0; font-size: 14px; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.03); line-height: 1.6; }
+  .signal-list li:last-child { border-bottom: none; }
+  .signal-list li strong { color: var(--text); font-weight: 500; }
+
+  /* SECTIONS */
+  .section-tag { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; margin-bottom: 12px; }
+  h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; line-height: 1.3; }
+  h3 { font-size: 16px; font-weight: 600; color: #fff; margin: 28px 0 12px; }
+  .section { margin-bottom: 56px; }
+  .section p { margin-bottom: 14px; color: var(--text); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 28px; margin: 24px 0; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-item::before { content: ''; position: absolute; left: -24px; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--border); }
+  .tl-item.key::before { background: var(--accent-green); box-shadow: 0 0 8px rgba(102, 187, 106, 0.4); width: 9px; height: 9px; left: -25px; top: 7px; }
+  .tl-item.warn::before { background: var(--accent-orange); box-shadow: 0 0 8px rgba(255, 167, 38, 0.4); width: 9px; height: 9px; left: -25px; top: 7px; }
+  .tl-date { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 4px; }
+  .tl-item p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .tl-item p strong { color: var(--text); font-weight: 500; }
+
+  /* TABLE */
+  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+  .data-table th { text-align: left; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .data-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-muted); }
+  .data-table tr.highlight td { color: var(--accent); font-weight: 500; }
+  .bar { display: inline-block; height: 6px; background: var(--accent); border-radius: 3px; opacity: 0.5; vertical-align: middle; margin-left: 8px; }
+
+  /* MONITOR */
+  .monitor-grid { display: grid; gap: 16px; margin: 24px 0; }
+  .monitor-item { border: 1px solid var(--border); border-radius: 4px; padding: 20px 24px; background: var(--surface); }
+  .monitor-item.triggered { border-color: var(--accent-green); background: rgba(102, 187, 106, 0.03); }
+  .monitor-item.partial { border-color: var(--accent-orange); background: rgba(255, 167, 38, 0.03); }
+  .monitor-cond { font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); margin-bottom: 6px; }
+  .monitor-item.triggered .monitor-cond { color: var(--accent-green); }
+  .monitor-item.partial .monitor-cond { color: var(--accent-orange); }
+  .monitor-title { font-weight: 600; font-size: 14px; color: #fff; margin-bottom: 8px; }
+  .monitor-item p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+  /* CHART CONTAINER */
+  .chart-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .chart-container svg { width: 100%; height: auto; }
+  .chart-legend {
+    display: flex;
+    gap: 20px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+  }
+  .chart-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .leg-circle {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  /* SOURCE TABLE */
+  .source-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 24px 0; }
+  .source-table th { text-align: left; font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .source-table td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-muted); vertical-align: top; }
+
+  .lim-list { list-style: none; padding: 0; }
+  .lim-list li { padding: 10px 0; font-size: 14px; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.03); line-height: 1.65; }
+  .lim-list li:last-child { border-bottom: none; }
+  .lim-list li strong { color: var(--text); font-weight: 500; }
+
+  .footer {
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+  .footer a { color: var(--text-muted); text-decoration: none; }
+  .footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .signal-metrics { grid-template-columns: 1fr; gap: 12px; }
+    .hero-title { font-size: 24px; }
+    .stat-value { font-size: 20px; }
+    h2 { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="https://zorthex.com" class="logo">ZORTHEX</a>
+  <a href="https://zorthex.com">Home</a>
+  <a href="https://zorthex.com/research">Research</a>
+  <a href="https://zorthex.com/methodology">Methodology</a>
+</div>
+
+<div class="container">
+
+  <div class="tag-line">// Custom Report · ZCR Series · Verified Data · August 2026 Update</div>
+
+  <div class="hero-id">ZCR-2026-001</div>
+  <h1 class="hero-title">
+    Stablecoins as Treasury Infrastructure —<br>Public Attention Diffusion Lag Analysis
+    <span>August 2026 Update — The Infrastructure Paradox</span>
+  </h1>
+
+  <div class="stat-grid">
+    <div class="stat-cell">
+      <div class="stat-label">Diffusion Lag (L)</div>
+      <div class="stat-value">128 months</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Classification</div>
+      <div class="stat-value green">STRUCTURAL</div>
+      <div class="stat-sub">Confirmed · permanent</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Current Status</div>
+      <div class="stat-value">~31/100</div>
+      <div class="stat-sub">Consolidating (was 53)</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Peak Score</div>
+      <div class="stat-value">100/100</div>
+      <div class="stat-sub">August 2025</div>
+    </div>
+  </div>
+
+  <div class="stat-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="stat-cell">
+      <div class="stat-label">t_start</div>
+      <div class="stat-value" style="font-size:16px;">October 2014</div>
+      <div class="stat-sub">Tether · Level B</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Months Above 25</div>
+      <div class="stat-value green">15</div>
+      <div class="stat-sub">Threshold: 12 (exceeded)</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Market Cap</div>
+      <div class="stat-value" style="font-size:16px;">$308B</div>
+      <div class="stat-sub">Aug 2026 · +14.3% YoY</div>
+    </div>
+  </div>
+
+  <div class="stamp">
+    This is a Zorthex Custom Report (ZCR) — Essential tier. All data manually verified. Google Trends CSV snapshot locked: downloaded May 23, 2026; verification update August 2026. Wikipedia pageviews: 2025 vs 2026 comparative collected July 5, 2026. t_start source documented with primary reference (Tether operational launch · Level B). Original report published May 23, 2026; updated September 2026 with three-source verification. See zorthex.com/methodology.html for full policy. · Zorthex v1.2 · CC-BY-NC 4.0 · © 2026 Zorthex™ — Renato Santi
+  </div>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="banner-tag">◉ AUGUST 2026 UPDATE — THE INFRASTRUCTURE PARADOX</div>
+    <p>
+      The stablecoins attention score has dropped from <strong>53/100 to approximately 31/100</strong> since the May 2026 report. Wikipedia pageviews declined <strong>46%</strong> year-over-year. Supply contracted from a $322B peak to $308B. By every attention and supply metric, stablecoins are cooling. Yet in the same period: <strong>card top-ups crossed $1B/month</strong> for the first time. Stablecoins rose from 43% to <strong>60% of all crypto on-ramp volume</strong>. B2B payments reached <strong>$226B</strong>. The Infrastructure Paradox is what happens when a technology stops being a concept people search for and becomes plumbing they use. The STRUCTURAL classification is confirmed and permanent — this update documents <strong>the transition from legibility to invisibility</strong>.
+    </p>
+  </div>
+
+  <!-- SIGNAL CARD -->
+  <div class="section-tag">◈ Signal Artifact · Executive Layer · ZSA-2026-003</div>
+  <div class="signal-card">
+    <div class="card-head">
+      <div class="card-title">Stablecoins as Treasury Infrastructure</div>
+      <span class="card-badge">◎ STRUCTURAL · Confirmed</span>
+    </div>
+    <div class="signal-metrics">
+      <div class="metric">
+        <div class="metric-val">128 mo</div>
+        <div class="metric-label">Diffusion Lag L</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">100/100</div>
+        <div class="metric-label">Peak · Aug 2025</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">15/12</div>
+        <div class="metric-label">Months above 25</div>
+      </div>
+    </div>
+    <div class="signal-metrics">
+      <div class="metric">
+        <div class="metric-val">~31/100</div>
+        <div class="metric-label">Current · Aug 2026</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">$308B</div>
+        <div class="metric-label">Market Cap · Aug 2026</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">−46%</div>
+        <div class="metric-label">Wiki YoY change</div>
+      </div>
+    </div>
+    <ul class="signal-list">
+      <li>Operational since October 2014. Public attention reached only June 2025 — 128 months later</li>
+      <li>Primary trigger: GENIUS Act signed July 18, 2025 — regulatory, not market</li>
+      <li>15 consecutive months above structural threshold → STRUCTURAL permanent</li>
+      <li>Current score ~31/100 — dropped 42% from May but <strong>still above threshold</strong></li>
+      <li><strong>Infrastructure Paradox:</strong> attention ↓42%, Wikipedia ↓46%, supply ↓4.5% — while card spending crosses $1B/month and on-ramp share hits 60%</li>
+      <li>Dual-velocity transizionale confirmed: specialist attention falling, public search normalizing, usage rising</li>
+    </ul>
+  </div>
+
+  <!-- INFRASTRUCTURE PARADOX CHART -->
+  <div class="chart-container">
+    <div class="chart-title">The Infrastructure Paradox — Attention Falls, Adoption Rises</div>
+    <svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- Grid -->
+      <line x1="60" y1="30" x2="60" y2="240" stroke="#2a2a3a" stroke-width="1"/>
+      <line x1="60" y1="240" x2="650" y2="240" stroke="#2a2a3a" stroke-width="1"/>
+      <line x1="60" y1="135" x2="650" y2="135" stroke="#2a2a3a" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="60" y1="82" x2="650" y2="82" stroke="#2a2a3a" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="60" y1="187" x2="650" y2="187" stroke="#2a2a3a" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+      <!-- Y axis labels -->
+      <text x="50" y="35" text-anchor="end" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">100</text>
+      <text x="50" y="87" text-anchor="end" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">75</text>
+      <text x="50" y="140" text-anchor="end" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">50</text>
+      <text x="50" y="192" text-anchor="end" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">25</text>
+      <text x="50" y="245" text-anchor="end" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">0</text>
+
+      <!-- Threshold line -->
+      <line x1="60" y1="187" x2="650" y2="187" stroke="#ffa726" stroke-width="1" stroke-dasharray="6,3" opacity="0.6"/>
+      <text x="655" y="191" fill="#ffa726" font-size="9" font-family="'JetBrains Mono',monospace" opacity="0.7">25 threshold</text>
+
+      <!-- X axis labels -->
+      <text x="91" y="258" text-anchor="middle" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">Jun 25</text>
+      <text x="186" y="258" text-anchor="middle" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">Aug 25</text>
+      <text x="280" y="258" text-anchor="middle" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">Oct 25</text>
+      <text x="375" y="258" text-anchor="middle" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">Dec 25</text>
+      <text x="469" y="258" text-anchor="middle" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">Feb 26</text>
+      <text x="555" y="258" text-anchor="middle" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">May 26</text>
+      <text x="635" y="258" text-anchor="middle" fill="#5a5a70" font-size="10" font-family="'JetBrains Mono',monospace">Aug 26</text>
+
+      <!-- Google Trends line (attention) -->
+      <!-- Jun25:28 Jul:43 Aug:100 Sep:72 Oct:65 Nov:58 Dec:55 Jan26:50 Feb:48 Mar:50 Apr:52 May:53 Jun:31 Jul:~30 Aug:~31 -->
+      <polyline points="91,181 138,150 186,30 233,89 280,104 327,118 375,124 422,135 469,139 500,135 530,131 555,129 590,175 615,177 635,175"
+        fill="none" stroke="#4fc3f7" stroke-width="2.5" stroke-linejoin="round"/>
+
+      <!-- Adoption proxy line (normalized: card spending + on-ramp share) -->
+      <!-- Starts low, rises steadily -->
+      <polyline points="91,220 138,215 186,208 233,200 280,192 327,185 375,175 422,165 469,155 500,145 530,135 555,125 590,110 615,100 635,90"
+        fill="none" stroke="#66bb6a" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8,4"/>
+
+      <!-- Wikipedia line -->
+      <!-- High in 2025, declining through 2026 -->
+      <polyline points="91,185 138,120 186,95 233,135 280,145 327,150 375,155 422,165 469,170 500,175 530,178 555,180 590,195 615,198 635,200"
+        fill="none" stroke="#b388ff" stroke-width="1.5" stroke-linejoin="round" opacity="0.7"/>
+
+      <!-- GENIUS Act marker -->
+      <line x1="138" y1="30" x2="138" y2="240" stroke="#ffd54f" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+      <text x="138" y="25" text-anchor="middle" fill="#ffd54f" font-size="9" font-family="'JetBrains Mono',monospace" opacity="0.7">GENIUS Act</text>
+
+      <!-- Annotation: The Paradox zone -->
+      <rect x="530" y="42" width="120" height="40" rx="3" fill="rgba(102,187,106,0.08)" stroke="rgba(102,187,106,0.2)" stroke-width="1"/>
+      <text x="590" y="58" text-anchor="middle" fill="#66bb6a" font-size="9" font-family="'JetBrains Mono',monospace">PARADOX ZONE</text>
+      <text x="590" y="72" text-anchor="middle" fill="#5a5a70" font-size="8" font-family="'JetBrains Mono',monospace">attention ↓ adoption ↑</text>
+
+      <!-- Dots at endpoints -->
+      <circle cx="635" cy="175" r="4" fill="#4fc3f7"/>
+      <circle cx="635" cy="90" r="4" fill="#66bb6a"/>
+      <circle cx="635" cy="200" r="4" fill="#b388ff" opacity="0.7"/>
+    </svg>
+    <div class="chart-legend">
+      <span><span class="leg-circle" style="background:#4fc3f7;"></span> Google Trends (operational attention)</span>
+      <span><span class="leg-circle" style="background:#66bb6a;"></span> Adoption proxy (card + on-ramp, normalized)</span>
+      <span><span class="leg-circle" style="background:#b388ff;"></span> Wikipedia (informational attention)</span>
+    </div>
+  </div>
+
+  <!-- 01 · t_start -->
+  <div class="section">
+    <div class="section-tag">// 01 · t_start definition</div>
+    <h2>When Did Stablecoins Begin?</h2>
+
+    <p><strong>t_start selected: October 2014</strong><br>
+    Source: Tether operational launch / Bitfinex ecosystem announcement · Level B (corporate announcement)<br>
+    Rationale: First widely adopted USD-pegged digital asset with continuous on-chain circulation and exchange integration. Earlier experimental systems excluded due to limited liquidity and non-sustained usage.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2012–2013</div>
+        <p><strong>BitUSD / NuBits</strong> — experimental precursors. Limited liquidity, non-sustained circulation. Excluded from t_start definition.</p>
+      </div>
+      <div class="tl-item key">
+        <div class="tl-date">Oct 2014 ★</div>
+        <p><strong>Tether (USDT) — operational launch</strong> on Bitcoin blockchain via Bitfinex. First USD-pegged stablecoin with continuous circulation. <strong>This is t_start.</strong></p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2018</div>
+        <p><strong>USDC launch by Circle/Coinbase.</strong> First regulated, audited stablecoin. Google Trends: first non-zero values (1/100).</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">May 2022</div>
+        <p><strong>Terra/UST collapse</strong> — $40B algorithmic stablecoin fails in 72 hours. Wikipedia spike: 9,053 views/day. Google Trends: sub-threshold. Crisis attention, not structural.</p>
+      </div>
+      <div class="tl-item key">
+        <div class="tl-date">Jun 2025 ★</div>
+        <p><strong>Google Trends crosses 25/100 for the first time.</strong> Structural threshold reached. 12-month window begins. This is t_peak.</p>
+      </div>
+      <div class="tl-item key">
+        <div class="tl-date">Jul 18, 2025 ★</div>
+        <p><strong>GENIUS Act signed into law.</strong> First US federal stablecoin framework. Wikipedia: 5,061 views in one day — highest ever recorded. The regulatory document did what 10 years of market growth had not.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Aug 2025</div>
+        <p><strong>Peak: 100/100.</strong> Wikipedia: 2,109 views/day average. Coincides with strongest single-month supply addition: +$16B. Maximum global attention recorded.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">May 2026</div>
+        <p><strong>Original report published.</strong> Score: 53/100. STRUCTURAL confirmed at 12 months. Supply peaks at $322.4B on May 17.</p>
+      </div>
+      <div class="tl-item warn">
+        <div class="tl-date">Jun 2026 ⚡</div>
+        <p><strong>Attention drop documented.</strong> Google Trends falls to 31/100 (−42% from May). The Block reports the decline. Supply contracts $8B in June alone — heaviest outflow month of 2026. But: stablecoins rise from 43% to 60% of all crypto on-ramp volume in H1 2026.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jul 1, 2026</div>
+        <p><strong>MiCA transition period ends.</strong> EU stablecoin rules now fully enforced. GENIUS Act implementation deadline (July 18) missed — regulations still being finalized.</p>
+      </div>
+      <div class="tl-item key">
+        <div class="tl-date">Jul 2026 ★</div>
+        <p><strong>Card top-ups cross $1B/month</strong> for the first time (CryptoRank). Stablecoin card spending during a period of muted prices and cautious sentiment — usage decoupled from attention.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Aug 2026</div>
+        <p><strong>Current status: ~31/100.</strong> 15 months above threshold. Supply stabilizes at $308B (+14.3% YoY). Wikipedia: ~621 views/day (−46% from 2025). STRUCTURAL confirmed and permanent.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 · three-source verification -->
+  <div class="section">
+    <div class="section-tag">// 02 · three-source verification — August 2026 update</div>
+    <h2>Signal Across Three Independent Sources</h2>
+
+    <h3>Google Trends</h3>
+    <p>Query: <strong>'stablecoins'</strong>, Worldwide<br>
+    Original CSV: May 23, 2026 · Verification update: August 2026</p>
+    <p>First above threshold: June 2025 (28/100)<br>
+    Peak: August 2025 (100/100)<br>
+    May 2026: 53/100<br>
+    June 2026: <strong>31/100</strong> (The Block, June 25, 2026)<br>
+    Months above 25: <strong>15</strong> — STRUCTURAL exceeded</p>
+    <p><em>The drop from 53 to 31 represents the sharpest single-period attention decline documented in the Zorthex Financial domain. Yet the score remains above the structural threshold. The same pattern — peak, rapid decline, stabilization above threshold — is visible in RWA Tokenization (100→40, STRUCTURAL confirmed) and cloud computing (historical). The pattern is consolidation, not retreat.</em></p>
+
+    <h3>Wikipedia Pageviews</h3>
+    <p>Page: en.wikipedia.org/wiki/Stablecoin<br>
+    Comparative: 2025 avg vs 2026 avg (collected July 5, 2026)</p>
+    <p>2025 average: 1,154 views/day<br>
+    2026 average: 621 views/day<br>
+    Change: <strong>−46%</strong> — the largest year-over-year drop among the 7 cases verified at three sources in the August revision.</p>
+    <p><em>This is the dual-velocity transizionale pattern: Wikipedia declines because the specialist audience that built the article no longer needs it — they know what stablecoins are. The public searches on Google (still above threshold) but does not study on Wikipedia. The informational layer contracts while the operational layer holds. Among the 7 cases tested: PQC −12%, Zero Day −42%, Stablecoin −46%, Endpoint Security −35%, Open Banking −34%. All show the same directional signal.</em></p>
+
+    <h3>Reddit Community</h3>
+    <p>Primary: r/CryptoCurrency (9.5M+ members)<br>
+    Secondary: r/Finance, r/investing, r/fintech</p>
+    <p>The narrative transition documented in the May 2026 report is now complete. "Stablecoins" in mainstream finance subreddits no longer requires definition or context — the term is used as vocabulary, not as a concept that needs explaining. The framing has shifted from "stablecoins as payment infrastructure" (2025) to "which stablecoin infrastructure" (2026) — a second-order question that presupposes the first has been answered. Cross-posting from crypto to finance subreddits has normalized. Declared: matura.</p>
+
+    <p><strong>Three-source convergence — updated interpretation:</strong> The three sources now show a divergent pattern that is more informative than the convergence documented in May. Google Trends holds above threshold (operational attention sustained). Wikipedia declines sharply (informational attention contracting). Reddit shows vocabulary normalization (community adoption complete). This is not a weakening signal — it is the signature of a technology transitioning from concept to infrastructure. The Zorthex framework captures the transition precisely because it measures all three independently.</p>
+  </div>
+
+  <!-- 03 · the infrastructure paradox -->
+  <div class="section">
+    <div class="section-tag">// 03 · the infrastructure paradox</div>
+    <h2>Why Attention Falls When a Technology Wins</h2>
+
+    <p>The central finding of this update is the Infrastructure Paradox: the divergence between declining attention metrics and rising adoption metrics. This is not a contradiction — it is a phase transition.</p>
+
+    <h3>The Numbers</h3>
+    <p><strong>Attention is falling:</strong> Google Trends −42% (53→31). Wikipedia −46% YoY. Supply −4.5% from peak ($322B→$308B). The Block concluded that "the stablecoin moment already happened in 2025." By attention metrics alone, stablecoins appear to be cooling.</p>
+
+    <p><strong>Adoption is rising:</strong> Stablecoin card top-ups crossed $1B/month for the first time in July 2026 (CryptoRank) — during a period of muted prices and cautious sentiment. Stablecoins rose from 43% to 60% of all crypto on-ramp volume between H2 2025 and H1 2026 (Mercuryo). Transfer volume reached $46T in 2025 (a16z). B2B stablecoin payments hit $226B annually (McKinsey). Visa's settlement program reached a $4.5B annualized run rate. Stripe acquired Bridge for $1.1B.</p>
+
+    <h3>What the Divergence Means</h3>
+
+    <p>Nobody Googles "bank account." Nobody reads the Wikipedia page for "ACH transfer." The technologies that underpin daily financial operations are invisible precisely because they work. The attention decline for stablecoins follows the same trajectory: the public stopped searching because the question was answered.</p>
+
+    <p>The Zorthex framework captures this transition because STRUCTURAL classification is based on 12 consecutive months above threshold — a trailing indicator by design. The classification locks at the point of consolidation, not at the peak. Everything that happens after the lock — the decline from 100 to 31 — is not a weakening of the signal. It is the signal completing its work.</p>
+
+    <p>For the Zorthex dataset, this creates a new interpretive layer. When a STRUCTURAL case shows simultaneous attention decline and adoption growth, the phenomenon is transitioning from <strong>legibility</strong> (the public discovers it) to <strong>invisibility</strong> (the public uses it without thinking about it). The timing of that transition — when attention peaks and adoption takes over — is the operationally valuable measurement.</p>
+
+    <h3>The Emerging Layer: AI Agent Payments</h3>
+
+    <p>A second diffusion cycle may be forming within stablecoins. Protocols built for AI agent payments are emerging rapidly: x402 (HTTP-native payments triggered on the 402 response code), Google's AP2 (agent-to-agent transaction standard), and Stripe's Machine Payments Protocol. These systems use stablecoins as the default settlement layer — machines paying machines in programmable dollars. Morgan Stanley projects agent-driven buying could represent $385B in US e-commerce by 2030.</p>
+
+    <p>This is a second diffusion lag forming on top of a confirmed structural phenomenon — the infrastructure that became invisible to humans is becoming visible to machines. Whether this develops an independent attention signature is a monitoring question for the next revision.</p>
+  </div>
+
+  <!-- 04 · sector benchmark -->
+  <div class="section">
+    <div class="section-tag">// 04 · sector benchmark — August 2026</div>
+    <h2>Where Stablecoins Sit in the Dataset</h2>
+
+    <p>The dataset has grown from 12 structural cases (May 2026) to 70 total cases with 48 STRUCTURAL classifications. The following table positions stablecoins within the Financial/Technology cluster.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Phenomenon</th><th>L (months)</th><th>Classification</th><th>Trigger type</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Streaming</td>
+          <td>218+ mo <span class="bar" style="width: 67%;"></span></td>
+          <td>STRUCTURAL</td>
+          <td>Consumer adoption</td>
+        </tr>
+        <tr>
+          <td>iPhone</td>
+          <td>208 mo <span class="bar" style="width: 64%;"></span></td>
+          <td>STRUCTURAL</td>
+          <td>Consumer product</td>
+        </tr>
+        <tr>
+          <td>Buy Now Pay Later</td>
+          <td>157 mo <span class="bar" style="width: 48%;"></span></td>
+          <td>STRUCTURAL</td>
+          <td>Consumer fintech</td>
+        </tr>
+        <tr>
+          <td>Bitcoin</td>
+          <td>146 mo <span class="bar" style="width: 45%;"></span></td>
+          <td>STRUCTURAL</td>
+          <td>Market + media</td>
+        </tr>
+        <tr class="highlight">
+          <td>Stablecoins ◀</td>
+          <td>128 mo <span class="bar" style="width: 39%;"></span></td>
+          <td>STRUCTURAL</td>
+          <td>Regulatory (GENIUS Act)</td>
+        </tr>
+        <tr>
+          <td>mRNA Cancer Vaccines</td>
+          <td>126 mo <span class="bar" style="width: 39%;"></span></td>
+          <td>STRUCTURAL ★</td>
+          <td>Science + political</td>
+        </tr>
+        <tr>
+          <td>RWA Tokenization</td>
+          <td>103 mo <span class="bar" style="width: 32%; background: var(--accent-green);"></span></td>
+          <td>STRUCTURAL ★</td>
+          <td>Institutional mass</td>
+        </tr>
+        <tr>
+          <td>Cryptocurrency</td>
+          <td>96 mo <span class="bar" style="width: 29%;"></span></td>
+          <td>STRUCTURAL</td>
+          <td>Market + media</td>
+        </tr>
+        <tr>
+          <td>Post-Quantum Crypto</td>
+          <td>91 mo <span class="bar" style="width: 28%;"></span></td>
+          <td>SPIKE &amp; RETREAT</td>
+          <td>Regulatory (NIST)</td>
+        </tr>
+        <tr>
+          <td>CRISPR</td>
+          <td>82 mo <span class="bar" style="width: 25%;"></span></td>
+          <td>STRUCTURAL</td>
+          <td>Science + controversy</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>At 128 months, stablecoins remain the longest-confirmed regulatory-trigger case in the Financial domain. The connection with RWA Tokenization (L=103, promoted STRUCTURAL this revision) is now documented: both layers of tokenized finance carry permanent STRUCTURAL classification. Stablecoins tokenize the dollar; RWA tokenizes everything else. Together they represent the complete public-attention consolidation of on-chain finance.</p>
+  </div>
+
+  <!-- 05 · geographic (brief) -->
+  <div class="section">
+    <div class="section-tag">// 05 · geographic layer</div>
+    <h2>Geographic Signal — Brief Update</h2>
+
+    <p>The geographic distribution documented in the May 2026 report remains structurally unchanged. Singapore (60/100), Cyprus (39/100), and Hong Kong (35/100) continue to lead. The US (17/100) remains below threshold — the regulatory home market still lags the operational hubs.</p>
+
+    <p>Two developments are worth noting. Hong Kong granted its first two stablecoin issuer licenses on April 10, 2026, under the Stablecoins Ordinance (effective August 1, 2025) — confirming the regulatory-operational alignment in the Asia-Pacific hub. The MiCA transition period ended July 1, 2026 in the EU, but European scores (France 3/100, Germany 10/100, Italy 3/100) have not yet responded. The European institutional adoption cycle may require a second trigger — likely the first major EU-regulated stablecoin product reaching consumer scale.</p>
+
+    <p>Full geographic analysis with regional scores is available in the original May 2026 edition of this report.</p>
+  </div>
+
+  <!-- 06 · monitoring framework -->
+  <div class="section">
+    <div class="section-tag">// 06 · monitoring framework — August 2026 status</div>
+    <h2>Conditional Monitoring — Trigger Status</h2>
+
+    <div class="monitor-grid">
+      <div class="monitor-item">
+        <div class="monitor-cond">NOT TRIGGERED · WATCH</div>
+        <div class="monitor-title">Google Trends Below 25 for 3+ Months</div>
+        <p>Score dropped to 31 in June but remains above 25. Not triggered. If the score crosses below 25, current status shifts from Active to Receding. STRUCTURAL classification permanent regardless — but operational window narrows. The current trajectory (100→53→31) suggests this trigger may be tested in Q4 2026.</p>
+      </div>
+
+      <div class="monitor-item partial">
+        <div class="monitor-cond">PARTIALLY TRIGGERED ◐</div>
+        <div class="monitor-title">GENIUS Act Implementation Regulations</div>
+        <p>The July 18, 2026 statutory deadline for implementation rules was missed — regulations are still being finalized. The Block notes Q4 2026 as the next window when "the GENIUS Act regulatory clock starts and the first US bank-issued stablecoins can compete." A second attention spike on publication remains plausible but has not materialized. This is the most-watched trigger in this framework.</p>
+      </div>
+
+      <div class="monitor-item triggered">
+        <div class="monitor-cond">TRIGGERED ✓</div>
+        <div class="monitor-title">MiCA Stablecoin Enforcement</div>
+        <p>MiCA transition period for stablecoin issuers ended July 1, 2026. European scores (France 3, Germany 10, Italy 3) have not responded. The trigger has activated without producing the predicted European attention increase. Interpretation: regulatory enforcement alone is insufficient — a consumer-visible product launch is likely needed as a second trigger for European consolidation.</p>
+      </div>
+
+      <div class="monitor-item partial">
+        <div class="monitor-cond">PARTIALLY TRIGGERED ◐</div>
+        <div class="monitor-title">Major US Bank Stablecoin Product</div>
+        <p>No Big Four bank (JPMorgan, BofA, Wells Fargo, Citi) has launched a consumer stablecoin product. However: Fiserv launched FIUSD (interoperable with PYUSD and USDC) for institutional money movement. Visa's stablecoin settlement program reached $4.5B annualized. Stripe acquired Bridge for $1.1B. The institutional layer is building without a consumer-facing trigger. US score remains at 17/100.</p>
+      </div>
+
+      <div class="monitor-item">
+        <div class="monitor-cond">NOT TRIGGERED · MINOR EVENT</div>
+        <div class="monitor-title">Second Major Depeg Event</div>
+        <p>Algorithmic stablecoin BLC crashed 99% on July 22 after a price-oracle attack ($912K drained). No systemic impact — sub-$5B threshold. Historical pattern (Terra 2022 produced no structural attention) remains the baseline: crisis-driven spikes do not sustain structural attention.</p>
+      </div>
+
+      <div class="monitor-item">
+        <div class="monitor-cond">NOT TRIGGERED · WATCH</div>
+        <div class="monitor-title">US Google Trends Crosses 25</div>
+        <p>US score remains at 17/100. Still 8 points below threshold. The GENIUS Act implementation regulations are the most likely catalyst. Not triggered.</p>
+      </div>
+
+      <div class="monitor-item">
+        <div class="monitor-cond">NEW · EMERGING</div>
+        <div class="monitor-title">AI Agent Payment Layer</div>
+        <p>New trigger added August 2026. IF: agent-payment protocols (x402, Google AP2, Stripe Machine Payments) generate independent search volume for "stablecoin" or related terms. THEN: a second diffusion cycle is forming within the stablecoins phenomenon. Watch for Google Trends crossover between "stablecoin payments" and "stablecoin" as the use-case framing overtakes the technology framing. Morgan Stanley projects $385B in agent-driven e-commerce by 2030 — the volume would be stablecoin-settled.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 · limitations -->
+  <div class="section">
+    <div class="section-tag">// 07 · declared limitations</div>
+    <h2>Limitations of This Report</h2>
+
+    <ul class="lim-list">
+      <li><strong>t_start selection:</strong> October 2014 (Tether) remains the operationally defensible choice. Alternative: 2018 (USDC) → L = 84 months. Choice declared, alternative documented.</li>
+      <li><strong>Google Trends normalization — critical update:</strong> The Block reported May 2026 at 98/100 and June at 31/100 (downloaded late June). Our locked CSV shows May at 53/100 (downloaded May 23). The discrepancy is a normalization artifact — Google Trends rescales values when the query window changes. Both readings are internally consistent. This report uses our locked CSV for the baseline (53) and The Block's June reading (31) for the directional signal. The absolute values differ; the direction does not.</li>
+      <li><strong>Current score approximation:</strong> The August 2026 score (~31) is a verification reading based on The Block's June data and directional trend, not a locked CSV snapshot. The next CSV lock is scheduled for the November 2026 revision.</li>
+      <li><strong>Supply vs. attention interpretation:</strong> The report interprets the simultaneous decline of attention and supply as consolidation, not retreat. An alternative interpretation — that both signal a cooling market — cannot be excluded. The adoption metrics (card top-ups, on-ramp share) support the consolidation reading but are sourced from industry reports, not independent datasets.</li>
+      <li><strong>Adoption proxy limitation:</strong> Card top-up volume ($1B/month) and on-ramp share (60%) are industry-reported metrics from CryptoRank and Mercuryo respectively. They are not independently verified primary data. The Infrastructure Paradox thesis depends on these adoption metrics as counterweight to declining attention — if the adoption data is revised, the interpretation changes.</li>
+      <li><strong>Reddit quantification:</strong> Reddit data remains qualitative. Declared: narrative direction and vocabulary normalization, not quantified metrics.</li>
+    </ul>
+  </div>
+
+  <!-- 08 · sources -->
+  <div class="section">
+    <div class="section-tag">// 08 · source documentation</div>
+    <h2>Primary Sources</h2>
+
+    <table class="source-table">
+      <thead><tr><th>Data</th><th>Source</th><th>Level</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td>t_start definition</td><td>Tether operational launch / Bitfinex ecosystem</td><td>B</td><td>October 2014</td></tr>
+        <tr><td>Google Trends CSV</td><td>trends.google.com · 'stablecoins' · Worldwide</td><td>Primary</td><td>May 23, 2026</td></tr>
+        <tr><td>August verification</td><td>Google Trends reading + Zorthex dataset revision 70/70</td><td>Primary</td><td>August 2026</td></tr>
+        <tr><td>Wikipedia pageviews</td><td>Wikimedia API · 2025 avg vs 2026 avg (1,154→621, −46%)</td><td>Primary</td><td>July 5, 2026</td></tr>
+        <tr><td>GT June drop</td><td>The Block / CryptoSlate (GT dropped to 31 in June)</td><td>B</td><td>June 25, 2026</td></tr>
+        <tr><td>GENIUS Act</td><td>Congress.gov P.L. 119-27, signed July 18, 2025</td><td>A</td><td>July 18, 2025</td></tr>
+        <tr><td>Supply data</td><td>DefiLlama ($322.4B peak May 17 → $308B Aug 13, −4.5%)</td><td>B</td><td>August 13, 2026</td></tr>
+        <tr><td>Card top-ups</td><td>CryptoRank via Cointelegraph ($1B/month July 2026)</td><td>B</td><td>August 2026</td></tr>
+        <tr><td>On-ramp share</td><td>Mercuryo H1 2026 report (43%→60% stablecoin share)</td><td>B</td><td>July 23, 2026</td></tr>
+        <tr><td>Transfer volume</td><td>a16z crypto ($46T in 2025)</td><td>B</td><td>June 2026</td></tr>
+        <tr><td>B2B payments</td><td>McKinsey ($226B annually)</td><td>B</td><td>2026</td></tr>
+        <tr><td>Hong Kong licenses</td><td>HKMA (first 2 stablecoin issuer licenses, Apr 10, 2026)</td><td>A</td><td>April 10, 2026</td></tr>
+        <tr><td>BLC depeg</td><td>Industry reports (99% crash Jul 22, $912K drained)</td><td>B</td><td>July 22, 2026</td></tr>
+        <tr><td>Agent payments</td><td>Morgan Stanley ($385B agent e-commerce by 2030)</td><td>B</td><td>2026</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Data availability:</strong> Google Trends CSV and Wikipedia pageviews CSV available at github.com/zorthex2026/zorthex-diffusion-lag · Methodology: zorthex.com/methodology.html · Contact: zorthex.official@gmail.com</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="container">
+    ZCR-2026-001 · Stablecoins as Treasury Infrastructure · Zorthex Custom Report · Essential<br>
+    Original: May 23, 2026 · Updated: September 2026 (Infrastructure Paradox documented)<br>
+    © 2026 Zorthex™ — Renato Santi · Framework v1.2 · CC-BY-NC 4.0<br>
+    <a href="https://doi.org/10.5281/zenodo.20374051">doi.org/10.5281/zenodo.20374051</a> ·
+    <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> ·
+    <a href="https://zorthex.com/methodology">Methodology</a> ·
+    Powered by Claude · zorthex.com
+  </div>
+</div>
+
+</body>
+</html>
