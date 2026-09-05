@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zorthex Dataset v2.2 — 71 Cases · August 2026</title>
+<meta name="description" content="Zorthex diffusion-lag dataset: 71 phenomena, 7 domains, three-source verified. How to read: classification (what happened) + operational status (what's happening now).">
+<link rel="canonical" href="https://zorthex.com/dataset">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --border: #2a2a3a;
+    --text: #e4e4ef;
+    --text-muted: #8888a0;
+    --text-dim: #5a5a70;
+    --accent: #4fc3f7;
+    --green: #66bb6a;
+    --gold: #ffd54f;
+    --red: #ef5350;
+    --purple: #b388ff;
+    --orange: #ffa726;
+    --teal: #4dd0e1;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --max-w: 1120px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; -webkit-font-smoothing: antialiased; }
+
+  .nav { padding: 20px 24px; text-align: center; border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); }
+  .nav a { color: var(--text-muted); text-decoration: none; margin: 0 12px; transition: color 0.2s; }
+  .nav a:hover { color: var(--accent); }
+  .nav .logo { font-weight: 700; color: var(--text); font-size: 15px; letter-spacing: 2px; }
+
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+  .tag-line { padding: 48px 0 12px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim); letter-spacing: 0.3px; }
+  h1 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .subtitle { font-size: 16px; color: var(--text-muted); margin-bottom: 32px; }
+
+  /* STAT STRIP */
+  .stat-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+  .ss-cell { background: var(--surface); padding: 16px 20px; text-align: center; }
+  .ss-val { font-size: 22px; font-weight: 700; color: #fff; }
+  .ss-val.green { color: var(--green); }
+  .ss-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px; }
+
+  /* ═══════════════════════════════════ */
+  /* READING GUIDE — the hero section  */
+  /* ═══════════════════════════════════ */
+  .guide {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .guide-head {
+    background: var(--surface-2);
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .guide-head h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .guide-head p {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .guide-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .guide-col {
+    padding: 24px 28px;
+  }
+  .guide-col:first-child {
+    border-right: 1px solid var(--border);
+  }
+  .guide-col-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .guide-col-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .guide-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .guide-dot {
+    flex-shrink: 0;
+    width: 32px;
+    height: 22px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+  }
+  .gd-str { background: rgba(102,187,106,0.15); color: var(--green); border: 1px solid rgba(102,187,106,0.25); }
+  .gd-obs { background: rgba(79,195,247,0.1); color: var(--accent); border: 1px solid rgba(79,195,247,0.2); }
+  .gd-sr { background: rgba(255,167,38,0.1); color: var(--orange); border: 1px solid rgba(255,167,38,0.2); }
+  .gd-bub { background: rgba(239,83,80,0.1); color: var(--red); border: 1px solid rgba(239,83,80,0.2); }
+  .gd-pre { background: rgba(90,90,112,0.15); color: var(--text-dim); border: 1px solid rgba(90,90,112,0.3); }
+
+  .gd-active { background: rgba(102,187,106,0.15); color: var(--green); border: 1px solid rgba(102,187,106,0.25); }
+  .gd-dominant { background: rgba(77,208,225,0.12); color: var(--teal); border: 1px solid rgba(77,208,225,0.25); }
+  .gd-receding { background: rgba(255,167,38,0.1); color: var(--orange); border: 1px solid rgba(255,167,38,0.2); }
+  .gd-cyclical { background: rgba(179,136,255,0.1); color: var(--purple); border: 1px solid rgba(179,136,255,0.2); }
+  .gd-dead { background: rgba(239,83,80,0.06); color: #999; border: 1px solid rgba(239,83,80,0.15); }
+
+  .guide-text { flex-grow: 1; }
+  .guide-text strong { font-size: 13px; color: #fff; font-weight: 600; }
+  .guide-text p { font-size: 12px; color: var(--text-dim); line-height: 1.45; margin-top: 2px; }
+
+  /* THREE SOURCES mini */
+  .guide-sources {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+  .guide-src {
+    padding: 16px 28px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .guide-src:last-child { border-right: none; }
+  .gs-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .guide-src span { font-size: 12px; color: var(--text-dim); }
+  .guide-src strong { color: var(--text-muted); font-weight: 500; }
+
+  /* READING STRIP at bottom of guide */
+  .guide-read {
+    border-top: 1px solid var(--border);
+    padding: 16px 28px;
+    background: var(--surface);
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .guide-read strong { color: var(--text-muted); font-weight: 500; }
+
+  /* REVISION BANNER */
+  .revision-banner {
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 36px;
+    background: rgba(102, 187, 106, 0.03);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+  .revision-banner .rb-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--green); margin-bottom: 8px; }
+  .revision-banner strong { color: var(--text); }
+
+  /* TABLE */
+  .domain-section { margin-bottom: 48px; }
+  .domain-head { font-size: 16px; font-weight: 700; color: #fff; padding: 12px 0; border-bottom: 2px solid var(--border); margin-bottom: 4px; }
+  .domain-head span { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); font-weight: 400; margin-left: 8px; }
+  .area-read { padding: 12px 16px; background: var(--surface); border-left: 3px solid var(--border); margin: 8px 0 12px; font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+  .area-read strong { color: var(--text-muted); font-weight: 500; }
+
+  .dt { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .dt th { text-align: left; font-family: var(--font-mono); font-size: 9.5px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; padding: 8px 8px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); }
+  .dt td { padding: 7px 8px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-muted); vertical-align: top; line-height: 1.45; }
+  .dt tr:hover td { background: rgba(255,255,255,0.015); }
+  .dt .name { color: var(--text); font-weight: 500; white-space: nowrap; }
+  .dt .promoted .name { color: var(--green); }
+  .dt .promoted .name::after { content: ' ★'; color: var(--gold); font-size: 10px; }
+  .dt .breakthrough .name { color: var(--gold); }
+  .dt .breakthrough .name::after { content: ' ★★'; color: var(--gold); font-size: 10px; }
+
+  .badge { display: inline-block; font-family: var(--font-mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.3px; white-space: nowrap; }
+  .b-str { background: rgba(102,187,106,0.12); color: var(--green); border: 1px solid rgba(102,187,106,0.2); }
+  .b-obs { background: rgba(79,195,247,0.1); color: var(--accent); border: 1px solid rgba(79,195,247,0.2); }
+  .b-spike { background: rgba(255,167,38,0.1); color: var(--orange); border: 1px solid rgba(255,167,38,0.2); }
+  .b-bub { background: rgba(239,83,80,0.1); color: var(--red); border: 1px solid rgba(239,83,80,0.2); }
+  .b-pre { background: rgba(90,90,112,0.15); color: var(--text-dim); border: 1px solid rgba(90,90,112,0.3); }
+  .b-dead { background: rgba(239,83,80,0.06); color: #999; border: 1px solid rgba(239,83,80,0.15); }
+
+  /* OPERATIONAL STATUS badges */
+  .os { display: inline-block; font-family: var(--font-mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.3px; white-space: nowrap; }
+  .os-active { background: rgba(102,187,106,0.1); color: var(--green); }
+  .os-dominant { background: rgba(77,208,225,0.1); color: var(--teal); }
+  .os-receding { background: rgba(255,167,38,0.08); color: var(--orange); }
+  .os-cyclical { background: rgba(179,136,255,0.08); color: var(--purple); }
+  .os-dead { background: rgba(239,83,80,0.06); color: #999; }
+
+  .current-val { font-family: var(--font-mono); font-size: 11px; }
+  .note-cell { font-size: 11px; color: var(--text-dim); max-width: 200px; }
+
+  .reading-note { margin: 32px 0 48px; padding: 20px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+  .reading-note strong { color: var(--text); font-weight: 500; }
+
+  .footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--text-dim); line-height: 1.8; }
+  .footer a { color: var(--text-muted); text-decoration: none; }
+  .footer a:hover { color: var(--accent); }
+
+  @media (max-width: 800px) {
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    .stat-strip .ss-cell:last-child { grid-column: span 2; }
+    .guide-body { grid-template-columns: 1fr; }
+    .guide-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+    .guide-sources { grid-template-columns: 1fr; }
+    .guide-src { border-right: none; border-bottom: 1px solid var(--border); }
+    .dt { font-size: 11px; }
+    .dt th, .dt td { padding: 5px 5px; }
+    h1 { font-size: 24px; }
+    .note-cell { max-width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="https://zorthex.com" class="logo">ZORTHEX</a>
+  <a href="https://zorthex.com">Home</a>
+  <a href="https://zorthex.com/research">Research</a>
+  <a href="https://zorthex.com/methodology">Methodology</a>
+</div>
+
+<div class="container">
+
+  <div class="tag-line">// Dataset v2.2 · Public · Three-Source Verified · August 2026 Revision</div>
+  <h1>The Zorthex Dataset</h1>
+  <div class="subtitle">71 phenomena across 7 domains · diffusion-lag (L) and attention positioning</div>
+
+  <div class="stat-strip">
+    <div class="ss-cell"><div class="ss-val">71</div><div class="ss-label">Cases</div></div>
+    <div class="ss-cell"><div class="ss-val">7</div><div class="ss-label">Domains</div></div>
+    <div class="ss-cell"><div class="ss-val">Three-source</div><div class="ss-label">Verification</div></div>
+    <div class="ss-cell"><div class="ss-val green">Aug 2026</div><div class="ss-label">Cut-off</div></div>
+    <div class="ss-cell"><div class="ss-val green">19</div><div class="ss-label">Promotions</div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- READING GUIDE                              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="guide">
+    <div class="guide-head">
+      <h2>How to Read This Dataset</h2>
+      <p>Every case has two axes: <strong style="color:#fff;">classification</strong> (what happened — permanent) and <strong style="color:#fff;">operational status</strong> (what's happening now — updated every 90 days).</p>
+    </div>
+
+    <div class="guide-body">
+      <!-- LEFT: Classification -->
+      <div class="guide-col">
+        <div class="guide-col-title">Classification — What happened</div>
+        <div class="guide-col-sub">Did this phenomenon enter the public vocabulary? Based on 12 consecutive months ≥25/100 on Google Trends. Once earned, permanent — like a credit rating at issuance.</div>
+
+        <div class="guide-item">
+          <div class="guide-dot gd-str">STR</div>
+          <div class="guide-text">
+            <strong>STRUCTURAL</strong>
+            <p>12+ consecutive months above threshold. The term entered the public vocabulary. Permanent classification.</p>
+          </div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-dot gd-obs">OBS</div>
+          <div class="guide-text">
+            <strong>OBSERVATION</strong>
+            <p>Above threshold but fewer than 12 months. The window is open — consolidation not yet confirmed.</p>
+          </div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-dot gd-sr">S&R</div>
+          <div class="guide-text">
+            <strong>SPIKE &amp; RETREAT</strong>
+            <p>Reached threshold but did not sustain 12 months. Breakout occurred, consolidation did not.</p>
+          </div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-dot gd-bub">BUB</div>
+          <div class="guide-text">
+            <strong>BUBBLE</strong>
+            <p>Short, sharp spike that collapsed. Never sustained. The term was noise, not signal.</p>
+          </div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-dot gd-pre">PRE</div>
+          <div class="guide-text">
+            <strong>PRE / NON-STAT</strong>
+            <p>Peak precedes Google Trends data (pre-2004) or confounded by external shock (COVID).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Operational Status -->
+      <div class="guide-col">
+        <div class="guide-col-title">Operational Status — What's happening now</div>
+        <div class="guide-col-sub">Is the attention alive, fading, or gone? Applied only to STRUCTURAL cases. Updated every 90 days — the current weather, not the climate.</div>
+
+        <div class="guide-item">
+          <div class="guide-dot gd-dominant">DOM</div>
+          <div class="guide-text">
+            <strong>Dominant</strong>
+            <p>Above threshold for 40+ consecutive months. Permanent vocabulary — will not return below threshold.</p>
+          </div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-dot gd-active">ACT</div>
+          <div class="guide-text">
+            <strong>Active</strong>
+            <p>Above threshold right now. Consolidated and alive. The term is current.</p>
+          </div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-dot gd-receding">REC</div>
+          <div class="guide-text">
+            <strong>Receding</strong>
+            <p>STRUCTURAL but currently below threshold. The term consolidated once — attention is now fading.</p>
+          </div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-dot gd-cyclical">CYC</div>
+          <div class="guide-text">
+            <strong>Cyclical</strong>
+            <p>Moves above and below threshold in waves. Tied to market cycles or recurring events.</p>
+          </div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-dot gd-dead">DEA</div>
+          <div class="guide-text">
+            <strong>Dead</strong>
+            <p>The term has been replaced or abandoned. Classification is permanent; the word is not.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THREE SOURCES -->
+    <div class="guide-sources">
+      <div class="guide-src">
+        <div class="gs-dot" style="background:var(--green);"></div>
+        <span><strong>Google Trends</strong> — who searches to act. L is computed here. CSV locked.</span>
+      </div>
+      <div class="guide-src">
+        <div class="gs-dot" style="background:var(--accent);"></div>
+        <span><strong>Wikipedia</strong> — who reads to understand. Pageviews via Wikimedia API.</span>
+      </div>
+      <div class="guide-src">
+        <div class="gs-dot" style="background:var(--purple);"></div>
+        <span><strong>Reddit</strong> — how it's discussed. Qualitative proxy (declared).</span>
+      </div>
+      <div class="guide-src">
+        <div class="gs-dot" style="background:var(--gold);"></div>
+        <span><strong>L (months)</strong> — gap between first emergence and sustained public attention.</span>
+      </div>
+    </div>
+
+    <!-- READING STRIP -->
+    <div class="guide-read">
+      <strong>Example reading:</strong> "RWA Tokenization · L=103 · STRUCTURAL · Active · 40/100" → The technology existed for 103 months before the public noticed. It entered the vocabulary (STRUCTURAL). It's still above threshold right now (Active). Current attention: 40/100.
+      <br><strong>Contrast:</strong> "SMR · L=243 · STRUCTURAL · Receding · 23/100" → Same classification, different story. SMR consolidated (12 months above threshold) but attention has now dropped below. The discovery phase happened; the term is fading from active search. Both are STRUCTURAL — one is alive, one is cooling.
+    </div>
+  </div>
+
+  <!-- REVISION BANNER -->
+  <div class="revision-banner">
+    <div class="rb-tag">◉ AUGUST 2026 REVISION — KEY CHANGES</div>
+    <strong>19 promotions to STRUCTURAL</strong> (18 from May revision + SMR). <strong>Operational status introduced</strong> — five-state layer (Dominant / Active / Receding / Cyclical / Dead) applied to all 49 STRUCTURAL cases. <strong>Spike &amp; Retreat</strong> — 10 cases. <strong>mRNA Cancer Vaccines: PRE → 100/100.</strong> <strong>Web3 corrected.</strong> <strong>Facebook: Dead.</strong> Previous: May 2026. Next: November 2026.
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- DOMAIN 1: FINANCIAL -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="domain-section">
+    <div class="domain-head">Financial Infrastructure &amp; Regulation <span>· 10 cases</span></div>
+    <div class="area-read">
+      L&nbsp;(area): <strong>~110 mo</strong> (n=7) · dominant regime: <strong>Policy-Trigger</strong>. Both layers of tokenized finance (stablecoins + RWA) now STRUCTURAL · Active. BNPL leads as Dominant (89 months). Bitcoin and Cryptocurrency are Cyclical — market-driven.
+    </div>
+    <table class="dt">
+      <thead><tr><th>Phenomenon</th><th>L</th><th>Classification</th><th>Status</th><th>Now</th><th class="note-cell">Note</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Stablecoins</td><td>128</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">~31</td><td class="note-cell">15mo. Infrastructure Paradox: attention↓ adoption↑. <a href="/zcr-2026-001-stablecoins" style="color:var(--accent)">ZCR-001</a></td></tr>
+        <tr><td class="name">Cryptocurrency</td><td>96</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-cyclical">Cyclical</span></td><td class="current-val">20</td><td class="note-cell">Below threshold. Follows market cycles. 14 max.</td></tr>
+        <tr><td class="name">Bitcoin</td><td>146</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-cyclical">Cyclical</span></td><td class="current-val">21</td><td class="note-cell">Below threshold. Cyclical. Real consolidation Dec 2020.</td></tr>
+        <tr><td class="name">CBDC</td><td>61</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">39</td><td class="note-cell">16mo. Wiki declining from 2023. Dual-velocity.</td></tr>
+        <tr><td class="name">Open Banking</td><td>75</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">—</td><td class="note-cell">B2B. Wiki ↓34% YoY. Dual-velocity transizionale.</td></tr>
+        <tr><td class="name">Buy Now Pay Later</td><td>157</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">70</td><td class="note-cell">89 consecutive months — Financial domain record.</td></tr>
+        <tr class="promoted"><td class="name">RWA Tokenization</td><td>103</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">40</td><td class="note-cell">Promoted. 14mo. Market $44.7B. <a href="/zcr-2026-003-rwa" style="color:var(--accent)">ZCR-003</a></td></tr>
+        <tr class="promoted"><td class="name">Tokenized Deposits</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">61</td><td class="note-cell">Promoted. 14mo. Within stablecoins cluster.</td></tr>
+        <tr><td class="name">Basel III</td><td>~0</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-receding">Receding</span></td><td class="current-val">24</td><td class="note-cell">Below threshold. 63 max historical. Mature term in decline.</td></tr>
+        <tr><td class="name">MiCA</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">23</td><td class="note-cell">12 max then retreated.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOMAIN 2: SECURITY -->
+  <div class="domain-section">
+    <div class="domain-head">Security / Tech / Cyber / Quantum <span>· 10 cases</span></div>
+    <div class="area-read">
+      L&nbsp;(area): <strong>~138 mo</strong> (n=5) · dominant regime: <strong>Policy-Trigger</strong>. Cloud Computing Dominant (62mo). Three promotions. PQC and AI Watermarking: Spike &amp; Retreat.
+    </div>
+    <table class="dt">
+      <thead><tr><th>Phenomenon</th><th>L</th><th>Classification</th><th>Status</th><th>Now</th><th class="note-cell">Note</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Cybersecurity</td><td>145</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">73</td><td class="note-cell">16mo. Mature.</td></tr>
+        <tr><td class="name">Zero Day Vulnerability</td><td>231</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">—</td><td class="note-cell">30mo confirmed. Technical, near-invisible.</td></tr>
+        <tr><td class="name">Endpoint Security</td><td>144</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">—</td><td class="note-cell">16mo. B2B. Term shifting to XDR.</td></tr>
+        <tr><td class="name">Post-Quantum Crypto</td><td>91</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">24</td><td class="note-cell">Breakout 100 then retreated. <a href="/zcr-2026-002-pqc" style="color:var(--accent)">ZCR-002</a></td></tr>
+        <tr><td class="name">Quantum Computing</td><td>—</td><td><span class="badge b-obs">OBSERVATION</span></td><td></td><td class="current-val">24</td><td class="note-cell">11 max — 1 short of threshold.</td></tr>
+        <tr><td class="name">Cloud Computing</td><td>31</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">67</td><td class="note-cell">62 consecutive months. Strong.</td></tr>
+        <tr class="promoted"><td class="name">Edge Computing</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">38</td><td class="note-cell">Promoted. 14mo.</td></tr>
+        <tr class="promoted"><td class="name">Digital Identity</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">35</td><td class="note-cell">Promoted. 14mo. B2B.</td></tr>
+        <tr><td class="name">AI Watermarking</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">—</td><td class="note-cell">Spike then retreat.</td></tr>
+        <tr class="promoted"><td class="name">eIDAS</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">35</td><td class="note-cell">Promoted. 16mo. Cluster confirmed.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOMAIN 3: ENERGY -->
+  <div class="domain-section">
+    <div class="domain-head">Energy <span>· 11 cases</span></div>
+    <div class="area-read">
+      L&nbsp;(area): <strong>Green Hydrogen 204, SMR 243</strong> · dominant regime: <strong>Policy-Trigger / Institutional Mass</strong>. Strongest domain structurally: 8/11 STRUCTURAL. SMR added this revision (L=243, STRUCTURAL · Receding). Solar and Heat Pump Dominant.
+    </div>
+    <table class="dt">
+      <thead><tr><th>Phenomenon</th><th>L</th><th>Classification</th><th>Status</th><th>Now</th><th class="note-cell">Note</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Green Hydrogen</td><td>204</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">38</td><td class="note-cell">21mo. Dual-velocity.</td></tr>
+        <tr><td class="name">Nuclear Fusion</td><td>—</td><td><span class="badge b-obs">OBSERVATION</span></td><td></td><td class="current-val">15</td><td class="note-cell">11 max. Spike and fade.</td></tr>
+        <tr class="promoted"><td class="name">Small Modular Reactor</td><td>243</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-receding">Receding</span></td><td class="current-val">23</td><td class="note-cell">12mo exact then retreated. Tightest STRUCTURAL in dataset. <a href="/zcr-2026-005-smr" style="color:var(--accent)">ZCR-005</a></td></tr>
+        <tr class="promoted"><td class="name">Carbon Capture</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">43</td><td class="note-cell">Promoted. 25 consecutive months.</td></tr>
+        <tr><td class="name">Solar Energy</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">52</td><td class="note-cell">57mo. 113 max historical.</td></tr>
+        <tr><td class="name">Wind Energy</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">45</td><td class="note-cell">38mo.</td></tr>
+        <tr><td class="name">Heat Pump</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">68</td><td class="note-cell">40mo.</td></tr>
+        <tr class="promoted"><td class="name">Battery Storage</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">37</td><td class="note-cell">Promoted. 14mo.</td></tr>
+        <tr><td class="name">Carbon Tax</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">25</td><td class="note-cell">13 max then retreated. Borderline.</td></tr>
+        <tr class="promoted"><td class="name">EV Charging</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">59</td><td class="note-cell">Promoted. 19mo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOMAIN 4: BIOTECH -->
+  <div class="domain-section">
+    <div class="domain-head">Biotech / Medical <span>· 10 cases</span></div>
+    <div class="area-read">
+      L&nbsp;(area): <strong>~140 mo</strong> (n=5) · dominant regime: <strong>Institutional Mass</strong>. mRNA Cancer Vaccines: PRE → 100/100 — only case in dataset to go from pre-structural to peak. Gene Therapy showing second breakout.
+    </div>
+    <table class="dt">
+      <thead><tr><th>Phenomenon</th><th>L</th><th>Classification</th><th>Status</th><th>Now</th><th class="note-cell">Note</th></tr></thead>
+      <tbody>
+        <tr><td class="name">GLP-1</td><td>85</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">61</td><td class="note-cell">16mo. Ozempic wave.</td></tr>
+        <tr><td class="name">CRISPR</td><td>99</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">34</td><td class="note-cell">17mo.</td></tr>
+        <tr><td class="name">Precision Medicine</td><td>165</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">45</td><td class="note-cell">15mo. Specialist.</td></tr>
+        <tr><td class="name">Liquid Biopsy</td><td>175</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">40</td><td class="note-cell">14mo. Pure specialist.</td></tr>
+        <tr><td class="name">Autonomous Vehicle</td><td>176</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">34</td><td class="note-cell">14mo.</td></tr>
+        <tr class="promoted"><td class="name">Explainable AI</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">34</td><td class="note-cell">Promoted. 14mo. t_start DARPA 2016.</td></tr>
+        <tr class="breakthrough"><td class="name">mRNA Cancer Vaccines</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val" style="color:var(--gold);font-weight:700;">100</td><td class="note-cell">PRE→100/100. Only PRE→peak case. 14mo.</td></tr>
+        <tr><td class="name">Gene Therapy</td><td>—</td><td><span class="badge b-pre">PRE</span></td><td></td><td class="current-val">37</td><td class="note-cell">Second breakout: peak 100 Jun 2026. 15mo.</td></tr>
+        <tr><td class="name">Stem Cell</td><td>—</td><td><span class="badge b-pre">PRE</span></td><td></td><td class="current-val">21</td><td class="note-cell">Below threshold. Pre-dataset confirmed.</td></tr>
+        <tr class="promoted"><td class="name">Telemedicine</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">40</td><td class="note-cell">Promoted from NON-STAT. 16mo post-COVID.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOMAIN 5: POLICY -->
+  <div class="domain-section">
+    <div class="domain-head">Policy / Regulatory <span>· 10 cases</span></div>
+    <div class="area-read">
+      Dominant regime: <strong>Policy-Trigger</strong>. Most Spike &amp; Retreat-heavy domain: 5/10 cases reached threshold but did not consolidate. ESG is Dominant (69mo). Policy-driven attention is fragile without market reinforcement.
+    </div>
+    <table class="dt">
+      <thead><tr><th>Phenomenon</th><th>L</th><th>Classification</th><th>Status</th><th>Now</th><th class="note-cell">Note</th></tr></thead>
+      <tbody>
+        <tr><td class="name">GDPR</td><td>—</td><td><span class="badge b-bub">BUBBLE</span></td><td></td><td class="current-val">22</td><td class="note-cell">6 max. Confirmed bubble.</td></tr>
+        <tr><td class="name">EU AI Act</td><td>—</td><td><span class="badge b-obs">OBSERVATION</span></td><td></td><td class="current-val">—</td><td class="note-cell">To re-verify.</td></tr>
+        <tr class="promoted"><td class="name">AI Red Teaming</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">37</td><td class="note-cell">Promoted. 14mo.</td></tr>
+        <tr><td class="name">AI Incident Reporting</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">15</td><td class="note-cell">12 max then retreated.</td></tr>
+        <tr><td class="name">AI Procurement Policy</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">23</td><td class="note-cell">12 max then retreated.</td></tr>
+        <tr><td class="name">ESG</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">57</td><td class="note-cell">69mo. Strong.</td></tr>
+        <tr><td class="name">CISA</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">33</td><td class="note-cell">13 max then retreated.</td></tr>
+        <tr><td class="name">Algorithmic Auditing</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">25</td><td class="note-cell">13 max then retreated. 16 yrs, never 12 consecutive.</td></tr>
+        <tr class="promoted"><td class="name">Responsible AI</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">44</td><td class="note-cell">Promoted. 14mo.</td></tr>
+        <tr><td class="name">Model Cards AI</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">20</td><td class="note-cell">12 max then retreated.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOMAIN 6: CONSUMER -->
+  <div class="domain-section">
+    <div class="domain-head">Consumer / Social <span>· 10 cases</span></div>
+    <div class="area-read">
+      L&nbsp;(area): <strong>~48 mo</strong> (n=5) · dominant regime: <strong>Market-Narrative</strong>. Four Dominant cases — highest density. Records: Streaming 218mo (dataset record), iPhone 208mo, Digital Nomad L=325 (longest lag). Facebook: Dead.
+    </div>
+    <table class="dt">
+      <thead><tr><th>Phenomenon</th><th>L</th><th>Classification</th><th>Status</th><th>Now</th><th class="note-cell">Note</th></tr></thead>
+      <tbody>
+        <tr><td class="name">iPhone</td><td>29</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">60</td><td class="note-cell">208mo. 17 years above threshold.</td></tr>
+        <tr><td class="name">Facebook</td><td>59</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dead">Dead</span></td><td class="current-val" style="color:var(--red);">5</td><td class="note-cell">0mo at end. 115 max. Term replaced by "Meta."</td></tr>
+        <tr><td class="name">TikTok</td><td>31</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">94</td><td class="note-cell">78mo. Dominant social platform.</td></tr>
+        <tr><td class="name">Virtual Reality</td><td>71</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">28</td><td class="note-cell">8mo residual. Watch for Receding.</td></tr>
+        <tr><td class="name">Metaverse</td><td>—</td><td><span class="badge b-bub">BUBBLE</span></td><td></td><td class="current-val">16</td><td class="note-cell">9 max. Confirmed bubble.</td></tr>
+        <tr><td class="name">NFT</td><td>—</td><td><span class="badge b-bub">BUBBLE</span></td><td></td><td class="current-val">5</td><td class="note-cell">8 max. Confirmed bubble.</td></tr>
+        <tr><td class="name">Digital Nomad</td><td>325</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">42</td><td class="note-cell">16mo. L=325 longest lag in dataset.</td></tr>
+        <tr><td class="name">Creator Economy</td><td>—</td><td><span class="badge b-obs">OBSERVATION</span></td><td></td><td class="current-val">32</td><td class="note-cell">6 max. Never consolidated.</td></tr>
+        <tr><td class="name">Streaming</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">32</td><td class="note-cell" style="color:var(--gold);">218mo — DATASET RECORD (18 years).</td></tr>
+        <tr><td class="name">Influencer</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">81</td><td class="note-cell">45mo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOMAIN 7: AI GOVERNANCE -->
+  <div class="domain-section">
+    <div class="domain-head">AI Governance <span>· 10 cases</span></div>
+    <div class="area-read">
+      Dominant regime: <strong>Policy-Trigger / Market-Narrative</strong>. Web3 Dominant (58mo, corrected from OBSERVATION). Remote Work Active (33mo, promoted from NON-STAT). Largest promotion count in a single domain.
+    </div>
+    <table class="dt">
+      <thead><tr><th>Phenomenon</th><th>L</th><th>Classification</th><th>Status</th><th>Now</th><th class="note-cell">Note</th></tr></thead>
+      <tbody>
+        <tr class="promoted"><td class="name">Generative AI</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">43</td><td class="note-cell">Promoted. 14mo.</td></tr>
+        <tr class="promoted"><td class="name">Deep Learning</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">43</td><td class="note-cell">Promoted. 15mo.</td></tr>
+        <tr class="promoted"><td class="name">AI Governance</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">40</td><td class="note-cell">Promoted. 14mo.</td></tr>
+        <tr><td class="name">ICO Boom</td><td>—</td><td><span class="badge b-bub">BUBBLE</span></td><td></td><td class="current-val">3</td><td class="note-cell">Most dead term in dataset.</td></tr>
+        <tr><td class="name">Memecoin</td><td>—</td><td><span class="badge b-bub">BUBBLE</span></td><td></td><td class="current-val">48</td><td class="note-cell">7 max. Bubble with active signal.</td></tr>
+        <tr class="promoted"><td class="name">Web3</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-dominant">Dominant</span></td><td class="current-val">53</td><td class="note-cell">Corrected — was OBS by error. 58mo.</td></tr>
+        <tr><td class="name">Gig Economy</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">54</td><td class="note-cell">11mo at end. Declining — watch.</td></tr>
+        <tr><td class="name">Subscription Economy</td><td>—</td><td><span class="badge b-spike">SPIKE &amp; RETREAT</span></td><td></td><td class="current-val">29</td><td class="note-cell">13 max then retreated.</td></tr>
+        <tr class="promoted"><td class="name">Super App</td><td>185</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">43</td><td class="note-cell">Promoted. 15mo.</td></tr>
+        <tr class="promoted"><td class="name">Remote Work</td><td>—</td><td><span class="badge b-str">STRUCTURAL</span></td><td><span class="os os-active">Active</span></td><td class="current-val">73</td><td class="note-cell">Promoted from NON-STAT. 33mo post-COVID.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOTTOM NOTES -->
+  <div class="reading-note">
+    <strong>Dataset records (August 2026):</strong> Longest consecutive run: Streaming (218 months). Longest lag: Digital Nomad (L=325). Longest infrastructure lag: SMR (L=243). Highest active current: mRNA Cancer Vaccines (100/100). Most dead: ICO Boom (current 3). First PRE→peak: mRNA Cancer Vaccines. Tightest STRUCTURAL: SMR (12 months exact, then retreated). Only Dead: Facebook.
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="container">
+    Zorthex Dataset v2.2 · 71 cases · observation cut-off August 2026 · revision every 90 days<br>
+    Previous revision: May 2026 (v2.0) · Next revision: November 2026<br>
+    © 2026 Zorthex™ — Renato Santi · DOI: <a href="https://doi.org/10.5281/zenodo.20589503">10.5281/zenodo.20589503</a> · <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> · <a href="https://zorthex.com/methodology">Methodology</a> · Powered by Claude
+  </div>
+</div>
+
+</body>
+</html>
