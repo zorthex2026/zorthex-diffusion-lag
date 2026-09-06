@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZCR-2026-005 — Small Modular Reactors (August 2026 Update)</title>
+<meta name="description" content="Zorthex Custom Report — SMR diffusion lag analysis. L=243 months. STRUCTURAL · Receding. The tightest STRUCTURAL in the dataset: 12 months exact, then retreated.">
+<link rel="canonical" href="https://zorthex.com/zcr-2026-005-smr">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #0a0a0f; --surface: #12121a; --surface-2: #1a1a26; --border: #2a2a3a;
+    --text: #e4e4ef; --text-muted: #8888a0; --text-dim: #5a5a70;
+    --accent: #4fc3f7; --green: #66bb6a; --gold: #ffd54f; --red: #ef5350;
+    --purple: #b388ff; --orange: #ffa726; --teal: #4dd0e1;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --max-w: 760px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font-sans); background:var(--bg); color:var(--text); line-height:1.7; font-size:15.5px; -webkit-font-smoothing:antialiased; }
+
+  .nav { padding:20px 24px; text-align:center; border-bottom:1px solid var(--border); font-family:var(--font-mono); font-size:13px; color:var(--text-muted); }
+  .nav a { color:var(--text-muted); text-decoration:none; margin:0 12px; transition:color 0.2s; }
+  .nav a:hover { color:var(--accent); }
+  .nav .logo { font-weight:700; color:var(--text); font-size:15px; letter-spacing:2px; }
+
+  .container { max-width:var(--max-w); margin:0 auto; padding:0 24px; }
+  .tag-line { padding:48px 0 12px; font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim); letter-spacing:0.3px; }
+  .hero-id { font-family:var(--font-mono); font-size:14px; color:var(--accent); letter-spacing:1px; margin-bottom:12px; }
+  .hero-title { font-size:32px; font-weight:700; line-height:1.25; margin-bottom:32px; color:#fff; }
+  .hero-title span { display:block; font-weight:300; font-size:18px; color:var(--text-muted); margin-top:8px; }
+
+  .stat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:32px; }
+  .stat-cell { background:var(--surface); padding:20px 24px; }
+  .stat-label { font-family:var(--font-mono); font-size:10.5px; color:var(--text-dim); letter-spacing:0.8px; text-transform:uppercase; margin-bottom:6px; }
+  .stat-value { font-size:24px; font-weight:700; color:#fff; }
+  .stat-value.green { color:var(--green); }
+  .stat-value.orange { color:var(--orange); }
+  .stat-sub { font-size:12px; color:var(--text-muted); margin-top:2px; }
+
+  .stamp { font-family:var(--font-mono); font-size:10px; color:var(--text-dim); line-height:1.6; padding:16px 0 48px; border-top:1px solid var(--border); }
+  .stamp a { color:var(--accent); text-decoration:none; }
+
+  .banner { border:2px solid var(--orange); border-radius:4px; padding:24px 28px; margin:0 0 48px; background:rgba(255,167,38,0.03); }
+  .banner .banner-tag { font-family:var(--font-mono); font-size:11px; letter-spacing:1.5px; color:var(--orange); margin-bottom:10px; }
+  .banner p { font-size:15px; color:var(--text); line-height:1.7; }
+  .banner strong { color:#fff; }
+
+  .signal-card { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:28px; margin:0 0 48px; }
+  .signal-card .card-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; flex-wrap:wrap; gap:8px; }
+  .signal-card .card-title { font-size:15px; font-weight:600; color:#fff; }
+  .card-badge { font-family:var(--font-mono); font-size:11px; padding:3px 10px; border-radius:3px; letter-spacing:0.5px; }
+  .badge-structural { background:rgba(102,187,106,0.12); color:var(--green); border:1px solid rgba(102,187,106,0.25); }
+  .badge-receding { background:rgba(255,167,38,0.1); color:var(--orange); border:1px solid rgba(255,167,38,0.2); margin-left:6px; }
+  .signal-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px; }
+  .metric { text-align:center; }
+  .metric-val { font-family:var(--font-mono); font-size:22px; font-weight:700; color:#fff; }
+  .metric-label { font-size:11px; color:var(--text-dim); margin-top:2px; }
+  .signal-list { list-style:none; padding:0; }
+  .signal-list li { padding:6px 0; font-size:14px; color:var(--text-muted); border-bottom:1px solid rgba(255,255,255,0.03); line-height:1.6; }
+  .signal-list li:last-child { border-bottom:none; }
+  .signal-list li strong { color:var(--text); font-weight:500; }
+
+  .section-tag { font-family:var(--font-mono); font-size:11px; color:var(--text-dim); letter-spacing:0.5px; margin-bottom:12px; }
+  h2 { font-size:22px; font-weight:700; color:#fff; margin-bottom:20px; line-height:1.3; }
+  h3 { font-size:16px; font-weight:600; color:#fff; margin:28px 0 12px; }
+  .section { margin-bottom:56px; }
+  .section p { margin-bottom:14px; color:var(--text); }
+
+  .timeline { position:relative; padding-left:28px; margin:24px 0; }
+  .timeline::before { content:''; position:absolute; left:6px; top:0; bottom:0; width:1px; background:var(--border); }
+  .tl-item { position:relative; margin-bottom:20px; }
+  .tl-item::before { content:''; position:absolute; left:-24px; top:8px; width:7px; height:7px; border-radius:50%; background:var(--border); }
+  .tl-item.key::before { background:var(--green); box-shadow:0 0 8px rgba(102,187,106,0.4); width:9px; height:9px; left:-25px; top:7px; }
+  .tl-item.warn::before { background:var(--orange); box-shadow:0 0 8px rgba(255,167,38,0.4); width:9px; height:9px; left:-25px; top:7px; }
+  .tl-date { font-family:var(--font-mono); font-size:12px; color:var(--accent); margin-bottom:4px; }
+  .tl-item p { font-size:14px; color:var(--text-muted); line-height:1.6; }
+  .tl-item p strong { color:var(--text); font-weight:500; }
+
+  /* CHART */
+  .chart-box { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:28px; margin:24px 0; }
+  .chart-box .chart-title { font-family:var(--font-mono); font-size:11px; color:var(--text-dim); letter-spacing:0.5px; margin-bottom:16px; }
+  .bar-row { display:flex; align-items:center; gap:8px; margin-bottom:3px; }
+  .bar-label { font-family:var(--font-mono); font-size:10px; color:var(--text-dim); width:56px; text-align:right; }
+  .bar { height:16px; border-radius:2px; transition:all 0.3s; min-width:2px; }
+  .bar-default { background:var(--accent); opacity:0.3; }
+  .bar-breakout { background:var(--gold); opacity:0.9; }
+  .bar-above { background:var(--green); opacity:0.7; }
+  .bar-below { background:var(--orange); opacity:0.7; }
+  .bar-val { font-family:var(--font-mono); font-size:10px; color:var(--text-dim); width:30px; }
+
+  /* SOURCE CARD */
+  .src-card { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:24px; margin:16px 0; }
+  .src-name { font-family:var(--font-mono); font-size:11px; color:var(--accent); letter-spacing:0.5px; margin-bottom:10px; }
+  .src-body { font-size:14px; color:var(--text-muted); line-height:1.7; }
+  .src-body strong { color:var(--text); font-weight:500; }
+
+  /* GEO */
+  .geo-row { display:flex; align-items:center; gap:12px; padding:6px 0; border-bottom:1px solid var(--border); }
+  .geo-country { font-size:13px; color:var(--text); width:130px; }
+  .geo-bar { height:10px; background:var(--accent); opacity:0.5; border-radius:2px; }
+  .geo-val { font-family:var(--font-mono); font-size:11px; color:var(--text-dim); width:40px; text-align:right; }
+
+  /* BENCHMARK */
+  .data-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:14px; }
+  .data-table th { text-align:left; font-family:var(--font-mono); font-size:10.5px; color:var(--text-dim); letter-spacing:0.5px; text-transform:uppercase; padding:10px 12px; border-bottom:1px solid var(--border); }
+  .data-table td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-muted); }
+  .data-table tr.highlight td { color:var(--orange); font-weight:500; }
+  .bar-h { display:inline-block; height:6px; background:var(--accent); border-radius:3px; opacity:0.5; vertical-align:middle; margin-left:8px; }
+
+  /* MONITOR */
+  .monitor-grid { display:grid; gap:16px; margin:24px 0; }
+  .monitor-item { border:1px solid var(--border); border-radius:4px; padding:20px 24px; background:var(--surface); }
+  .monitor-item.triggered { border-color:var(--orange); background:rgba(255,167,38,0.03); }
+  .monitor-cond { font-family:var(--font-mono); font-size:11.5px; color:var(--accent); margin-bottom:6px; }
+  .monitor-item.triggered .monitor-cond { color:var(--orange); }
+  .monitor-title { font-weight:600; font-size:14px; color:#fff; margin-bottom:8px; }
+  .monitor-item p { font-size:13.5px; color:var(--text-muted); line-height:1.6; }
+
+  .lim-list { list-style:none; padding:0; }
+  .lim-list li { padding:10px 0; font-size:14px; color:var(--text-muted); border-bottom:1px solid rgba(255,255,255,0.03); line-height:1.65; }
+  .lim-list li:last-child { border-bottom:none; }
+  .lim-list li strong { color:var(--text); font-weight:500; }
+
+  .source-table { width:100%; border-collapse:collapse; font-size:13px; margin:24px 0; }
+  .source-table th { text-align:left; font-family:var(--font-mono); font-size:10px; color:var(--text-dim); letter-spacing:0.5px; text-transform:uppercase; padding:8px 10px; border-bottom:1px solid var(--border); }
+  .source-table td { padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-muted); vertical-align:top; }
+
+  .footer { padding:48px 0; border-top:1px solid var(--border); text-align:center; font-size:13px; color:var(--text-dim); line-height:1.8; }
+  .footer a { color:var(--text-muted); text-decoration:none; }
+  .footer a:hover { color:var(--accent); }
+
+  @media (max-width:600px) { .stat-grid{grid-template-columns:1fr;} .signal-metrics{grid-template-columns:1fr;gap:12px;} .hero-title{font-size:24px;} h2{font-size:19px;} }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="https://zorthex.com" class="logo">ZORTHEX</a>
+  <a href="https://zorthex.com">Home</a>
+  <a href="https://zorthex.com/research">Research</a>
+  <a href="https://zorthex.com/methodology">Methodology</a>
+</div>
+
+<div class="container">
+
+  <div class="tag-line">// Custom Report · ZCR Series · Essential · Verified Data · STRUCTURAL · Receding</div>
+
+  <div class="hero-id">ZCR-2026-005</div>
+  <h1 class="hero-title">
+    Small Modular Reactors —<br>Public Attention Diffusion Lag Analysis
+    <span>The Tightest STRUCTURAL in the Dataset · L = 243 months</span>
+  </h1>
+
+  <div class="stat-grid">
+    <div class="stat-cell"><div class="stat-label">Diffusion Lag (L)</div><div class="stat-value">243 months</div></div>
+    <div class="stat-cell"><div class="stat-label">Classification</div><div class="stat-value green">STRUCTURAL</div><div class="stat-sub">Receding · below threshold since Aug 2026</div></div>
+    <div class="stat-cell"><div class="stat-label">Current Status</div><div class="stat-value orange">23/100</div><div class="stat-sub">Below threshold (was 44 in July)</div></div>
+    <div class="stat-cell"><div class="stat-label">Peak Score</div><div class="stat-value">100/100</div><div class="stat-sub">August 2025</div></div>
+  </div>
+
+  <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="stat-cell"><div class="stat-label">t_start</div><div class="stat-value" style="font-size:16px;">May 2005</div><div class="stat-sub">IAEA TECDOC-1451 · Level A</div></div>
+    <div class="stat-cell"><div class="stat-label">Months Above 25</div><div class="stat-value orange">12/12</div><div class="stat-sub">Exact threshold — the minimum</div></div>
+    <div class="stat-cell"><div class="stat-label">Operational Status</div><div class="stat-value orange" style="font-size:16px;">Receding</div><div class="stat-sub">Score dropped below threshold Aug 2026</div></div>
+  </div>
+
+  <div class="stamp">
+    This is a Zorthex Custom Report (ZCR) — Essential tier. All data manually verified. Google Trends CSV snapshot locked: downloaded August 12, 2026. Wikipedia pageviews: August 2024 – August 2026. t_start source documented with primary reference (IAEA TECDOC-1451 · Level A). Updated September 2026 with operational status and August 2026 data point. See <a href="https://zorthex.com/methodology">zorthex.com/methodology</a> for full policy. · Zorthex v2.2 · CC-BY-NC 4.0 · © 2026 Zorthex™ — Renato Santi
+  </div>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="banner-tag">◉ STRUCTURAL · RECEDING — THE TIGHTEST CASE IN THE DATASET</div>
+    <p>
+      SMR completed exactly <strong>12 consecutive months</strong> above the structural attention threshold (August 2025 – July 2026) — the precise minimum required for STRUCTURAL classification. In August 2026, the score dropped to <strong>23/100</strong>, below threshold. The classification stands: 12 months is the rule, the rule is met. But this is the first and only case in the Zorthex dataset where a phenomenon qualified at the exact threshold boundary and immediately retreated. The operational status <strong>Receding</strong> — introduced in the August 2026 revision — documents this: the term consolidated once, but attention is now fading. The classification is permanent. The weather has changed.
+    </p>
+  </div>
+
+  <!-- SIGNAL CARD -->
+  <div class="section-tag">◈ Signal Artifact · Executive Layer · ZSA-2026-005</div>
+  <div class="signal-card">
+    <div class="card-head">
+      <div class="card-title">Small Modular Reactors</div>
+      <span class="card-badge badge-structural">◎ STRUCTURAL</span>
+      <span class="card-badge badge-receding">↓ Receding</span>
+    </div>
+    <div class="signal-metrics">
+      <div class="metric"><div class="metric-val">243 mo</div><div class="metric-label">Diffusion Lag L</div></div>
+      <div class="metric"><div class="metric-val">100/100</div><div class="metric-label">Peak · Aug 2025</div></div>
+      <div class="metric"><div class="metric-val">12/12</div><div class="metric-label">Months above 25 (exact)</div></div>
+    </div>
+    <div class="signal-metrics">
+      <div class="metric"><div class="metric-val" style="color:var(--orange);">23/100</div><div class="metric-label">Current · Aug 2026</div></div>
+      <div class="metric"><div class="metric-val">May 2005</div><div class="metric-label">t_start (IAEA)</div></div>
+      <div class="metric"><div class="metric-val">16→100</div><div class="metric-label">Breakout jump</div></div>
+    </div>
+    <ul class="signal-list">
+      <li>Institutional infrastructure since 2005. Public attention near-zero for 20 years (1–7/100)</li>
+      <li>Breakout: August 2025 — 16/100 to 100/100 in a single month. Most explosive non-consumer breakout in the dataset</li>
+      <li>12 consecutive months above threshold confirmed (August 2025 – July 2026) — STRUCTURAL</li>
+      <li><strong>August 2026: score dropped to 23/100 — below threshold.</strong> First month below since breakout</li>
+      <li>Operational status: <strong>Receding</strong>. The discovery phase occurred. Public attention is now fading</li>
+      <li>L=243 months — longest infrastructure lag in the Energy domain. Second longest in the dataset (after Digital Nomad L=325)</li>
+    </ul>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-box">
+    <div class="chart-title">GOOGLE TRENDS — "SMALL MODULAR REACTOR" · WORLDWIDE · 2020–AUG 2026</div>
+    <div class="bar-row"><div class="bar-label">2020</div><div class="bar bar-default" style="width:2%"></div><div class="bar-val">2</div></div>
+    <div class="bar-row"><div class="bar-label">2021</div><div class="bar bar-default" style="width:3%"></div><div class="bar-val">3</div></div>
+    <div class="bar-row"><div class="bar-label">2022</div><div class="bar bar-default" style="width:5%"></div><div class="bar-val">5</div></div>
+    <div class="bar-row"><div class="bar-label">2023</div><div class="bar bar-default" style="width:5%"></div><div class="bar-val">5</div></div>
+    <div class="bar-row"><div class="bar-label">Jan 24</div><div class="bar bar-default" style="width:5%"></div><div class="bar-val">5</div></div>
+    <div class="bar-row"><div class="bar-label">Jul 24</div><div class="bar bar-default" style="width:6%"></div><div class="bar-val">6</div></div>
+    <div class="bar-row"><div class="bar-label">Oct 24</div><div class="bar bar-default" style="width:13%"></div><div class="bar-val">13</div></div>
+    <div class="bar-row"><div class="bar-label">Jan 25</div><div class="bar bar-default" style="width:10%"></div><div class="bar-val">10</div></div>
+    <div class="bar-row"><div class="bar-label">Apr 25</div><div class="bar bar-default" style="width:11%"></div><div class="bar-val">11</div></div>
+    <div class="bar-row"><div class="bar-label">Jul 25</div><div class="bar bar-default" style="width:16%"></div><div class="bar-val">16</div></div>
+    <div class="bar-row"><div class="bar-label">Aug 25</div><div class="bar bar-breakout" style="width:100%"></div><div class="bar-val" style="color:var(--gold);">100</div></div>
+    <div class="bar-row"><div class="bar-label">Sep 25</div><div class="bar bar-above" style="width:72%"></div><div class="bar-val">72</div></div>
+    <div class="bar-row"><div class="bar-label">Oct 25</div><div class="bar bar-above" style="width:96%"></div><div class="bar-val">96</div></div>
+    <div class="bar-row"><div class="bar-label">Nov 25</div><div class="bar bar-above" style="width:92%"></div><div class="bar-val">92</div></div>
+    <div class="bar-row"><div class="bar-label">Dec 25</div><div class="bar bar-above" style="width:71%"></div><div class="bar-val">71</div></div>
+    <div class="bar-row"><div class="bar-label">Jan 26</div><div class="bar bar-above" style="width:50%"></div><div class="bar-val">50</div></div>
+    <div class="bar-row"><div class="bar-label">Mar 26</div><div class="bar bar-above" style="width:60%"></div><div class="bar-val">60</div></div>
+    <div class="bar-row"><div class="bar-label">May 26</div><div class="bar bar-above" style="width:71%"></div><div class="bar-val">71</div></div>
+    <div class="bar-row"><div class="bar-label">Jul 26</div><div class="bar bar-above" style="width:44%"></div><div class="bar-val">44</div></div>
+    <div class="bar-row"><div class="bar-label">Aug 26</div><div class="bar bar-below" style="width:23%"></div><div class="bar-val" style="color:var(--orange);">23</div></div>
+    <p style="font-size:11px; color:var(--text-dim); margin-top:16px; line-height:1.6;">Gold = breakout month. Green = months above structural threshold (≥25/100). Orange = below threshold. Source: Google Trends CSV, downloaded August 12, 2026. August 2026 reading from Zorthex dataset revision.</p>
+  </div>
+
+  <!-- 01 · t_start -->
+  <div class="section">
+    <div class="section-tag">// 01 · t_start definition</div>
+    <h2>When Did SMR Begin?</h2>
+
+    <p><strong>t_start selected: May 2005</strong><br>
+    Source: IAEA TECDOC-1451 — "Innovative Small and Medium Sized Reactors: Design Features, Safety Approaches and R&D Trends" · Level A (international institutional publication)</p>
+    <p>Rationale: First institutional document formalising SMR as a reactor category with defined parameters (≤300 MWe, modular design, factory-fabricated). This moment marks when SMR transitioned from individual research projects to a recognised institutional category with international standards.</p>
+
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">2000–2004</div><p>DOE Nuclear Energy Research Initiative funds early SMR concepts. Oregon State University research (basis for NuScale). Conceptual phase — no formalised category exists.</p></div>
+      <div class="tl-item key"><div class="tl-date">May 2005 ★</div><p><strong>IAEA TECDOC-1451 published.</strong> First international institutional framework defining SMR as a category. <strong>This is t_start.</strong> Level A.</p></div>
+      <div class="tl-item"><div class="tl-date">Nov 2007</div><p>NuScale Power founded. First company exclusively focused on SMR commercialisation. Level B.</p></div>
+      <div class="tl-item"><div class="tl-date">Mar 2008</div><p>First Google Trends signal: 3/100. The term enters measurable search behaviour.</p></div>
+      <div class="tl-item"><div class="tl-date">Mar 2012</div><p>DOE SMR Licensing Technical Support program announced. $452M over five years. Level A.</p></div>
+      <div class="tl-item"><div class="tl-date">Jan 2023</div><p>NuScale receives NRC Standard Design Approval — the only NRC-certified SMR design. Level A.</p></div>
+      <div class="tl-item"><div class="tl-date">Oct 2024</div><p>Amazon anchors $500M investment in X-energy. Google, Microsoft announce nuclear PPAs. Google Trends rises to 13/100.</p></div>
+      <div class="tl-item"><div class="tl-date">Jun 2025</div><p>TerraPower closes $650M Series C (Bill Gates, NVIDIA NVentures). X-energy raises $700M. $1.3B total equity in 2025.</p></div>
+      <div class="tl-item key"><div class="tl-date">Aug 2025 ★</div><p><strong>Public attention breakout.</strong> Google Trends: 16 → 100 in one month. t_peak confirmed.</p></div>
+      <div class="tl-item"><div class="tl-date">Apr 2026</div><p>X-energy IPO: $1.02 billion. First pure-play SMR IPO. Holtec files S-1 targeting $10B+ valuation.</p></div>
+      <div class="tl-item"><div class="tl-date">Jul 2026</div><p>Deployable Energy Unity reaches criticality — third microreactor under DOE July 4 directive. Bank of America estimates $10 trillion nuclear opportunity. Last month above threshold (44/100).</p></div>
+      <div class="tl-item warn"><div class="tl-date">Aug 2026 ⚡</div><p><strong>Score drops to 23/100 — below threshold.</strong> First month below since breakout. 12 consecutive months completed exactly. STRUCTURAL classification locked. Operational status: Receding.</p></div>
+    </div>
+  </div>
+
+  <!-- 02 · three-source -->
+  <div class="section">
+    <div class="section-tag">// 02 · three-source verification</div>
+    <h2>Signal Across Three Independent Sources</h2>
+
+    <div class="src-card">
+      <div class="src-name">◉ Google Trends · operational</div>
+      <div class="src-body">
+        Query: <strong>"small modular reactor"</strong>, Worldwide<br>
+        Downloaded: August 12, 2026<br><br>
+        2005–2024: consistently sub-16/100. Twenty years of near-invisible public search interest.<br>
+        First above threshold: August 2025 (100/100)<br>
+        Peak: August 2025 (100/100) — breakout month IS the all-time peak<br>
+        Months above 25: <strong>12/12</strong> — STRUCTURAL confirmed<br>
+        July 2026: 44/100 — last month above threshold<br>
+        August 2026: <strong>23/100</strong> — below threshold. Receding.<br><br>
+        <em>The August 2025 jump from 16 to 100 in a single month represents the most explosive non-consumer breakout in the Zorthex dataset. For comparison, RWA Tokenization jumped from 14 to 85. SMR went from 16 to 100.</em>
+      </div>
+    </div>
+
+    <div class="src-card">
+      <div class="src-name">◉ Wikipedia · informational</div>
+      <div class="src-body">
+        Page: en.wikipedia.org/wiki/Small_modular_reactor<br>
+        Period: August 2024 – August 2026 (730 days)<br><br>
+        Overall average: <strong>684 views/day</strong><br>
+        Peak: <strong>4,121 views/day</strong> (November 2025)<br>
+        Pre-breakout average (Aug–Sep 2024): 450/day<br>
+        Post-breakout average (Oct 2025–Jul 2026): 683/day<br><br>
+        Pattern: event-driven spikes on a stable institutional base. October 2024 spike (3,324/day) correlates with Amazon/Google nuclear announcements. November 2025 spike (4,121/day) correlates with post-breakout sustained interest. Wikipedia traffic indicates genuine informational demand — consistent with an institutional audience seeking to understand, not just search.
+      </div>
+    </div>
+
+    <div class="src-card">
+      <div class="src-name">◉ Reddit · community</div>
+      <div class="src-body">
+        Primary: r/nuclear, r/energy, r/investing, r/wallstreetbets<br><br>
+        Classification: <strong>Matura</strong><br><br>
+        NuScale Power (NYSE: SMR) rose 550% in 2024. Reddit discussion is polarised: enthusiasm for the technology's promise versus scepticism about execution timelines and profitability (no SMR company expects profits before 2030). The community signal confirms that SMR has crossed from specialist discussion to mainstream financial discourse.
+      </div>
+    </div>
+
+    <p><strong>Three-source convergence confirmed.</strong> All three sources show directional alignment from August 2025. Google Trends documents the breakout and the August 2026 retreat. Wikipedia documents sustained informational demand. Reddit documents the transition from technical to financial mainstream discourse. Family classification: <strong>Intermediate</strong> (GT high then receding, Wiki moderate/event-driven, Reddit matura).</p>
+  </div>
+
+  <!-- 03 · geographic -->
+  <div class="section">
+    <div class="section-tag">// 03 · geographic distribution</div>
+    <h2>Geographic Signal</h2>
+    <p style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Google Trends geographic data, 2004–2026. National-level readings.</p>
+
+    <div style="max-width:500px;">
+      <div class="geo-row"><div class="geo-country">South Korea</div><div class="geo-bar" style="width:200px"></div><div class="geo-val">100</div></div>
+      <div class="geo-row"><div class="geo-country">Canada</div><div class="geo-bar" style="width:80px"></div><div class="geo-val">40</div></div>
+      <div class="geo-row"><div class="geo-country">Singapore</div><div class="geo-bar" style="width:80px"></div><div class="geo-val">40</div></div>
+      <div class="geo-row"><div class="geo-country">United States</div><div class="geo-bar" style="width:40px"></div><div class="geo-val">20</div></div>
+      <div class="geo-row"><div class="geo-country">Czech Republic</div><div class="geo-bar" style="width:40px"></div><div class="geo-val">20</div></div>
+      <div class="geo-row"><div class="geo-country">United Kingdom</div><div class="geo-bar" style="width:40px"></div><div class="geo-val">20</div></div>
+      <div class="geo-row"><div class="geo-country">Finland</div><div class="geo-bar" style="width:40px"></div><div class="geo-val">20</div></div>
+    </div>
+
+    <p style="margin-top:16px;"><strong>Geographic reading.</strong> South Korea dominates (100) — driven by KAERI's SMART SMR programme. Canada (40) reflects the Darlington BWRX-300 project, the first SMR under construction in North America. The US (20) is surprisingly low relative to its investment volume — likely because American search behaviour is distributed across company names (NuScale, Oklo, TerraPower) rather than the generic category term.</p>
+  </div>
+
+  <!-- 04 · why L matters -->
+  <div class="section">
+    <div class="section-tag">// 04 · why the L value matters</div>
+    <h2>243 Months of Invisible Infrastructure</h2>
+
+    <p>For 20 years, the IAEA published technical standards, NuScale obtained the only NRC design certification, TerraPower secured $650M from Bill Gates and NVIDIA, X-energy raised $700M from Amazon, and China built the world's first commercial land-based SMR. All of this happened while Google Trends showed 2–7 out of 100.</p>
+
+    <p>The breakout in August 2025 closed that window. It was triggered by a convergence of signals: AI data centre energy demand, DOE executive orders mandating three operational reactors by July 4, 2026, and $1.3 billion in equity investment in a single year.</p>
+
+    <p><strong>What the Receding status adds:</strong> The window opened and closed in exactly 12 months. The public discovered SMR, processed it, and moved on. The attention lasted long enough to qualify as structural (the term entered the vocabulary) but not long enough to sustain active interest. This is the signature of a phenomenon that was catapulted into public awareness by a specific narrative (AI energy demand) rather than by sustained consumer engagement. When the narrative moves on, the attention follows.</p>
+
+    <p>For comparison: RWA Tokenization (STRUCTURAL · Active, current 40) and Stablecoins (STRUCTURAL · Active, current ~31) are both above threshold. Their attention is sustained because the underlying activity generates continuous search demand. SMR's attention was driven by investment narrative, not operational demand — nobody Googles "small modular reactor" because they're buying one. The Receding status documents this structural difference.</p>
+  </div>
+
+  <!-- 05 · benchmark -->
+  <div class="section">
+    <div class="section-tag">// 05 · sector benchmark — August 2026</div>
+    <h2>Where SMR Sits in the Dataset</h2>
+
+    <table class="data-table">
+      <thead><tr><th>Phenomenon</th><th>L (months)</th><th>Classification</th><th>Op. Status</th></tr></thead>
+      <tbody>
+        <tr><td>Digital Nomad</td><td>325 mo <span class="bar-h" style="width:100%;"></span></td><td>STRUCTURAL</td><td>Active</td></tr>
+        <tr class="highlight"><td>Small Modular Reactor ◀</td><td>243 mo <span class="bar-h" style="width:75%;background:var(--orange);"></span></td><td>STRUCTURAL</td><td>Receding</td></tr>
+        <tr><td>Zero Day Vulnerability</td><td>231 mo <span class="bar-h" style="width:71%;"></span></td><td>STRUCTURAL</td><td>Active</td></tr>
+        <tr><td>Streaming</td><td>218+ mo <span class="bar-h" style="width:67%;"></span></td><td>STRUCTURAL</td><td>Dominant</td></tr>
+        <tr><td>iPhone</td><td>208 mo <span class="bar-h" style="width:64%;"></span></td><td>STRUCTURAL</td><td>Dominant</td></tr>
+        <tr><td>Green Hydrogen</td><td>204 mo <span class="bar-h" style="width:63%;"></span></td><td>STRUCTURAL</td><td>Active</td></tr>
+        <tr><td>Super App</td><td>185 mo <span class="bar-h" style="width:57%;"></span></td><td>STRUCTURAL</td><td>Active</td></tr>
+        <tr><td>Autonomous Vehicle</td><td>176 mo <span class="bar-h" style="width:54%;"></span></td><td>STRUCTURAL</td><td>Active</td></tr>
+        <tr><td>Cybersecurity</td><td>145 mo <span class="bar-h" style="width:45%;"></span></td><td>STRUCTURAL</td><td>Active</td></tr>
+        <tr><td>Stablecoins</td><td>128 mo <span class="bar-h" style="width:39%;"></span></td><td>STRUCTURAL</td><td>Active</td></tr>
+      </tbody>
+    </table>
+
+    <p>At 243 months, SMR holds the second-longest lag in the dataset and the longest in the Energy domain. The only case with a longer lag (Digital Nomad, L=325) is Active. SMR is Receding — making it the longest-lagging Receding case in the dataset. The regime is a hybrid: Institutional Mass + Policy-Trigger, which is rare (most cases show one mechanism, not both).</p>
+  </div>
+
+  <!-- 06 · monitoring -->
+  <div class="section">
+    <div class="section-tag">// 06 · conditional monitoring framework — August 2026 status</div>
+    <h2>Monitoring — Trigger Status</h2>
+
+    <div class="monitor-grid">
+      <div class="monitor-item triggered">
+        <div class="monitor-cond" style="color:var(--orange);">TRIGGERED ⚡</div>
+        <div class="monitor-title">Attention Sustainability</div>
+        <p>The original report set this condition: "IF attention drops below 25 → Monitor for regime shift to Receding." Triggered. Google Trends dropped to 23/100 in August 2026 — the first month below threshold since the breakout. Operational status moved to Receding. The next question is whether this is a dip (the score returns above 25 in September–October) or a permanent decline. If below 25 for 3+ consecutive months, the Receding status is confirmed as sustained.</p>
+      </div>
+      <div class="monitor-item">
+        <div class="monitor-cond">WATCH · ACTIVE</div>
+        <div class="monitor-title">IPO Wave</div>
+        <p>X-energy IPO ($1.02B, April 2026) completed. Holtec filed S-1 targeting $10B+ valuation. Each SMR IPO functions as a public-attention amplifier. A Holtec listing could trigger a secondary attention spike. Monitor NuScale earnings trajectory (NYSE: SMR) for execution signal.</p>
+      </div>
+      <div class="monitor-item">
+        <div class="monitor-cond">WATCH · ACTIVE</div>
+        <div class="monitor-title">First Commercial Power Delivery</div>
+        <p>No Western SMR has yet delivered commercial electricity. China's ACP100 status unclear. Deployable Energy Unity reached criticality (July 2026). If a Western SMR delivers commercial power, expect a fundamental attention reset — the narrative shifts from "promise" to "operating asset."</p>
+      </div>
+      <div class="monitor-item">
+        <div class="monitor-cond">WATCH · COUNTER-SIGNAL</div>
+        <div class="monitor-title">Execution Failure</div>
+        <p>NuScale's UAMPS cancellation (2023) is the historical precedent: project failures produce temporary attention spikes followed by sentiment inversion. A major SMR project cancellation or cost overrun (>$1B) during the Receding phase could accelerate the attention decline permanently.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 · limitations -->
+  <div class="section">
+    <div class="section-tag">// 07 · declared limitations</div>
+    <h2>Limitations of This Report</h2>
+    <ul class="lim-list">
+      <li><strong>t_start alternative candidates:</strong> Four alternatives exist: 2001 (DOE conceptualisation, L=295), 2007 (NuScale founding, L=213), 2008 (first GT signal, L=209), 2012 (DOE SMR program, L=161). The 2005 choice reflects first institutional formalisation. Rationale declared, alternatives documented.</li>
+      <li><strong>Query specificity:</strong> "Small modular reactor" captures the generic category. Branded queries ("NuScale," "Oklo," "TerraPower") would produce different values. The US geographic score (20) is likely depressed by query fragmentation across brand names.</li>
+      <li><strong>Threshold boundary case:</strong> SMR qualified at exactly 12 months — the minimum. No margin. The STRUCTURAL classification is technically correct but operationally fragile. The Receding status documents this fragility. If the rule were 13 months, SMR would not qualify. This is declared, not hidden.</li>
+      <li><strong>August 2026 reading:</strong> The August 2026 score (23/100) is from the Zorthex dataset revision, not a new CSV lock. The next CSV lock is scheduled for the November 2026 revision.</li>
+      <li><strong>Wikipedia source:</strong> en.wikipedia.org/wiki/Small_modular_reactor has 684 views/day average. Event-driven spikes make monthly averages volatile.</li>
+    </ul>
+  </div>
+
+  <!-- 08 · sources -->
+  <div class="section">
+    <div class="section-tag">// 08 · source documentation</div>
+    <h2>Primary Sources</h2>
+    <table class="source-table">
+      <thead><tr><th>Data</th><th>Source</th><th>Level</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td>t_start definition</td><td>IAEA TECDOC-1451</td><td>A</td><td>May 2005</td></tr>
+        <tr><td>Google Trends CSV</td><td>trends.google.com · "small modular reactor" · Worldwide</td><td>Primary</td><td>Aug 12, 2026</td></tr>
+        <tr><td>Wikipedia pageviews</td><td>Wikimedia API · daily</td><td>Primary</td><td>Aug 2024 – Aug 2026</td></tr>
+        <tr><td>August 2026 verification</td><td>Zorthex dataset revision 71/71</td><td>Primary</td><td>August 2026</td></tr>
+        <tr><td>NuScale NRC certification</td><td>NRC Standard Design Approval</td><td>A</td><td>Jan 2023</td></tr>
+        <tr><td>2025 equity investment ($1.3B)</td><td>Industry aggregation</td><td>C</td><td>May 2026</td></tr>
+        <tr><td>X-energy IPO</td><td>VanEck investment analysis</td><td>B</td><td>Apr 2026</td></tr>
+        <tr><td>Bank of America $10T estimate</td><td>Motley Fool / Yahoo Finance (BofA research note)</td><td>C</td><td>Jul 2026</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Data availability:</strong> Google Trends CSV available at github.com/zorthex2026/zorthex-diffusion-lag · Methodology: <a href="https://zorthex.com/methodology" style="color:var(--accent)">zorthex.com/methodology</a> · Contact: zorthex.official@gmail.com</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="container">
+    ZCR-2026-005 · Small Modular Reactors · Zorthex Custom Report · Essential<br>
+    Original: August 2026 · Updated: September 2026 (STRUCTURAL · Receding confirmed)<br>
+    © 2026 Zorthex™ — Renato Santi · Framework v2.2 · CC-BY-NC 4.0<br>
+    <a href="https://doi.org/10.5281/zenodo.20589503">doi.org/10.5281/zenodo.20589503</a> ·
+    <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> ·
+    <a href="https://zorthex.com/methodology">Methodology</a> ·
+    Powered by Claude · zorthex.com
+  </div>
+</div>
+
+</body>
+</html>
