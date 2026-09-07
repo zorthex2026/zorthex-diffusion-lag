@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZORTHEX — Research & Signal Reports</title>
+<meta name="description" content="Zorthex research output: signal analyses, custom reports, cross-dataset patterns. 71 cases, 7 domains. August 2026 revision.">
+<link rel="canonical" href="https://zorthex.com/research">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #06060b;
+    --surface: #0d0d15;
+    --surface-2: #13131f;
+    --surface-3: #191928;
+    --border: #1e1e30;
+    --border-light: #2a2a42;
+    --text: #e8e8f4;
+    --text-muted: #9090aa;
+    --text-dim: #5a5a72;
+    --accent: #4fc3f7;
+    --green: #5ae67a;
+    --gold: #ffcc33;
+    --red: #ff5252;
+    --purple: #b388ff;
+    --orange: #ffa040;
+    --teal: #40e0d0;
+    --pink: #ff6b9d;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font-sans); background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+  /* ─── NAV ─── */
+  .nav {
+    padding:18px 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+    max-width:1280px;
+    margin:0 auto;
+    position:relative;
+    z-index:10;
+  }
+  .nav .logo { font-family:var(--font-mono); font-weight:700; color:#fff; font-size:15px; letter-spacing:3px; text-decoration:none; }
+  .nav-links { display:flex; gap:28px; }
+  .nav-links a { font-size:13px; color:var(--text-dim); text-decoration:none; transition:color 0.2s; font-weight:500; }
+  .nav-links a:hover { color:var(--accent); }
+  .nav-links a.active { color:var(--accent); }
+
+  .wrap { max-width:1280px; margin:0 auto; padding:0 40px; }
+
+  /* ─── HERO ─── */
+  .hero-section {
+    position:relative;
+    padding:80px 0 60px;
+    overflow:hidden;
+  }
+  .hero-section::before {
+    content:'';
+    position:absolute;
+    top:-200px; right:-200px;
+    width:700px; height:700px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(79,195,247,0.06) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-section::after {
+    content:'';
+    position:absolute;
+    bottom:-150px; left:-150px;
+    width:500px; height:500px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(90,230,122,0.04) 0%, transparent 70%);
+    pointer-events:none;
+  }
+
+  .hero-tag {
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .hero-tag::before {
+    content:'';
+    display:inline-block;
+    width:24px; height:1px;
+    background:var(--accent);
+  }
+
+  .hero h1 {
+    font-size:52px;
+    font-weight:900;
+    color:#fff;
+    line-height:1.1;
+    margin-bottom:20px;
+    letter-spacing:-1px;
+  }
+  .hero h1 span {
+    background:linear-gradient(135deg, var(--accent), var(--teal));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .hero-desc {
+    font-size:17px;
+    color:var(--text-muted);
+    max-width:580px;
+    line-height:1.7;
+    margin-bottom:36px;
+  }
+
+  /* HERO STATS */
+  .hero-stats {
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+  .hs-item {
+    text-align:center;
+  }
+  .hs-num {
+    font-family:var(--font-mono);
+    font-size:36px;
+    font-weight:700;
+    color:#fff;
+    line-height:1;
+  }
+  .hs-num.glow-green { color:var(--green); text-shadow:0 0 30px rgba(90,230,122,0.3); }
+  .hs-num.glow-blue { color:var(--accent); text-shadow:0 0 30px rgba(79,195,247,0.3); }
+  .hs-label {
+    font-size:11px;
+    color:var(--text-dim);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-top:6px;
+  }
+
+  /* PILLS */
+  .pills {
+    display:flex; gap:10px; flex-wrap:wrap;
+    padding:8px 0 0;
+  }
+  .pill {
+    padding:8px 18px;
+    border:1px solid var(--border);
+    border-radius:24px;
+    font-size:13px;
+    color:var(--text-muted);
+    text-decoration:none;
+    transition:all 0.25s;
+    font-weight:500;
+    background:rgba(255,255,255,0.02);
+  }
+  .pill:hover { border-color:var(--accent); color:var(--accent); background:rgba(79,195,247,0.04); transform:translateY(-1px); }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    border:none;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--border-light), transparent);
+    margin:56px 0;
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .sec-header {
+    margin-bottom:32px;
+  }
+  .sec-label {
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--accent);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .sec-label::before {
+    content:'';
+    display:inline-block;
+    width:16px; height:1px;
+    background:var(--accent);
+  }
+  .sec-header h2 {
+    font-size:28px;
+    font-weight:800;
+    color:#fff;
+    margin-bottom:10px;
+    letter-spacing:-0.5px;
+  }
+  .sec-header p {
+    font-size:15px;
+    color:var(--text-dim);
+    max-width:650px;
+    line-height:1.65;
+  }
+
+  /* ─── CARD GRID ─── */
+  .grid-2 { display:grid; grid-template-columns:repeat(2, 1fr); gap:24px; margin-bottom:24px; }
+  .full { grid-column:span 2; }
+
+  /* ─── CARDS ─── */
+  .card {
+    background:linear-gradient(165deg, var(--surface-2) 0%, var(--surface) 100%);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:32px;
+    transition:all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .card:hover {
+    border-color:var(--border-light);
+    transform:translateY(-4px);
+    box-shadow:0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(79,195,247,0.03);
+  }
+
+  /* Glow bar at top */
+  .card::before {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:3px;
+  }
+  .card::after {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:80px;
+    opacity:0.04;
+    pointer-events:none;
+  }
+  .card.c-green::before { background:linear-gradient(90deg, var(--green), var(--teal)); }
+  .card.c-green::after { background:linear-gradient(180deg, var(--green), transparent); }
+  .card.c-blue::before { background:linear-gradient(90deg, var(--accent), var(--purple)); }
+  .card.c-blue::after { background:linear-gradient(180deg, var(--accent), transparent); }
+  .card.c-gold::before { background:linear-gradient(90deg, var(--gold), var(--orange)); }
+  .card.c-gold::after { background:linear-gradient(180deg, var(--gold), transparent); }
+  .card.c-purple::before { background:linear-gradient(90deg, var(--purple), var(--pink)); }
+  .card.c-purple::after { background:linear-gradient(180deg, var(--purple), transparent); }
+  .card.c-orange::before { background:linear-gradient(90deg, var(--orange), var(--red)); }
+  .card.c-orange::after { background:linear-gradient(180deg, var(--orange), transparent); }
+  .card.c-teal::before { background:linear-gradient(90deg, var(--teal), var(--accent)); }
+  .card.c-teal::after { background:linear-gradient(180deg, var(--teal), transparent); }
+
+  .card-id {
+    font-family:var(--font-mono);
+    font-size:10px;
+    color:var(--text-dim);
+    letter-spacing:0.5px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:1;
+  }
+  .card-badge {
+    font-family:var(--font-mono);
+    font-size:9px;
+    padding:3px 10px;
+    border-radius:12px;
+    letter-spacing:0.5px;
+    font-weight:600;
+  }
+  .cb-updated { background:rgba(90,230,122,0.1); color:var(--green); border:1px solid rgba(90,230,122,0.2); }
+  .cb-new { background:rgba(255,204,51,0.1); color:var(--gold); border:1px solid rgba(255,204,51,0.2); }
+  .cb-spike { background:rgba(255,160,64,0.1); color:var(--orange); border:1px solid rgba(255,160,64,0.2); }
+
+  .card-title {
+    font-size:19px;
+    font-weight:700;
+    color:#fff;
+    line-height:1.3;
+    margin-bottom:16px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* METRIC PILLS */
+  .card-metrics {
+    display:flex;
+    gap:10px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:1;
+  }
+  .cm {
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:10px;
+    padding:10px 14px;
+    text-align:center;
+    min-width:72px;
+  }
+  .cm-val {
+    font-family:var(--font-mono);
+    font-size:17px;
+    font-weight:700;
+    color:#fff;
+    line-height:1;
+  }
+  .cm-val.green { color:var(--green); }
+  .cm-val.gold { color:var(--gold); }
+  .cm-val.orange { color:var(--orange); }
+  .cm-val.accent { color:var(--accent); }
+  .cm-val.teal { color:var(--teal); }
+  .cm-label {
+    font-size:9px;
+    color:var(--text-dim);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-top:4px;
+  }
+
+  .card-desc {
+    font-size:14px;
+    color:var(--text-muted);
+    line-height:1.65;
+    margin-bottom:20px;
+    flex-grow:1;
+    position:relative;
+    z-index:1;
+  }
+
+  .card-link {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    font-weight:500;
+    color:var(--accent);
+    text-decoration:none;
+    transition:gap 0.2s, color 0.2s;
+    position:relative;
+    z-index:1;
+    margin-top:auto;
+  }
+  .card-link:hover { gap:12px; color:var(--teal); }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    padding:48px 0;
+  }
+  .cta-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .cta-box {
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:32px;
+    background:linear-gradient(165deg, var(--surface-2), var(--surface));
+    text-decoration:none;
+    transition:all 0.3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-box:hover { border-color:var(--border-light); transform:translateY(-2px); box-shadow:0 12px 40px rgba(0,0,0,0.3); }
+  .cta-icon {
+    width:48px; height:48px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    margin-bottom:16px;
+  }
+  .cta-icon.blue { background:rgba(79,195,247,0.1); border:1px solid rgba(79,195,247,0.15); }
+  .cta-icon.green { background:rgba(90,230,122,0.1); border:1px solid rgba(90,230,122,0.15); }
+  .cta-box h3 { font-size:17px; color:#fff; font-weight:700; margin-bottom:8px; }
+  .cta-box p { font-size:13.5px; color:var(--text-dim); line-height:1.6; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    padding:48px 0;
+    border-top:1px solid var(--border);
+    text-align:center;
+    font-size:12px;
+    color:var(--text-dim);
+    line-height:2.2;
+    letter-spacing:0.5px;
+  }
+  .footer a { color:var(--text-muted); text-decoration:none; }
+  .footer a:hover { color:var(--accent); }
+  .footer .footer-brand {
+    font-family:var(--font-mono);
+    font-size:13px;
+    letter-spacing:3px;
+    color:var(--text-dim);
+    margin-bottom:8px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width:800px) {
+    .hero h1 { font-size:32px; }
+    .grid-2 { grid-template-columns:1fr; }
+    .full { grid-column:span 1; }
+    .cta-grid { grid-template-columns:1fr; }
+    .nav { padding:16px 20px; }
+    .wrap { padding:0 20px; }
+    .hero-stats { gap:20px; }
+    .hs-num { font-size:28px; }
+    .card { padding:24px; }
+    .hero-section { padding:48px 0 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="https://zorthex.com" class="logo">ZORTHEX</a>
+  <div class="nav-links">
+    <a href="https://zorthex.com">Home</a>
+    <a href="https://zorthex.com/research" class="active">Research</a>
+    <a href="https://zorthex.com/methodology">Methodology</a>
+    <a href="https://zorthex.com/dataset">Dataset</a>
+    <a href="https://zorthex.com/custom-report">Custom Reports</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <div class="hero-section">
+    <div class="hero">
+      <div class="hero-tag">Research · Applied Analyses · August 2026</div>
+      <h1>Signal <span>Reports</span></h1>
+      <p class="hero-desc">Applied Zorthex analyses on specific phenomena. Each report maps the diffusion lag empirically across three independent sources, with primary data locked for replication.</p>
+
+      <div class="hero-stats">
+        <div class="hs-item"><div class="hs-num glow-blue">5</div><div class="hs-label">ZCR Reports</div></div>
+        <div class="hs-item"><div class="hs-num glow-blue">3</div><div class="hs-label">ZSA Analyses</div></div>
+        <div class="hs-item"><div class="hs-num glow-green">71</div><div class="hs-label">Cases Tracked</div></div>
+        <div class="hs-item"><div class="hs-num glow-green">Aug '26</div><div class="hs-label">Cut-off</div></div>
+      </div>
+
+      <div class="pills" style="margin-top:32px;">
+        <a href="https://zorthex.com/methodology" class="pill">⬡ Methodology v2.0</a>
+        <a href="https://zorthex.com/dataset" class="pill">◈ Dataset · 71 cases</a>
+        <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" class="pill">↗ Open Data · GitHub</a>
+        <a href="https://zorthex.com/custom-report" class="pill">◉ Request a Report</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════ ZSA SERIES ═══════════ -->
+  <div class="sec-header">
+    <div class="sec-label">ZSA Series</div>
+    <h2>Signal Analysis</h2>
+    <p>Cross-dataset patterns across multiple phenomena — not single cases, but structural findings with empirical backing.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card c-purple">
+      <div class="card-id">ZSA-2026-001 <span class="card-badge cb-updated">REVISED</span></div>
+      <div class="card-title">Dual-Velocity — When Specialists Know and the Public Doesn't</div>
+      <div class="card-metrics">
+        <div class="cm"><div class="cm-val accent">4</div><div class="cm-label">Cases</div></div>
+        <div class="cm"><div class="cm-val">Aug 25</div><div class="cm-label">Convergence</div></div>
+        <div class="cm"><div class="cm-val green">2 of 4</div><div class="cm-label">Structural</div></div>
+      </div>
+      <div class="card-desc">Four cases where specialist engagement ran high while public search stayed near zero — all converging August 2025. Zero Day and Endpoint Security confirmed STRUCTURAL. PQC and AI Watermarking spiked then retreated.</div>
+      <a href="https://zorthex.com/zsa-2026-001-dual-velocity" class="card-link">→ View analysis</a>
+    </div>
+
+    <div class="card c-blue">
+      <div class="card-id">ZSA-2026-002</div>
+      <div class="card-title">Attention Before Action — Zorthex vs Gallup Adoption Data</div>
+      <div class="card-metrics">
+        <div class="cm"><div class="cm-val accent">3</div><div class="cm-label">Finance Cases</div></div>
+        <div class="cm"><div class="cm-val green">8→45%</div><div class="cm-label">Gallup AI</div></div>
+      </div>
+      <div class="card-desc">Empirical evidence that public attention moves before operational adoption. Stablecoins, Open Banking, AI in Finance tracked across two independent datasets show the same sequence: specialists first, public follows.</div>
+      <a href="https://zorthex.com/zsa-2026-002-attention-before-action" class="card-link">→ View analysis</a>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card c-gold full">
+      <div class="card-id">ZSA-2026-003 <span class="card-badge cb-new">NEW</span></div>
+      <div class="card-title">Stablecoins as Conflict Infrastructure — When Institutions Track and the Public Doesn't</div>
+      <div class="card-metrics">
+        <div class="cm"><div class="cm-val gold">81 mo</div><div class="cm-label">Lag</div></div>
+        <div class="cm"><div class="cm-val">Aug 25</div><div class="cm-label">Breakout</div></div>
+        <div class="cm"><div class="cm-val">$104B</div><div class="cm-label">Sanctions '25</div></div>
+        <div class="cm"><div class="cm-val green">STRUCT.</div><div class="cm-label">Status</div></div>
+      </div>
+      <div class="card-desc">For 81 months, blockchain analytics firms tracked billions in stablecoin-mediated sanctions evasion. Iran's Central Bank purchased $507M in USDT. Russia's A7A5 processed $93B. Google Trends: 0/100 for 20+ years. One of the most extreme attention gaps in the Zorthex dataset.</div>
+      <a href="https://zorthex.com/zsa-2026-003-stablecoin-conflict" class="card-link">→ View analysis</a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════ ZCR SERIES ═══════════ -->
+  <div class="sec-header">
+    <div class="sec-label">ZCR Series</div>
+    <h2>Published Reports</h2>
+    <p>Full-depth verified analyses. Three-source verification, regime classification, conditional monitoring. These are demonstration reports — commissioned reports follow the same methodology.</p>
+  </div>
+
+  <div class="grid-2">
+
+    <div class="card c-gold">
+      <div class="card-id">ZCR-2026-004 <span class="card-badge cb-new">NEW</span></div>
+      <div class="card-title">The AI Sustainability Gap — When Does the Market Start Pricing the Cost?</div>
+      <div class="card-metrics">
+        <div class="cm"><div class="cm-val gold">27 mo</div><div class="cm-label">Gap</div></div>
+        <div class="cm"><div class="cm-val green">STRUCT.</div><div class="cm-label">Status</div></div>
+        <div class="cm"><div class="cm-val">100</div><div class="cm-label">Peak</div></div>
+        <div class="cm"><div class="cm-val orange">22%</div><div class="cm-label">Reality Check</div></div>
+      </div>
+      <div class="card-desc">Measuring the gap between technology enthusiasm and financial scrutiny. 27 months from ChatGPT for sustainability concerns to reach structural attention — $750B+ deployed with minimal scrutiny. Introduces the Reality Check Ratio.</div>
+      <a href="https://zorthex.com/zcr-2026-004-ai-sustainability-gap" class="card-link">→ View full report</a>
+    </div>
+
+    <div class="card c-teal">
+      <div class="card-id">ZCR-2026-001 <span class="card-badge cb-updated">UPDATED SEP '26</span></div>
+      <div class="card-title">Stablecoins — The Infrastructure Paradox</div>
+      <div class="card-metrics">
+        <div class="cm"><div class="cm-val teal">128 mo</div><div class="cm-label">Lag (L)</div></div>
+        <div class="cm"><div class="cm-val green">Active</div><div class="cm-label">Status</div></div>
+        <div class="cm"><div class="cm-val">~31</div><div class="cm-label">Current</div></div>
+        <div class="cm"><div class="cm-val orange">−46%</div><div class="cm-label">Wiki YoY</div></div>
+      </div>
+      <div class="card-desc">Attention falls 42% while card top-ups cross $1B/month. Nobody Googles "bank account." The Infrastructure Paradox is what happens when a technology stops being a concept and becomes plumbing.</div>
+      <a href="https://zorthex.com/zcr-2026-001-stablecoins" class="card-link">→ View full report</a>
+    </div>
+
+    <div class="card c-green">
+      <div class="card-id">ZCR-2026-003 <span class="card-badge cb-updated">PROMOTED SEP '26</span></div>
+      <div class="card-title">RWA Tokenization — STRUCTURAL Confirmed</div>
+      <div class="card-metrics">
+        <div class="cm"><div class="cm-val green">103 mo</div><div class="cm-label">Lag (L)</div></div>
+        <div class="cm"><div class="cm-val green">Active</div><div class="cm-label">Status</div></div>
+        <div class="cm"><div class="cm-val">40</div><div class="cm-label">Current</div></div>
+        <div class="cm"><div class="cm-val green">14/12</div><div class="cm-label">Months ≥25</div></div>
+      </div>
+      <div class="card-desc">Promoted to STRUCTURAL after 14 consecutive months. From 14 to 85 in one month. Market $44.7B. Securitize NYSE listing. Both layers of tokenized finance now carry permanent classification.</div>
+      <a href="https://zorthex.com/zcr-2026-003-rwa" class="card-link">→ View full report</a>
+    </div>
+
+    <div class="card c-orange">
+      <div class="card-id">ZCR-2026-005 <span class="card-badge cb-new">NEW · RECEDING</span></div>
+      <div class="card-title">Small Modular Reactors — The Tightest STRUCTURAL</div>
+      <div class="card-metrics">
+        <div class="cm"><div class="cm-val accent">243 mo</div><div class="cm-label">Lag (L)</div></div>
+        <div class="cm"><div class="cm-val orange">Receding</div><div class="cm-label">Status</div></div>
+        <div class="cm"><div class="cm-val">23</div><div class="cm-label">Current</div></div>
+        <div class="cm"><div class="cm-val orange">12/12</div><div class="cm-label">Exact minimum</div></div>
+      </div>
+      <div class="card-desc">L=243 months — longest Energy domain lag. Qualified at exactly 12 months then dropped below threshold. The only STRUCTURAL · Receding case to qualify at the boundary. Narrative-driven, not demand-driven.</div>
+      <a href="https://zorthex.com/zcr-2026-005-smr" class="card-link">→ View full report</a>
+    </div>
+
+    <div class="card c-orange">
+      <div class="card-id">ZCR-2026-002 · v2.1 <span class="card-badge cb-spike">SPIKE &amp; RETREAT</span></div>
+      <div class="card-title">Post-Quantum Cryptography — Breakout Occurred, Consolidation Pending</div>
+      <div class="card-metrics">
+        <div class="cm"><div class="cm-val accent">~91 mo</div><div class="cm-label">Lag (prov.)</div></div>
+        <div class="cm"><div class="cm-val orange">S&amp;R</div><div class="cm-label">Status</div></div>
+        <div class="cm"><div class="cm-val">24</div><div class="cm-label">Current</div></div>
+        <div class="cm"><div class="cm-val orange">100→24</div><div class="cm-label">Retreat</div></div>
+      </div>
+      <div class="card-desc">Dual-Velocity confirmed. Breakout reached 100/100 in June 2026 then retreated. 5 months above threshold — short of the 12 required. Rock Rule confirmed. Event-driven, not yet sustained.</div>
+      <a href="https://zorthex.com/zcr-2026-002-pqc" class="card-link">→ View full report</a>
+    </div>
+
+  </div>
+
+  <!-- ═══════════ CTA ═══════════ -->
+  <hr class="divider">
+
+  <div class="cta-section">
+    <div class="cta-grid">
+      <a href="https://zorthex.com" class="cta-box">
+        <div class="cta-icon blue">⬡</div>
+        <h3>Free Tool</h3>
+        <p>Apply the Zorthex v2.0 framework to any term — an observational estimate, clearly labelled, distinct from these verified reports.</p>
+      </a>
+      <a href="https://zorthex.com/custom-report" class="cta-box">
+        <div class="cta-icon green">◉</div>
+        <h3>Commission a Report</h3>
+        <p>Full-depth ZCR analysis on any phenomenon, with three-source verification, regime classification, and monitoring framework.</p>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="wrap">
+    <div class="footer-brand">ZORTHEX</div>
+    BEYOND WHAT'S NEXT — EST. MMXXVI<br>
+    <a href="https://zorthex.com">zorthex.com</a> · POWERED BY CLAUDE<br>
+    DOI: <a href="https://doi.org/10.5281/zenodo.20589503">10.5281/zenodo.20589503</a> ·
+    ORCID <a href="https://orcid.org/0009-0000-9936-1110">0009-0000-9936-1110</a> ·
+    <a href="https://zorthex.com/methodology">Methodology</a> ·
+    <a href="https://zorthex.com/privacy">Privacy</a>
+  </div>
+</div>
+
+</body>
+</html>
