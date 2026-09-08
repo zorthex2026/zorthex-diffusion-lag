@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZORTHEX — Methodology v2.0</title>
+<meta name="description" content="Zorthex methodology: how we measure diffusion lag. Three-source verification, classification system, operational status, regime types, revision policy. Everything is declared.">
+<link rel="canonical" href="https://zorthex.com/methodology">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  :root {
+    --bg:#06060b;--surface:#0d0d15;--surface-2:#13131f;--surface-3:#191928;
+    --border:#1e1e30;--border-light:#2a2a42;
+    --text:#e8e8f4;--text-muted:#9090aa;--text-dim:#5a5a72;
+    --accent:#4fc3f7;--green:#5ae67a;--gold:#ffcc33;--red:#ff5252;
+    --purple:#b388ff;--orange:#ffa040;--teal:#40e0d0;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','Fira Code',monospace;
+    --max-w:820px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.75;font-size:15.5px;-webkit-font-smoothing:antialiased;}
+
+  .nav{padding:18px 40px;display:flex;align-items:center;justify-content:center;gap:28px;border-bottom:1px solid var(--border);max-width:1280px;margin:0 auto;}
+  .nav .logo{font-family:var(--font-mono);font-weight:700;color:#fff;font-size:15px;letter-spacing:3px;text-decoration:none;margin-right:auto;}
+  .nav a{font-size:13px;color:var(--text-dim);text-decoration:none;transition:color 0.2s;font-weight:500;}
+  .nav a:hover{color:var(--accent);}
+  .nav a.active{color:var(--accent);}
+
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 32px;position:relative;z-index:1;}
+
+  /* GLOW */
+  .glow-1{position:fixed;top:-300px;right:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(79,195,247,0.04) 0%,transparent 70%);pointer-events:none;}
+  .glow-2{position:fixed;bottom:-200px;left:-200px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(90,230,122,0.03) 0%,transparent 70%);pointer-events:none;}
+
+  /* HERO */
+  .hero-tag{padding:72px 0 16px;font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
+  .hero-tag::before{content:'';display:inline-block;width:24px;height:1px;background:var(--accent);}
+  h1{font-size:44px;font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:16px;}
+  h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-desc{font-size:17px;color:var(--text-muted);max-width:620px;line-height:1.75;margin-bottom:48px;}
+
+  /* SECTIONS */
+  .sec{margin-bottom:64px;}
+  .sec-tag{font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .sec-tag::before{content:'';display:inline-block;width:16px;height:1px;background:var(--accent);}
+  h2{font-size:26px;font-weight:800;color:#fff;margin-bottom:18px;letter-spacing:-0.3px;line-height:1.25;}
+  h3{font-size:17px;font-weight:700;color:#fff;margin:32px 0 12px;}
+  .sec p{margin-bottom:14px;color:var(--text);font-size:15.5px;}
+  .sec p strong{color:#fff;font-weight:600;}
+
+  .divider{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border-light),transparent);margin:64px 0;}
+
+  /* DEF BOXES */
+  .def-grid{display:grid;gap:14px;margin:24px 0;}
+  .def-box{display:flex;align-items:flex-start;gap:14px;padding:18px 22px;background:linear-gradient(165deg,var(--surface-2),var(--surface));border:1px solid var(--border);border-radius:14px;transition:border-color 0.2s;}
+  .def-box:hover{border-color:var(--border-light);}
+  .def-pill{flex-shrink:0;font-family:var(--font-mono);font-size:9px;font-weight:600;padding:4px 10px;border-radius:10px;letter-spacing:0.5px;margin-top:2px;}
+  .dp-str{background:rgba(90,230,122,0.1);color:var(--green);border:1px solid rgba(90,230,122,0.2);}
+  .dp-obs{background:rgba(79,195,247,0.08);color:var(--accent);border:1px solid rgba(79,195,247,0.18);}
+  .dp-sr{background:rgba(255,160,64,0.08);color:var(--orange);border:1px solid rgba(255,160,64,0.18);}
+  .dp-bub{background:rgba(255,82,82,0.08);color:var(--red);border:1px solid rgba(255,82,82,0.18);}
+  .dp-pre{background:rgba(90,90,112,0.12);color:var(--text-dim);border:1px solid rgba(90,90,112,0.25);}
+  .dp-dom{background:rgba(64,224,208,0.08);color:var(--teal);border:1px solid rgba(64,224,208,0.15);}
+  .dp-act{background:rgba(90,230,122,0.08);color:var(--green);border:1px solid rgba(90,230,122,0.15);}
+  .dp-rec{background:rgba(255,160,64,0.06);color:var(--orange);border:1px solid rgba(255,160,64,0.12);}
+  .dp-cyc{background:rgba(179,136,255,0.06);color:var(--purple);border:1px solid rgba(179,136,255,0.12);}
+  .dp-dead{background:rgba(255,82,82,0.04);color:#888;border:1px solid rgba(255,82,82,0.1);}
+  .def-text strong{font-size:14px;color:#fff;font-weight:700;}
+  .def-text p{font-size:13.5px;color:var(--text-dim);margin:4px 0 0;line-height:1.55;}
+
+  /* FORMULA */
+  .formula{background:linear-gradient(165deg,var(--surface-2),var(--surface));border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin:24px 0;text-align:center;}
+  .formula-main{font-family:var(--font-mono);font-size:28px;font-weight:700;color:#fff;letter-spacing:1px;}
+  .formula-main span{color:var(--accent);}
+  .formula-sub{font-size:13px;color:var(--text-dim);margin-top:10px;}
+
+  /* SOURCES GRID */
+  .src-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0;}
+  .src-box{background:linear-gradient(165deg,var(--surface-2),var(--surface));border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color 0.2s;}
+  .src-box:hover{border-color:var(--border-light);}
+  .src-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px;}
+  .src-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;}
+  .src-body{font-size:12.5px;color:var(--text-dim);line-height:1.55;}
+
+  /* COMPARE BOX */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:24px 0;}
+  .compare-col{padding:24px 28px;}
+  .compare-col:first-child{border-right:1px solid var(--border);}
+  .compare-label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;margin-bottom:12px;}
+  .compare-col ul{list-style:none;padding:0;}
+  .compare-col li{font-size:13px;color:var(--text-dim);padding:4px 0;line-height:1.5;}
+  .compare-col li strong{color:var(--text-muted);font-weight:500;}
+
+  /* LEVEL TABLE */
+  .level-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;margin:20px 0;}
+  .level-table th{text-align:left;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.5px;text-transform:uppercase;padding:10px 14px;border-bottom:2px solid var(--border-light);}
+  .level-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-muted);vertical-align:top;}
+  .level-table tr:hover td{background:rgba(79,195,247,0.03);}
+  .lv{font-family:var(--font-mono);font-weight:600;font-size:14px;}
+
+  /* CALLOUT */
+  .callout{border-left:3px solid var(--accent);padding:16px 22px;background:linear-gradient(165deg,var(--surface-2),var(--surface));border-radius:0 14px 14px 0;margin:24px 0;font-size:14px;color:var(--text-muted);line-height:1.65;}
+  .callout strong{color:var(--text);font-weight:600;}
+  .callout.green{border-left-color:var(--green);}
+  .callout.orange{border-left-color:var(--orange);}
+
+  .footer{padding:48px 0;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text-dim);line-height:2.2;letter-spacing:0.5px;}
+  .footer a{color:var(--text-muted);text-decoration:none;}
+  .footer a:hover{color:var(--accent);}
+
+  @media(max-width:700px){
+    h1{font-size:30px;} .src-grid{grid-template-columns:1fr;} .compare{grid-template-columns:1fr;}
+    .compare-col:first-child{border-right:none;border-bottom:1px solid var(--border);}
+    .wrap{padding:0 20px;} .nav{padding:16px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-1"></div><div class="glow-2"></div>
+
+<div class="nav">
+  <a href="https://zorthex.com" class="logo">ZORTHEX</a>
+  <a href="https://zorthex.com">Home</a>
+  <a href="https://zorthex.com/research">Research</a>
+  <a href="https://zorthex.com/methodology" class="active">Methodology</a>
+  <a href="https://zorthex.com/dataset">Dataset</a>
+</div>
+
+<div class="wrap">
+
+  <div class="hero-tag">Methodology v2.0 · August 2026</div>
+  <h1>How We <em>Measure</em></h1>
+  <p class="hero-desc">Everything is declared. Every threshold is explicit. The pipeline is replicable. If you run the same analysis and get different results — that's a contribution, not a problem.</p>
+
+  <hr class="divider">
+
+  <!-- 01 · CORE FRAMEWORK -->
+  <div class="sec">
+    <div class="sec-tag">01 · Core Framework</div>
+    <h2>The Diffusion Lag</h2>
+
+    <p>Zorthex measures one thing: <strong>how long a phenomenon exists before the public discovers it.</strong> This gap — between operational reality and public attention — is the diffusion lag (L), measured in months.</p>
+
+    <div class="formula">
+      <div class="formula-main"><span>L</span> = t_peak − t_start</div>
+      <div class="formula-sub">t_start = first documented emergence (institutional, not conceptual) · t_peak = first month Google Trends ≥ 25/100</div>
+    </div>
+
+    <h3>t_start — When It Began</h3>
+    <p>The moment a phenomenon becomes operationally real — not when it was theorised, not when it was first mentioned, but when it became infrastructure that could be used. For stablecoins: October 2014 (Tether launched, not when the idea was proposed). For SMR: May 2005 (IAEA published the framework, not when nuclear energy started). Every t_start is documented with a primary source and a confidence level.</p>
+
+    <h3>t_peak — When the Public Noticed</h3>
+    <p>The first month Google Trends reaches ≥25/100 for the phenomenon's query, worldwide. This is not peak attention — it's the threshold where search interest becomes structurally measurable. t_peak is always after t_start. The gap between them is L.</p>
+
+    <h3>Structural Threshold</h3>
+    <p><strong>12 consecutive months ≥ 25/100 on Google Trends = STRUCTURAL.</strong> The term has entered the public vocabulary. The threshold is conventional — like BBB in credit ratings or p&lt;0.05 in statistics. It is not "correct." It is stable, declared, and replicable. Anyone can download the same CSV and verify.</p>
+
+    <div class="callout">
+      <strong>Why 25?</strong> Google Trends normalises to 0–100 relative to the query's own peak. A score of 25 means the search volume is 25% of its all-time peak. Below 25, the signal is intermittent — monthly noise. Above 25 for 12 consecutive months, the signal is sustained. The choice is conventional. The threshold is declared so anyone can recalculate with a different value.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 02 · THREE SOURCES -->
+  <div class="sec">
+    <div class="sec-tag">02 · Three-Source Verification</div>
+    <h2>Three Clocks. Same Direction — or Not.</h2>
+
+    <p>Every case is positioned using three independent attention signals. They measure different things at different levels of rigour. The strength is not that all three are quantitative — it's that they are independent.</p>
+
+    <div class="src-grid">
+      <div class="src-box">
+        <div class="src-title"><span class="src-dot" style="background:var(--green);"></span>Google Trends</div>
+        <div class="src-body"><strong style="color:var(--text);">Operational attention.</strong> Who searches to act. CSV locked, timestamped, archived. L is computed here. Primary metric — quantitative, reproducible.</div>
+      </div>
+      <div class="src-box">
+        <div class="src-title"><span class="src-dot" style="background:var(--accent);"></span>Wikipedia</div>
+        <div class="src-body"><strong style="color:var(--text);">Informational attention.</strong> Who reads to understand. Wikimedia API, daily granularity. Independent corrective to Google Trends normalisation.</div>
+      </div>
+      <div class="src-box">
+        <div class="src-title"><span class="src-dot" style="background:var(--purple);"></span>Reddit</div>
+        <div class="src-body"><strong style="color:var(--text);">Community attention.</strong> How it's discussed. Declared qualitative proxy (assente / nascente / matura). Not a metric — a directional signal.</div>
+      </div>
+    </div>
+
+    <h3>Why Not Social Media?</h3>
+    <p>Zorthex measures <strong>intentional attention</strong> — a person decides to search or read. Social media measures <strong>passive exposure</strong> — an algorithm decides what you see. The first is demand. The second is supply.</p>
+
+    <div class="compare">
+      <div class="compare-col" style="background:linear-gradient(165deg,var(--surface-2),var(--surface));">
+        <div class="compare-label" style="color:var(--green);">INTENTIONAL (ZORTHEX)</div>
+        <ul>
+          <li><strong>Reproducible.</strong> CSV locked, anyone can verify.</li>
+          <li><strong>Resistant to manipulation.</strong> No paid promotion on GT.</li>
+          <li><strong>Measures demand.</strong> What people want to know.</li>
+          <li><strong>Open.</strong> Google Trends and Wikipedia are free, timestamped, archivable.</li>
+        </ul>
+      </div>
+      <div class="compare-col" style="background:linear-gradient(165deg,var(--surface),var(--bg));">
+        <div class="compare-label" style="color:var(--red);">PASSIVE (NOT USED)</div>
+        <ul>
+          <li><strong>Non-reproducible.</strong> Feeds are personalised.</li>
+          <li><strong>Manipulable.</strong> Bots, paid amplification, viral mechanics.</li>
+          <li><strong>Measures supply.</strong> What algorithms show you.</li>
+          <li><strong>Proprietary.</strong> API-gated, paywalled, retroactively changeable.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The difference is between a thermometer and a heater. Social media is a heater. Zorthex reads the thermometer.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 03 · CLASSIFICATION -->
+  <div class="sec">
+    <div class="sec-tag">03 · Classification System</div>
+    <h2>What Happened — Permanent</h2>
+
+    <p>Classification answers one question: <strong>did this phenomenon enter the public vocabulary?</strong> Once earned, permanent — like a credit rating at issuance. The data that produced the classification is locked and archived.</p>
+
+    <div class="def-grid">
+      <div class="def-box">
+        <div class="def-pill dp-str">STRUCTURAL</div>
+        <div class="def-text"><strong>12+ consecutive months ≥ 25/100</strong><p>The term entered the public vocabulary. Permanent classification. The 12-month rule is the rule. No exceptions, no margin adjustment.</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill dp-obs">OBSERVATION</div>
+        <div class="def-text"><strong>Above threshold, &lt;12 months</strong><p>The window is open. Consolidation not yet confirmed. May promote to STRUCTURAL or retreat to Spike & Retreat.</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill dp-sr">SPIKE &amp; RETREAT</div>
+        <div class="def-text"><strong>Reached threshold, did not sustain 12 months</strong><p>Breakout occurred, consolidation did not. Attention rose above 25 but fell back before completing 12 consecutive months. The phenomenon was noticed but not absorbed. New category, August 2026 revision. 10 cases identified.</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill dp-bub">BUBBLE</div>
+        <div class="def-text"><strong>Sharp spike, rapid collapse</strong><p>Short, intense attention burst that collapsed. Never sustained. The term was noise, not signal. Examples: Metaverse (9 max), NFT (8 max), ICO Boom (3 max).</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill dp-pre">PRE / NON-STAT</div>
+        <div class="def-text"><strong>Peak precedes data or confounded</strong><p>The phenomenon's peak predates Google Trends data (pre-2004) or the attention signal is confounded by an external shock (e.g. COVID). Retained for completeness, excluded from L averaging.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 04 · OPERATIONAL STATUS -->
+  <div class="sec">
+    <div class="sec-tag">04 · Operational Status — New, August 2026</div>
+    <h2>What's Happening Now — Updated Every 90 Days</h2>
+
+    <p>The same STRUCTURAL classification can mean very different things. Streaming (218 months above threshold) and SMR (12 months exact, then retreated) both carry STRUCTURAL. The classification is correct for both. The operational reality is different.</p>
+
+    <p>Operational status is the second axis — a weather reading on top of the climate classification. It is applied <strong>only to STRUCTURAL cases</strong> and updated at every 90-day revision. It does not modify the classification. It describes the current state of attention.</p>
+
+    <div class="def-grid">
+      <div class="def-box">
+        <div class="def-pill dp-dom">DOMINANT</div>
+        <div class="def-text"><strong>Above threshold for 40+ consecutive months</strong><p>Permanent vocabulary. Will not return below threshold. Examples: Streaming (218mo), iPhone (208mo), TikTok (78mo), ESG (69mo).</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill dp-act">ACTIVE</div>
+        <div class="def-text"><strong>Above threshold right now</strong><p>Consolidated and alive. The term is current. Examples: Stablecoins (~31), RWA Tokenization (40), mRNA Cancer Vaccines (100).</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill dp-rec">RECEDING</div>
+        <div class="def-text"><strong>STRUCTURAL but currently below threshold</strong><p>The term consolidated once — attention is now fading. May return (cyclical) or continue declining (terminal). Examples: SMR (23, 12mo exact then retreated), Basel III (24, mature term in decline).</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill dp-cyc">CYCLICAL</div>
+        <div class="def-text"><strong>Above and below threshold in waves</strong><p>Tied to market cycles or recurring events. Not a decline — a rhythm. Examples: Bitcoin (21, follows market cycles), Cryptocurrency (20).</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill dp-dead">DEAD</div>
+        <div class="def-text"><strong>The term has been replaced or abandoned</strong><p>Near-zero score, no prospect of return. The classification is permanent — the word is not. Example: Facebook (5, replaced by "Meta").</p></div>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <strong>Example reading:</strong> "RWA Tokenization · STRUCTURAL · Active · 40/100" → the technology entered the vocabulary (STRUCTURAL), is still above threshold (Active), with current attention at 40. Contrast: "SMR · STRUCTURAL · Receding · 23/100" → same classification, different story. Both are correct. The operational status tells you which decline is a victory and which is a retreat.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 05 · DUAL-VELOCITY -->
+  <div class="sec">
+    <div class="sec-tag">05 · Dual-Velocity Pattern</div>
+    <h2>When Specialists Know and the Public Doesn't</h2>
+
+    <p>The three sources do not always agree. When they disagree, the disagreement is informative.</p>
+
+    <h3>Dual-Velocity Static</h3>
+    <p>Google Trends high, Wikipedia low, both stable. The phenomenon is <strong>operational but not informational</strong> — people search to act but don't study to understand. Typical of B2B phenomena: Endpoint Security, Open Banking. The specialist uses it; the public doesn't read about it.</p>
+
+    <h3>Dual-Velocity Transizionale — New, August 2026</h3>
+    <p>Wikipedia <strong>declining</strong> while Google Trends holds or rises. Discovered in 5 of 7 cases verified at three sources in the August 2026 revision:</p>
+
+    <p>Stablecoins: Wiki −46% YoY. Post-Quantum Cryptography: −12%. Zero Day: −42%. Endpoint Security: −35%. Open Banking: −34%.</p>
+
+    <p>The pattern means: <strong>the specialist audience is leaving Wikipedia because they already know the subject.</strong> The public is arriving on Google because they're discovering it. The informational layer contracts while the operational layer holds. This is the signature of a technology transitioning from specialist knowledge to public vocabulary — the exact moment the diffusion lag is closing.</p>
+
+    <div class="callout orange">
+      <strong>For analysts:</strong> when you see Wiki↓ and GT↑ on a phenomenon in the dataset, you are looking at the moment specialists stop studying and the public starts searching. That transition — the change of ownership from sector to mainstream — is where investment decisions have the maximum informational advantage.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 06 · REGIME TYPES -->
+  <div class="sec">
+    <div class="sec-tag">06 · Diffusion Regimes</div>
+    <h2>How Attention Arrives</h2>
+
+    <p>Not all breakouts are alike. The Zorthex dataset identifies four distinct mechanisms by which public attention reaches a phenomenon.</p>
+
+    <div class="def-grid">
+      <div class="def-box">
+        <div class="def-pill" style="background:rgba(79,195,247,0.08);color:var(--accent);border:1px solid rgba(79,195,247,0.18);">P-T</div>
+        <div class="def-text"><strong>Policy-Trigger</strong><p>Attention breaks out on a regulatory event. Slow multi-year ramp, then a single document or law triggers the breakout. Examples: Stablecoins (GENIUS Act), PQC (NIST publication), GDPR. Most common regime in the dataset.</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill" style="background:rgba(255,204,51,0.08);color:var(--gold);border:1px solid rgba(255,204,51,0.18);">M-N</div>
+        <div class="def-text"><strong>Market-Narrative</strong><p>Attention is driven by market activity, media coverage, or consumer adoption. No single trigger — a convergence of signals. Examples: Bitcoin, GLP-1/Ozempic, TikTok, Buy Now Pay Later.</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill" style="background:rgba(90,230,122,0.08);color:var(--green);border:1px solid rgba(90,230,122,0.18);">I-M</div>
+        <div class="def-text"><strong>Institutional Mass</strong><p>Breakout driven by accumulated institutional weight — multiple large players entering simultaneously. No single regulatory event, no consumer wave — pure institutional momentum. Examples: RWA Tokenization (BlackRock + Franklin Templeton + Securitize), Cloud Computing.</p></div>
+      </div>
+      <div class="def-box">
+        <div class="def-pill" style="background:rgba(255,82,82,0.08);color:var(--red);border:1px solid rgba(255,82,82,0.18);">S/S</div>
+        <div class="def-text"><strong>Shock/Spoke</strong><p>A single explosive event generates massive but unsustained attention. The spike is sharp, the collapse is rapid. Typical of bubbles and crises. Examples: Metaverse (Meta rebrand), NFT (Beeple sale), GDPR (implementation deadline).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 07 · SOURCE LEVELS -->
+  <div class="sec">
+    <div class="sec-tag">07 · Source Documentation</div>
+    <h2>Confidence Levels</h2>
+
+    <p>Every t_start and every claim in a ZCR report is documented with a source and a confidence level. The levels are:</p>
+
+    <table class="level-table">
+      <thead><tr><th>Level</th><th>Definition</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><span class="lv" style="color:var(--green);">A</span></td><td>Government document, regulatory filing, peer-reviewed publication, international institutional publication</td><td>GENIUS Act (Congress.gov), IAEA TECDOC-1451, NRC Standard Design Approval</td></tr>
+        <tr><td><span class="lv" style="color:var(--accent);">B</span></td><td>Corporate announcement, verified industry report, major journalism (with byline)</td><td>BlackRock BUIDL launch, Token Terminal market data, Securitize NYSE filing</td></tr>
+        <tr><td><span class="lv" style="color:var(--orange);">C</span></td><td>Industry aggregation, secondary journalism, analyst estimate, community data</td><td>Bank of America research note (via Motley Fool), Reddit community assessment</td></tr>
+        <tr><td><span class="lv" style="color:var(--text-dim);">Primary</span></td><td>Data collected directly by Zorthex</td><td>Google Trends CSV download, Wikipedia pageviews via Wikimedia API</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 08 · REVISION POLICY -->
+  <div class="sec">
+    <div class="sec-tag">08 · Revision Policy</div>
+    <h2>90-Day Cycle</h2>
+
+    <p>The dataset is revised every 90 days. Each revision may promote, reclassify, or add cases. Operational status is updated. CSV snapshots are locked and archived. Previous revisions are documented.</p>
+
+    <p><strong>Current revision:</strong> August 2026 (v2.2 · 71 cases)<br>
+    <strong>Previous revision:</strong> May 2026 (v2.0 · 70 cases)<br>
+    <strong>Next revision:</strong> November 2026</p>
+
+    <p>Classifications are permanent — they are never downgraded. A STRUCTURAL case remains STRUCTURAL even if the current score drops to zero. The operational status captures what happens after classification. This mirrors credit ratings: the rating at issuance is a historical fact; the current outlook is a separate assessment.</p>
+
+    <div class="callout">
+      <strong>Replication.</strong> All Google Trends CSVs and Wikipedia pageview datasets are archived at <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" style="color:var(--accent);">github.com/zorthex2026/zorthex-diffusion-lag</a>. Anyone can download the same data and verify. If you get a different result, that is a contribution — contact zorthex.official@gmail.com.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 09 · LIMITATIONS -->
+  <div class="sec">
+    <div class="sec-tag">09 · Declared Limitations</div>
+    <h2>What This Framework Does Not Do</h2>
+
+    <p><strong>It does not predict.</strong> Zorthex measures when public attention arrives. It does not predict whether it will arrive, or what happens to the market after it does. The framework is a timing instrument, not a forecasting model.</p>
+
+    <p><strong>The threshold is conventional.</strong> 25/100 is a choice, not a law. A phenomenon of extreme sectoral importance that never reaches 25 is real but invisible to this framework. The threshold measures public legibility, not relevance.</p>
+
+    <p><strong>Google Trends normalisation changes.</strong> The same query downloaded at different times produces different absolute values (the peak is always normalised to 100 relative to the query window). This is why CSVs are locked and timestamped. Directional signals are stable; absolute values may differ across downloads.</p>
+
+    <p><strong>Reddit is qualitative.</strong> Declared. The community signal is directional (assente / nascente / matura), not quantified. This is a design choice — see "Why Not Social Media" above.</p>
+
+    <p><strong>Wikipedia has no single page for some phenomena.</strong> Topics fragmented across multiple pages (e.g. RWA Tokenization) produce qualitative rather than quantitative Wikipedia signals. Declared per case.</p>
+
+    <p><strong>Retrospective, not real-time.</strong> STRUCTURAL classification requires 12 months of data — it is always at least 12 months behind the moment of breakout. The operational status (updated every 90 days) partially addresses this. The conditional monitoring framework in ZCR reports provides forward-looking trigger conditions.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="wrap">
+    ZORTHEX · METHODOLOGY v2.0 · August 2026<br>
+    <a href="https://doi.org/10.5281/zenodo.20589503">doi.org/10.5281/zenodo.20589503</a> ·
+    ORCID <a href="https://orcid.org/0009-0000-9936-1110">0009-0000-9936-1110</a> ·
+    <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> ·
+    <a href="https://zorthex.com">zorthex.com</a> ·
+    CC-BY-NC 4.0 · Powered by Claude
+  </div>
+</div>
+
+</body>
+</html>
