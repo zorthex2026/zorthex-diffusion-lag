@@ -14,13 +14,10 @@
             --text-dim: #8888a0;
             --accent: #00d4aa;
             --accent-dim: #00d4aa22;
-            --warn: #ff6b6b;
             --font: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
             --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             background: var(--bg);
             color: var(--text);
@@ -28,19 +25,12 @@
             line-height: 1.7;
             padding: 2rem 1rem;
         }
-
-        .container {
-            max-width: 820px;
-            margin: 0 auto;
-        }
-
-        /* Header */
+        .container { max-width: 820px; margin: 0 auto; }
         .header {
             border-bottom: 1px solid var(--border);
             padding-bottom: 2rem;
             margin-bottom: 2.5rem;
         }
-
         .badge {
             display: inline-block;
             font-family: var(--font);
@@ -53,7 +43,6 @@
             border-radius: 4px;
             margin-bottom: 1rem;
         }
-
         h1 {
             font-family: var(--font);
             font-size: 1.9rem;
@@ -61,18 +50,12 @@
             letter-spacing: -0.02em;
             margin-bottom: 0.5rem;
         }
-
         .meta {
             font-family: var(--font);
             font-size: 0.8rem;
             color: var(--text-dim);
         }
-
-        /* Sections */
-        section {
-            margin-bottom: 2.5rem;
-        }
-
+        section { margin-bottom: 2.5rem; }
         h2 {
             font-family: var(--font);
             font-size: 1.1rem;
@@ -81,30 +64,10 @@
             margin-bottom: 1rem;
             color: var(--accent);
         }
-
-        h2::before {
-            content: "■ ";
-            font-size: 0.7rem;
-        }
-
-        p {
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        strong {
-            color: #fff;
-            font-weight: 600;
-        }
-
-        em {
-            color: var(--text-dim);
-            font-style: normal;
-            font-family: var(--font);
-            font-size: 0.9em;
-        }
-
-        /* Highlight box */
+        h2::before { content: "■ "; font-size: 0.7rem; }
+        p { margin-bottom: 1rem; color: var(--text); }
+        strong { color: #fff; font-weight: 600; }
+        em { color: var(--text-dim); font-style: normal; font-family: var(--font); font-size: 0.9em; }
         .highlight {
             background: var(--surface);
             border-left: 3px solid var(--accent);
@@ -112,19 +75,13 @@
             margin: 1.5rem 0;
             border-radius: 0 6px 6px 0;
         }
-
-        .highlight p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Table */
+        .highlight p:last-child { margin-bottom: 0; }
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9rem;
             margin: 1.5rem 0;
         }
-
         th {
             font-family: var(--font);
             font-size: 0.75rem;
@@ -135,25 +92,17 @@
             padding: 0.8rem 0.6rem;
             border-bottom: 1px solid var(--border);
         }
-
         td {
             padding: 0.7rem 0.6rem;
             border-bottom: 1px solid var(--border);
             vertical-align: top;
         }
-
         td:first-child {
             font-family: var(--font);
             font-size: 0.85rem;
             color: var(--text);
         }
-
-        td:last-child {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
-
-        /* Note */
+        td:last-child { color: var(--text-dim); font-size: 0.85rem; }
         .note {
             font-size: 0.85rem;
             color: var(--text-dim);
@@ -161,12 +110,7 @@
             padding-top: 1rem;
             margin-top: 1.5rem;
         }
-
-        .note strong {
-            color: var(--text);
-        }
-
-        /* Footer */
+        .note strong { color: var(--text); }
         .footer {
             border-top: 1px solid var(--border);
             padding-top: 2rem;
@@ -175,43 +119,22 @@
             font-size: 0.75rem;
             color: var(--text-dim);
         }
-
-        .footer a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Status list */
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
         .status-list {
             list-style: none;
             font-family: var(--font);
             font-size: 0.85rem;
         }
-
         .status-list li {
             padding: 0.4rem 0;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
         }
-
-        .status-list li:last-child {
-            border-bottom: none;
-        }
-
-        .status-ok {
-            color: var(--accent);
-        }
-
-        .status-pending {
-            color: var(--text-dim);
-        }
-
-        /* Responsive */
+        .status-list li:last-child { border-bottom: none; }
+        .status-ok { color: var(--accent); }
+        .status-pending { color: var(--text-dim); }
         @media (max-width: 600px) {
             h1 { font-size: 1.4rem; }
             table { font-size: 0.8rem; }
@@ -221,8 +144,6 @@
 </head>
 <body>
     <div class="container">
-
-        <!-- HEADER -->
         <header class="header">
             <div class="badge">Zorthex Signal Report</div>
             <h1>ZSR-2026-001 — The Window</h1>
@@ -231,185 +152,129 @@
             </div>
         </header>
 
-        <!-- PARTE 1 -->
         <section>
-            <h2>Parte 1 — Cosa è successo</h2>
+            <h2>Part 1 — What Happened</h2>
             <p>
-                Il <strong>19 agosto 2026</strong>, Moderna e MSD hanno annunciato il
-                <strong>primo readout positivo di Fase 3</strong> per una terapia mRNA personalizzata
-                contro il cancro. Il trial <strong>INTerpath-001</strong> (NCT05933577, 1.137 pazienti,
-                melanoma resecato ad alto rischio) ha raggiunto sia l'endpoint primario
-                (sopravvivenza libera da recidiva) che l'endpoint secondario chiave
-                (sopravvivenza libera da metastasi a distanza), con una
-                <strong>riduzione del 59% del rischio di metastasi a distanza o morte</strong>
-                rispetto a KEYTRUDA da solo.
+                On <strong>19 August 2026</strong>, Moderna and MSD announced the
+                <strong>first positive Phase 3 readout</strong> for a personalised mRNA cancer therapy.
+                The <strong>INTerpath-001</strong> trial (NCT05933577, 1,137 patients, resected high-risk
+                melanoma) met both its primary endpoint (recurrence-free survival) and key secondary
+                endpoint (distant metastasis-free survival), with a
+                <strong>59% reduction in the risk of distant metastasis or death</strong>
+                compared to KEYTRUDA alone.
             </p>
             <p>
-                Questo è il <strong>primo proof-of-principle in Fase 3</strong> che i vaccini mRNA
-                personalizzati contro il cancro funzionano — e valida l'intera piattaforma, incluso
-                il pipeline parallelo di BioNTech (autogene cevumeran; 15 trial Fase 3 in oncologia
-                previsti entro fine 2026; €17,2 miliardi di riserve liquide).
+                This is the <strong>first Phase 3 proof-of-principle</strong> that personalised mRNA
+                cancer vaccines work — and it validates the entire platform, including BioNTech's
+                parallel pipeline (autogene cevumeran; 15 Phase 3 oncology trials planned by year-end
+                2026; €17.2B cash committed).
             </p>
             <div class="highlight">
                 <p>
-                    Il punteggio Google Trends ha raggiunto <strong>100/100 ad agosto 2026</strong>.
-                    Non è una coincidenza: è la risposta diretta di attenzione a questo readout.
-                    La domanda ora non è se il breakout accadrà — è già accaduto. La domanda è se
-                    <strong>consolida (STRUCTURAL)</strong> o <strong>rientra (spike and fade)</strong>.
+                    The Google Trends score reached <strong>100/100 in August 2026</strong>. This is not
+                    a coincidence: it is the direct attention response to this readout. The question now
+                    is not whether the breakout will happen — it has. The question is whether it
+                    <strong>consolidates (STRUCTURAL)</strong> or <strong>retreats (spike and fade)</strong>.
                 </p>
             </div>
         </section>
 
-        <!-- PARTE 2 -->
         <section>
-            <h2>Parte 2 — Il segnale nei dati</h2>
+            <h2>Part 2 — The Signal in the Data</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Indicatore</th>
-                        <th>Valore</th>
-                        <th>Fonte</th>
+                        <th>Indicator</th>
+                        <th>Value</th>
+                        <th>Source</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Google Trends peak</td>
-                        <td>100/100 (agosto 2026)</td>
-                        <td>Google Trends</td>
-                    </tr>
-                    <tr>
-                        <td>Trial Fase 3</td>
-                        <td>INTerpath-001 (NCT05933577)</td>
-                        <td>ClinicalTrials.gov</td>
-                    </tr>
-                    <tr>
-                        <td>Pazienti arruolati</td>
-                        <td>1.137</td>
-                        <td>Moderna/MSD press release</td>
-                    </tr>
-                    <tr>
-                        <td>Riduzione rischio metastasi</td>
-                        <td>59% (HR=0.411)</td>
-                        <td>Moderna/MSD press release</td>
-                    </tr>
-                    <tr>
-                        <td>BioNTech trial Fase 3 oncologia</td>
-                        <td>15 entro fine 2026</td>
-                        <td>BioNTech AGM, maggio 2026</td>
-                    </tr>
-                    <tr>
-                        <td>BioNTech riserve liquide</td>
-                        <td>€17,2 miliardi</td>
-                        <td>BioNTech AGM, maggio 2026</td>
-                    </tr>
-                    <tr>
-                        <td>BioNTech readout late-stage 2026</td>
-                        <td>7</td>
-                        <td>Börse Express, maggio 2026</td>
-                    </tr>
+                    <tr><td>Google Trends peak</td><td>100/100 (August 2026)</td><td>Google Trends</td></tr>
+                    <tr><td>Phase 3 trial</td><td>INTerpath-001 (NCT05933577)</td><td>ClinicalTrials.gov</td></tr>
+                    <tr><td>Patients enrolled</td><td>1,137</td><td>Moderna/MSD press release</td></tr>
+                    <tr><td>Metastasis risk reduction</td><td>59% (HR=0.411)</td><td>Moderna/MSD press release</td></tr>
+                    <tr><td>BioNTech Phase 3 oncology trials</td><td>15 by year-end 2026</td><td>BioNTech AGM, May 2026</td></tr>
+                    <tr><td>BioNTech cash reserves</td><td>€17.2 billion</td><td>BioNTech AGM, May 2026</td></tr>
+                    <tr><td>BioNTech late-stage readouts 2026</td><td>7</td><td>Börse Express, May 2026</td></tr>
                 </tbody>
             </table>
             <p class="note">
-                <strong>Nota metodologica — Reddit:</strong> Reddit è utilizzato per la formazione
-                di comunità, non per metriche di esposizione — strutturalmente diverso dal misurare
-                quante persone hanno visto un post. Il segnale Reddit misura la profondità della
-                discussione, non la portata.
+                <strong>Methodological note — Reddit:</strong> Reddit is used for community formation,
+                not exposure metrics — structurally different from measuring how many people saw a post.
+                The Reddit signal measures depth of discussion, not reach.
             </p>
         </section>
 
-        <!-- PARTE 3 -->
         <section>
-            <h2>Parte 3 — Cosa monitorare</h2>
-            <p>
-                <strong>Il trigger è già scattato.</strong> La domanda ora è la consolidazione.
-            </p>
+            <h2>Part 3 — What to Watch</h2>
+            <p><strong>The trigger has already fired.</strong> The question now is consolidation.</p>
             <table>
                 <thead>
                     <tr>
-                        <th>Cosa monitorare</th>
-                        <th>Perché</th>
+                        <th>What to watch</th>
+                        <th>Why</th>
                         <th>Timeline</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Pubblicazione peer-reviewed di INTerpath-001</td>
-                        <td>Validazione scientifica indipendente</td>
-                        <td>Q4 2026</td>
-                    </tr>
-                    <tr>
-                        <td>Readout BioNTech (autogene cevumeran, pancreatico)</td>
-                        <td>Conferma su pipeline parallelo</td>
-                        <td>Q4 2026–2027</td>
-                    </tr>
-                    <tr>
-                        <td>Decisioni FDA sul pathway regolatorio</td>
-                        <td>Segnale di adozione istituzionale</td>
-                        <td>2027</td>
-                    </tr>
-                    <tr>
-                        <td>Google Trends nei prossimi 90 giorni</td>
-                        <td>Test di consolidamento vs. rientro</td>
-                        <td>Ottobre–Dicembre 2026</td>
-                    </tr>
+                    <tr><td>Peer-reviewed publication of INTerpath-001</td><td>Independent scientific validation</td><td>Q4 2026</td></tr>
+                    <tr><td>BioNTech readouts (autogene cevumeran, pancreatic)</td><td>Confirmation on parallel pipeline</td><td>Q4 2026–2027</td></tr>
+                    <tr><td>FDA regulatory pathway decisions</td><td>Institutional adoption signal</td><td>2027</td></tr>
+                    <tr><td>Google Trends over next 90 days</td><td>Consolidation vs. retreat test</td><td>October–December 2026</td></tr>
                 </tbody>
             </table>
             <p class="note">
-                <strong>Fonte:</strong> Moderna/MSD press release, 19 agosto 2026 — Level A.
+                <strong>Source:</strong> Moderna/MSD press release, 19 August 2026 — Level A.
             </p>
         </section>
 
-        <!-- PARTE 4 -->
         <section>
-            <h2>Parte 4 — Perché conta</h2>
+            <h2>Part 4 — Why It Matters</h2>
             <p>
-                Il framework Zorthex ha identificato il segnale <strong>nello stesso mese in cui
-                è scattato</strong>. Il punteggio 100/100 di agosto 2026 non è un artefatto
-                statistico: è la risposta diretta a un evento verificabile e datato.
+                The Zorthex framework identified the signal <strong>in the same month it fired</strong>.
+                The 100/100 score in August 2026 is not a statistical artefact: it is the direct response
+                to a verifiable, dated event.
             </p>
             <p>
-                La coincidenza temporale è la prova che il framework funziona in tempo reale.
-                Ora la domanda è se questo segnale <strong>consolida</strong> in interesse
-                strutturale o <strong>rientra</strong> nel pattern spike-and-retreat visto in
-                PQC e AI Watermarking.
+                The temporal coincidence is proof that the framework works in real time. Now the question
+                is whether this signal <strong>consolidates</strong> into structural interest or
+                <strong>retreats</strong> into the spike-and-retreat pattern seen in PQC and AI Watermarking.
             </p>
             <div class="highlight">
                 <p>
-                    <strong>Chi legge questo report vuole sapere la risposta.
-                    Per saperla, deve seguire Zorthex.</strong>
+                    <strong>Whoever reads this report wants to know the answer.
+                    To know it, they must follow Zorthex.</strong>
                 </p>
             </div>
         </section>
 
-        <!-- FIX STATUS -->
         <section>
-            <h2>Riepilogo fix applicate</h2>
+            <h2>Fix Status</h2>
             <ul class="status-list">
                 <li><span>Naming ZSR-2026-001</span><span class="status-ok">✓</span></li>
-                <li><span>File GitHub rinominato</span><span class="status-ok">✓</span></li>
-                <li><span>Link assoluto nella card</span><span class="status-ok">✓</span></li>
-                <li><span>70 vs 71 allineato</span><span class="status-ok">✓</span></li>
-                <li><span>Reddit chiarimento</span><span class="status-ok">✓</span></li>
-                <li><span>Trigger mRNA sostituito</span><span class="status-ok">✓</span></li>
-                <li><span>Sparkline</span><span class="status-pending">opzionale</span></li>
+                <li><span>GitHub file renamed</span><span class="status-ok">✓</span></li>
+                <li><span>Absolute link in card</span><span class="status-ok">✓</span></li>
+                <li><span>70 vs 71 aligned</span><span class="status-ok">✓</span></li>
+                <li><span>Reddit clarification</span><span class="status-ok">✓</span></li>
+                <li><span>mRNA trigger replaced</span><span class="status-ok">✓</span></li>
+                <li><span>Sparkline</span><span class="status-pending">optional</span></li>
             </ul>
         </section>
 
-        <!-- FOOTER -->
         <footer class="footer">
             <p>
                 ZSR-2026-001 &nbsp;·&nbsp; Zorthex Research &nbsp;·&nbsp;
                 <a href="https://zorthex.com/research">zorthex.com/research</a>
             </p>
             <p style="margin-top: 0.5rem;">
-                Fonti: Moderna/MSD press release 19 agosto 2026; BioNTech AGM maggio 2026;
-                Börse Express maggio 2026; ClinicalTrials.gov NCT05933577; Google Trends.
+                Sources: Moderna/MSD press release 19 August 2026; BioNTech AGM May 2026;
+                Börse Express May 2026; ClinicalTrials.gov NCT05933577; Google Trends.
             </p>
             <p style="margin-top: 0.5rem;">
-                Questo report è a scopo informativo. Non costituisce consulenza finanziaria.
+                This report is for informational purposes only. Not financial advice.
             </p>
         </footer>
-
     </div>
 </body>
 </html>
