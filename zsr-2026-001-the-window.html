@@ -23,6 +23,11 @@ h3{font-size:16px;font-weight:700;color:#fff;margin:20px 0 8px;}
 p{color:#b0b0cc;font-size:14px;margin-bottom:14px;}
 strong{color:#e0e0f0;}
 
+/* CHART BOX */
+.chart-box{background:#0a0a16;border:1px solid #1e1e3a;border-radius:6px;padding:28px 32px 24px;margin:28px 0;}
+.chart-title{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#00bfff;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:6px;}
+.chart-sub{font-size:14px;color:#b0b0cc;margin-bottom:4px;}
+
 /* ZERO BOX */
 .zero{background:#0a0a16;border:1px solid #1e1e3a;border-radius:6px;padding:32px 36px;margin:24px 0;text-align:center;}
 .zero-num{font-family:'JetBrains Mono',monospace;font-size:88px;font-weight:900;color:#ff4466;line-height:1;}
@@ -65,7 +70,6 @@ strong{color:#e0e0f0;}
 .insight{background:#0a0e14;border:1px solid #142030;border-left:3px solid #ffaa44;border-radius:0 6px 6px 0;padding:22px 28px;margin:24px 0;}
 .insight b{color:#ffaa44;}
 .insight p{font-size:13.5px;color:#a8a8c8;margin-bottom:8px;}
-
 .insight.blue{border-left-color:#00bfff;}
 .insight.blue b{color:#00bfff;}
 
@@ -86,7 +90,7 @@ strong{color:#e0e0f0;}
 .footer{margin-top:48px;padding-top:18px;border-top:1px solid #161630;font-size:10.5px;color:#3a3a5a;text-align:center;line-height:2.2;}
 .footer a{color:#00bfff;text-decoration:none;}
 
-@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.page{padding:24px 32px;}.dc,.insight,.zero,.quote{page-break-inside:avoid;}}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.page{padding:24px 32px;}.dc,.insight,.zero,.quote,.chart-box{page-break-inside:avoid;}}
 </style></head><body>
 <div class="page">
 
@@ -112,57 +116,74 @@ strong{color:#e0e0f0;}
 
 <p>Google Trends for <strong>"critical minerals"</strong> in the months following that report:</p>
 
-<div class="zero">
-  <div class="zero-num">0</div>
-  <div class="zero-label">Google Trends score · every month · for fifteen years</div>
-  <div class="zero-sub">December 2010 — July 2025. Zero searches. The report existed. The vulnerability existed. The public had no vocabulary for it.</div>
-  <!-- SPARKLINE -->
-  <svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;height:auto;margin:28px auto 10px;display:block;" role="img" aria-label="Google Trends: critical minerals, 2010-2026">
+<!-- CHART BOX (grande e dettagliato) -->
+<div class="chart-box">
+  <div class="chart-title">Google Trends · "Critical Minerals" · Dec 2010 — Aug 2026</div>
+  <div class="chart-sub">Fifteen years at zero. Then a vertical wall.</div>
+
+  <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;margin:24px 0 8px;display:block;" role="img" aria-label="Google Trends: critical minerals, 2010-2026">
     <defs>
-      <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#00bfff" stop-opacity="0.35"/>
+      <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#00bfff" stop-opacity="0.4"/>
         <stop offset="100%" stop-color="#00bfff" stop-opacity="0"/>
       </linearGradient>
     </defs>
 
-    <!-- baseline grid -->
-    <line x1="40" y1="20" x2="720" y2="20" stroke="#1a1a34" stroke-width="0.5"/>
-    <line x1="40" y1="55" x2="720" y2="55" stroke="#1a1a34" stroke-width="0.5" stroke-dasharray="2,4"/>
-    <line x1="40" y1="90" x2="720" y2="90" stroke="#1a1a34" stroke-width="0.5" stroke-dasharray="2,4"/>
-    <line x1="40" y1="125" x2="720" y2="125" stroke="#1a1a34" stroke-width="0.5"/>
+    <!-- horizontal grid -->
+    <line x1="60" y1="30"  x2="720" y2="30"  stroke="#1a1a34" stroke-width="0.5"/>
+    <line x1="60" y1="90"  x2="720" y2="90"  stroke="#1a1a34" stroke-width="0.5"/>
+    <line x1="60" y1="150" x2="720" y2="150" stroke="#1a1a34" stroke-width="0.5"/>
+    <line x1="60" y1="210" x2="720" y2="210" stroke="#1a1a34" stroke-width="0.5"/>
+    <line x1="60" y1="250" x2="720" y2="250" stroke="#1a1a34" stroke-width="0.5"/>
 
     <!-- y labels -->
-    <text x="32" y="24" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="end">100</text>
-    <text x="32" y="94" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="end">25</text>
-    <text x="32" y="128" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="end">0</text>
+    <text x="50" y="34"  fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="end">100</text>
+    <text x="50" y="94"  fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="end">75</text>
+    <text x="50" y="154" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="end">50</text>
+    <text x="50" y="214" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="end">25</text>
+    <text x="50" y="254" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="end">0</text>
 
     <!-- threshold line at 25 -->
-    <line x1="40" y1="90" x2="720" y2="90" stroke="#ffaa44" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.6"/>
-    <text x="724" y="93" fill="#ffaa44" font-family="JetBrains Mono, monospace" font-size="8" opacity="0.8">threshold 25</text>
+    <line x1="60" y1="210" x2="720" y2="210" stroke="#ff4466" stroke-width="1" stroke-dasharray="5,4" opacity="0.7"/>
+    <text x="716" y="204" fill="#ff4466" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="end" opacity="0.9">Structural threshold (25)</text>
 
     <!-- filled area under curve -->
-    <path d="M40,125 L500,125 L520,97 L540,20 L560,26 L600,55 L640,90 L680,90 L720,90 L720,125 L40,125 Z"
-          fill="url(#sparkFill)" opacity="0.5"/>
+    <path d="M60,250 L560,250 L590,210 L620,30 L650,40 L690,150 L720,210 L720,250 L60,250 Z"
+          fill="url(#chartFill)"/>
 
     <!-- main line -->
-    <path d="M40,125 L500,125 L520,97 L540,20 L560,26 L600,55 L640,90 L680,90 L720,90"
-          fill="none" stroke="#00bfff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M60,250 L560,250 L590,210 L620,30 L650,40 L690,150 L720,210"
+          fill="none" stroke="#00bfff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 
     <!-- key points -->
-    <circle cx="540" cy="20" r="4" fill="#ff4466"/>
-    <circle cx="540" cy="20" r="8" fill="none" stroke="#ff4466" stroke-width="1" opacity="0.5"/>
-    <circle cx="720" cy="90" r="3.5" fill="#ffaa44"/>
+    <circle cx="620" cy="30" r="5" fill="#ff4466"/>
+    <circle cx="620" cy="30" r="10" fill="none" stroke="#ff4466" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="590" cy="210" r="4" fill="#ffaa44"/>
 
     <!-- annotations -->
-    <text x="540" y="12" fill="#ff4466" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" text-anchor="middle">100 · OCT 2025</text>
-    <text x="720" y="108" fill="#ffaa44" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="end">25 · AUG 2026</text>
-    <text x="270" y="142" fill="#5a5a80" font-family="JetBrains Mono, monospace" font-size="8.5" text-anchor="middle">← 15 years at 0/100 →</text>
+    <text x="620" y="20" fill="#ff4466" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">100 · Oct 2025</text>
+    <text x="590" y="232" fill="#ffaa44" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" text-anchor="middle">Jun 2025</text>
 
     <!-- x labels -->
-    <text x="40" y="154" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="8" text-anchor="start">2010</text>
-    <text x="380" y="154" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="8" text-anchor="middle">2017</text>
-    <text x="720" y="154" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="8" text-anchor="end">2026</text>
+    <text x="60"  y="278" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="start">2010</text>
+    <text x="226" y="278" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">2015</text>
+    <text x="393" y="278" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">2020</text>
+    <text x="590" y="278" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">2025</text>
+    <text x="720" y="278" fill="#4a4a72" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="end">2026</text>
   </svg>
+
+  <!-- legend -->
+  <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:11px;color:#8888aa;margin-top:16px;padding-top:16px;border-top:1px solid #161630;">
+    <div style="display:flex;align-items:center;gap:8px;"><span style="width:14px;height:3px;background:#00bfff;display:inline-block;"></span> Google Trends score</div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:#ff4466;display:inline-block;"></span> Peak (Oct 2025)</div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="width:14px;height:0;border-top:2px dashed #ff4466;display:inline-block;"></span> Structural threshold (25)</div>
+  </div>
+</div>
+
+<div class="zero">
+  <div class="zero-num">0</div>
+  <div class="zero-label">Google Trends score · every month · for fifteen years</div>
+  <div class="zero-sub">December 2010 — July 2025. Zero searches. The report existed. The vulnerability existed. The public had no vocabulary for it.</div>
 </div>
 
 <p>The International Energy Agency published <strong>"The Role of Critical Minerals in Clean Energy Transitions"</strong> in May 2021. President Biden signed Executive Order 14017 on supply chain resilience in February 2021. The EU passed the <strong>Critical Raw Materials Act</strong> in 2024. China controlled 70% of rare earth mining and 90% of processing throughout.</p>
@@ -298,24 +319,4 @@ strong{color:#e0e0f0;}
 <!-- GENE THERAPY -->
 <div class="dc">
   <div class="dc-head">
-    <div><div class="dc-name">Gene Therapy</div><div class="dc-sub">Biotech · FDA approvals · Second breakout</div></div>
-    <div class="dc-l"><div class="dc-l-num">37</div><div class="dc-l-unit">/100 · Aug 2026</div></div>
-  </div>
-  <div class="dc-body">
-    <div class="dc-row"><div class="dc-label">The signal</div><div class="dc-val">Gene therapy peaked at 100 in <strong>October 2004</strong> — twenty-two years ago — then faded. It was classified PRE in the dataset: a term whose moment had passed. Then June 2026: <strong>100/100 again.</strong> A second breakout, two decades after the first. Eighteen consecutive months above threshold. The term has been <strong>reborn</strong>.</div></div>
-    <div class="dc-row"><div class="dc-label">GT Aug 2026</div><div class="dc-val"><strong>37/100</strong> — above threshold. 15 months consecutive from current run. <span class="badge b-now">Second breakout confirmed</span></div></div>
-    <div class="dc-row"><div class="dc-label">Why it matters</div><div class="dc-val">This is a category the dataset was not designed to catch: <strong>a phenomenon that returns after dormancy.</strong> The original lag (2004 peak) was not meaningful — the technology wasn't ready. The second breakout reflects real FDA approvals (Casgevy, Lyfgenia, Roctavian) reaching public awareness twenty years later. The gap here was not specialist-vs-public. It was <strong>time-vs-technology</strong>: the science caught up to the promise.</div></div>
-  </div>
-</div>
-
-<!-- THE POINT -->
-<h2>Part 4 — What This Means</h2>
-
-<div class="insight">
-  <b>The window is the product.</b>
-  <p>Every dataset in the alternative data market measures activity: who is buying, what is moving, where money flows. None of them measures the moment the rest of the world <strong>decides to pay attention</strong>. That moment — the transition from specialist knowledge to public search intent — is when prices move, regulations bite, and capital reallocates. It is measurable. It is verified. And it is, as of this writing, measured by no one else.</p>
-</div>
-
-<p>The critical minerals case is the proof. Fifteen years of government reports, institutional strategies, and billions in classified procurement — and zero public search intent until a geopolitical trigger made the invisible visible. The price of the primary U.S. rare earth company tripled in the months surrounding the breakout.</p>
-
-<p
+    <div><div class="dc-name">Gene Therapy</div><div class="dc-sub">Biotech · FDA approvals ·
