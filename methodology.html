@@ -168,6 +168,7 @@
 
   <hr class="divider">
 
+
   <!-- 01 · CORE FRAMEWORK -->
   <div class="sec">
     <div class="sec-tag">01 · Core Framework</div>
@@ -384,25 +385,81 @@
       <tbody>
         <tr><td><span class="lv" style="color:var(--green);">A</span></td><td>Government document, regulatory filing, peer-reviewed publication, international institutional publication</td><td>GENIUS Act (Congress.gov), IAEA TECDOC-1451, NRC Standard Design Approval</td></tr>
         <tr><td><span class="lv" style="color:var(--accent);">B</span></td><td>Corporate announcement, verified industry report, major journalism (with byline)</td><td>BlackRock BUIDL launch, Token Terminal market data, Securitize NYSE filing</td></tr>
-        <tr><td><span class="lv" style="color:var(--orange);">C</span></td><td>Industry aggregation, secondary journalism, analyst estimate, community data</td><td>Bank of America research note (via Motley Fool), Reddit community assessment</
+        <tr><td><span class="lv" style="color:var(--orange);">C</span></td><td>Industry aggregation, secondary journalism, analyst estimate, community data</td><td>Bank of America research note (via Motley Fool), Reddit community assessment</td></tr>
+        <tr><td><span class="lv" style="color:var(--text-dim);">Primary</span></td><td>Data collected directly by Zorthex</td><td>Google Trends CSV download, Wikipedia pageviews via Wikimedia API</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-        <hr>
-<p>10 · Licensing</p>
-<h2>What Is Open, and What Is Not</h2>
+  <hr class="divider">
 
-<p><strong>Historical archive.</strong> Dataset revisions published through
-August 2026 — v2.0 (May 2026, 70 cases) and v2.2 (August 2026, 71 cases) —
-are released under
-<a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
-Free to use, share and adapt for non-commercial purposes with attribution.
-This grant is permanent and will not be withdrawn.</p>
+  <!-- 08 · REVISION POLICY -->
+  <div class="sec">
+    <div class="sec-tag">08 · Revision Policy</div>
+    <h2>90-Day Cycle</h2>
 
-<p><strong>From November 2026.</strong> Published output from the November
-2026 revision onward moves to a restricted licence. The historical archive
-stays open and replicable.</p>
+    <p>The dataset is revised every 90 days. Each revision may promote, reclassify, or add cases. Operational status is updated. CSV snapshots are locked and archived. Previous revisions are documented.</p>
 
-<p><strong>Copyright.</strong> Retained in full by the author. No rights have
-been assigned or exclusively licensed to any party. The method described on
-this page is public by design.</p>
+    <p><strong>Current revision:</strong> August 2026 (v2.2 · 71 cases)<br>
+    <strong>Previous revision:</strong> May 2026 (v2.0 · 70 cases)<br>
+    <strong>Next revision:</strong> November 2026</p>
 
-<p><strong>Trademark.</strong> ZORTHEX™ — UIBM N. 302026000090628.</p>  
+    <p>Classifications are permanent — they are never downgraded. A STRUCTURAL case remains STRUCTURAL even if the current score drops to zero. The operational status captures what happens after classification. This mirrors credit ratings: the rating at issuance is a historical fact; the current outlook is a separate assessment.</p>
+
+    <div class="callout">
+      <strong>Replication.</strong> All Google Trends CSVs and Wikipedia pageview datasets are archived at <a href="https://github.com/zorthex2026/zorthex-diffusion-lag" style="color:var(--accent);">github.com/zorthex2026/zorthex-diffusion-lag</a>. Anyone can download the same data and verify. If you get a different result, that is a contribution — contact zorthex.official@gmail.com.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 09 · LIMITATIONS -->
+  <div class="sec">
+    <div class="sec-tag">09 · Declared Limitations</div>
+    <h2>What This Framework Does Not Do</h2>
+
+    <p><strong>It does not predict.</strong> Zorthex measures when public attention arrives. It does not predict whether it will arrive, or what happens to the market after it does. The framework is a timing instrument, not a forecasting model.</p>
+
+    <p><strong>The threshold is conventional.</strong> 25/100 is a choice, not a law. A phenomenon of extreme sectoral importance that never reaches 25 is real but invisible to this framework. The threshold measures public legibility, not relevance.</p>
+
+    <p><strong>Google Trends normalisation changes.</strong> The same query downloaded at different times produces different absolute values (the peak is always normalised to 100 relative to the query window). This is why CSVs are locked and timestamped. Directional signals are stable; absolute values may differ across downloads.</p>
+
+    <p><strong>Reddit is qualitative.</strong> Declared. The community signal is directional (assente / nascente / matura), not quantified. This is a design choice — see "Why Not Social Media" above.</p>
+
+    <p><strong>Wikipedia has no single page for some phenomena.</strong> Topics fragmented across multiple pages (e.g. RWA Tokenization) produce qualitative rather than quantitative Wikipedia signals. Declared per case.</p>
+
+    <p><strong>Retrospective, not real-time.</strong> STRUCTURAL classification requires 12 months of data — it is always at least 12 months behind the moment of breakout. The operational status (updated every 90 days) partially addresses this. The conditional monitoring framework in ZCR reports provides forward-looking trigger conditions.</p>
+  </div>
+
+
+  <hr class="divider">
+
+  <!-- 10 · LICENSING -->
+  <div class="sec">
+    <div class="sec-tag">10 · Licensing</div>
+    <h2>What Is Open, and What Is Not</h2>
+
+    <p><strong>Historical archive.</strong> Dataset revisions published through August 2026 — v2.0 (May 2026, 70 cases) and v2.2 (August 2026, 71 cases) — are released under <a href="https://creativecommons.org/licenses/by-nc/4.0/" style="color:var(--accent);">CC BY-NC 4.0</a>. Free to use, share and adapt for non-commercial purposes with attribution. This grant is permanent and will not be withdrawn.</p>
+
+    <p><strong>From November 2026.</strong> Published output from the November 2026 revision onward moves to a restricted licence. The historical archive stays open and replicable.</p>
+
+    <p><strong>Copyright.</strong> Retained in full by the author. No rights have been assigned or exclusively licensed to any party. The method described on this page is public by design.</p>
+
+    <p><strong>Trademark.</strong> ZORTHEX™ — UIBM N. 302026000090628.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="wrap">
+    ZORTHEX · METHODOLOGY v2.0 · August 2026<br>
+    <a href="https://doi.org/10.5281/zenodo.20589503">doi.org/10.5281/zenodo.20589503</a> ·
+    ORCID <a href="https://orcid.org/0009-0000-9936-1110">0009-0000-9936-1110</a> ·
+    <a href="https://github.com/zorthex2026/zorthex-diffusion-lag">GitHub</a> ·
+    <a href="https://zorthex.com">zorthex.com</a> ·
+    CC-BY-NC 4.0 · Powered by Claude
+  </div>
+</div>
+
+</body>
+</html>
