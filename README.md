@@ -9,7 +9,7 @@ and when public attention structurally consolidates around it.
 
 **Cite as**
 Santi, R. (2026). *ZORTHEX — Institutional Adaptation Latency: Public Attention
-Diffusion Lag (L₁), v2.0.* Zenodo. https://doi.org/10.5281/zenodo.20589503
+Diffusion Lag (L₁) — Framework v2.0, Dataset v2.2.* Zenodo. https://doi.org/10.5281/zenodo.22858140
 
 ---
 
@@ -152,24 +152,25 @@ governance or policy phenomena. The trigger type diagnoses the breakout type
 ## Dataset — current state
 
 `71 phenomena` · `7 domains` · `three-source verified` ·
-`observation cut-off August 2026` · DOI: 10.5281/zenodo.20589503
+`observation cut-off August 2026` · DOI: 10.5281/zenodo.22858140
 
 Values are subject to revision. Re-verification runs every 90 days, mirroring
 the dated and revisable nature of credit ratings.
 
 ### August 2026 revision — result
 
-| Outcome | Count |
-|---|---|
-| STRUCTURAL confirmed | 28 |
-| Promoted to STRUCTURAL | 18 |
-| Spike & Retreat (new category) | 10 |
-| OBSERVATION confirmed | 5 |
-| BUBBLE confirmed | 4 |
-| PRE → STRUCTURAL | 1 |
-| Error corrected | 1 |
-| Special notes | 2 |
-| **Total** | **71** |
+| Classification | Cases | v2.0 |
+|---|---|---|
+| STRUCTURAL | 49 | 29 |
+| SPIKE & RETREAT (new category) | 10 | — |
+| OBSERVATION | 4 | |
+| BUBBLE | 5 | |
+| PRE-DATASET | 2 | |
+| **Classified total** | **70** | **70** |
+
+A 71st case, Critical Minerals, is documented separately in ZSR-2026-001.
+STRUCTURAL rose from 29 to 49, including mRNA Cancer Vaccines (PRE → 100/100)
+and SMR (qualified at exactly 12 months).
 
 The revision re-ran the full pipeline against updated sources. The Spike &
 Retreat category was not hypothesised in advance — it emerged when 10 cases
@@ -282,7 +283,7 @@ happens afterwards.
 | v1.2 | 10.5281/zenodo.20270575 | May 2026 | t_start policy A–D, CSV locking |
 | v1.3 | 10.5281/zenodo.20374051 | May 2026 | 4-regime taxonomy, n=50 |
 | v2.0 | 10.5281/zenodo.20589503 | Jun 2026 | 70 cases, 7 domains, three-source verified, dual-velocity, rock rule |
-| v2.2 | — | Sep 2026 | August revision: 71 cases, Spike & Retreat, operational status, transitional dual-velocity |
+| v2.2 | 10.5281/zenodo.22858140 | Sep 2026 | August revision: 71 cases, Spike & Retreat, operational status, transitional dual-velocity |
 
 ---
 
@@ -318,7 +319,7 @@ exclusively licensed to any party.
 
 **Trademark** ZORTHEX™ — UIBM N. 302026000090628
 **ORCID** [0009-0000-9936-1110](https://orcid.org/0009-0000-9936-1110)
-**DOI** [10.5281/zenodo.20589503](https://doi.org/10.5281/zenodo.20589503)
+**DOI** [10.5281/zenodo.22858140](https://doi.org/10.5281/zenodo.22858140)
 **Web** [zorthex.com](https://zorthex.com)
 
 © 2026 Renato Santi · Powered by Claude
