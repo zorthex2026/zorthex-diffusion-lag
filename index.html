@@ -764,7 +764,7 @@
       </div>
       <div class="metric">
         <div class="metric-val" id="metricCurrent">—</div>
-        <div class="metric-lbl">Current score · May 2026</div>
+        <div class="metric-lbl">Current score · Aug 2026</div>
       </div>
     </div>
 
@@ -772,7 +772,7 @@
       <div class="metric-legend-item"><strong>L — Diffusion Lag</strong>Months from first public appearance to first major attention peak (Google Trends ≥25). The core Zorthex metric.</div>
       <div class="metric-legend-item"><strong>Peak Attention</strong>Highest Google Trends score ever recorded for this term (0–100). 100 = maximum relative search volume globally.</div>
       <div class="metric-legend-item"><strong>Months Above Threshold</strong>Consecutive months with score ≥25/100. 12+ consecutive months = structural consolidation confirmed.</div>
-      <div class="metric-legend-item"><strong>Current Score</strong>Estimated Google Trends score May 2026. Below 25 = attention has receded. Above 25 = still in active public awareness.</div>
+      <div class="metric-legend-item"><strong>Current Score</strong>Estimated Google Trends score, August 2026. Below 25 = attention has receded. Above 25 = still in active public awareness.</div>
     </div>
 
     <div class="chart-section">
@@ -861,72 +861,72 @@
 <script>
 let claudeApiKey = 'server';
 
-// ─── PRESETS DATA (verified · Zorthex v2.0 cassaforte values) ─────────────────
+// ─── PRESETS DATA (verified · framework v2.0 · dataset v2.2, August 2026) ─────────────────
 const PRESETS_DATA = {
   'bitcoin': {
     title: 'Bitcoin',
     tStart: 'Oct 2008', tPeak: 'Dec 2020', L: 146,
-    peakScore: 100, monthsAbove: 36, currentScore: 42,
+    peakScore: 100, monthsAbove: 36, currentScore: 21,
     status: 'structural',
-    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,14,25,35,46,57,68,78,89,100,98,95,93,90,88,86,83,81,78,76,73,71,69,66,64,61,59,56,54,52,49,47,44,42],
-    src1: 'First mainstream peak Dec 2020 (100/100). Sustained above threshold for 36+ months. Current score May 2026: 42/100 — still active.',
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,14,25,35,46,57,68,78,89,100,98,95,93,90,88,86,83,81,78,76,73,71,69,66,64,61,59,56,54,52,44,36,29,21],
+    src1: 'First mainstream peak Dec 2020 (100/100). Sustained above threshold for 36+ months. Current score Aug 2026: 21/100 — below threshold, cyclical.',
     src2: 'Wikipedia "Bitcoin" approx. 7,265 views/day — among consistently high-traffic pages. Fully legible on both operational and informational signals.',
     src3: 'r/Bitcoin 6M+ members. Sustained high volume across multiple narratives: macro hedge, digital gold, institutional asset.',
-    interpretation: 'Bitcoin records 36+ months above threshold — structural consolidation confirmed. The all-time peak is historical (Dec 2020), so the diffusion lag of 146 months is stable. Current score holds above threshold at 42/100.',
-    monitor: 'If Google Trends sustains ≥25 through 2026: active structural status continues. ETF flows and regulatory frameworks tracked as institutional-attention proxies. A drop below 10 would shift Current Status to Dormant (classification stays STRUCTURAL).',
-    whatItMeans: 'Bitcoin records a historical peak of 100/100 in December 2020 and a current score of 42/100 in May 2026.\n\nWHAT IT MEANS\n\nThirty-six or more consecutive months above threshold are recorded — structural consolidation confirmed. The all-time peak sits in the past, which makes the documented lag of 146 months stable under the rock rule. The current score holds above the structural threshold. Three independent signals are consistent: search, Wikipedia readership and community discussion all register sustained presence. These values reflect observed attention patterns — not projections.'
+    interpretation: 'Bitcoin records 36+ months above threshold — structural consolidation confirmed. The all-time peak is historical (Dec 2020), so the diffusion lag of 146 months is stable. Current score has dropped to 21/100, below threshold: operational status Cyclical — attention follows market cycles. The STRUCTURAL classification is permanent.',
+    monitor: 'Operational status Cyclical: attention rises and falls with market cycles. A return above 25 would mark the next cycle; ETF flows and regulatory frameworks are tracked as institutional-attention proxies. The STRUCTURAL classification is permanent.',
+    whatItMeans: 'Bitcoin records a historical peak of 100/100 in December 2020 and a current score of 21/100 in August 2026.\n\nWHAT IT MEANS\n\nThirty-six or more consecutive months above threshold are recorded — structural consolidation confirmed. The all-time peak sits in the past, which makes the documented lag of 146 months stable under the rock rule. The current score sits below threshold: attention moves with market cycles (status: Cyclical), while the classification stays STRUCTURAL. Three independent signals are consistent: search, Wikipedia readership and community discussion all register sustained presence. These values reflect observed attention patterns — not projections.'
   },
   'crispr': {
     title: 'CRISPR',
     tStart: 'Jun 2012', tPeak: 'Sep 2020', L: 99,
-    peakScore: 78, monthsAbove: 18, currentScore: 31,
+    peakScore: 78, monthsAbove: 18, currentScore: 34,
     status: 'structural',
-    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,11,20,28,36,45,53,61,70,78,77,75,74,72,71,69,68,66,65,63,62,60,59,57,56,54,53,52,50,49,47,46,44,43,41,40,38,37,35,34,32,31],
-    src1: 'Historical peak Sep 2020 (78/100). 18 months above threshold. Current score May 2026: 31/100 — above threshold.',
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,11,20,28,36,45,53,61,70,78,77,75,74,72,71,69,68,66,65,63,62,60,59,57,56,54,53,52,50,49,47,46,44,43,41,40,38,37,36,36,35,34],
+    src1: 'Historical peak Sep 2020 (78/100). 18 months above threshold. Current score Aug 2026: 34/100 — above threshold, active.',
     src2: 'Wikipedia traffic tracks milestones (2018 He Jiankui case, 2020 Nobel). A 2026 Google Trends re-peak is NOT matched by Wikipedia — flagged as cluster noise, not a genuine resurgence.',
     src3: 'r/science and r/genetics show consistent engagement. Ethics debates drive larger volume spikes than scientific papers alone.',
     interpretation: 'CRISPR records 18 months above threshold with a historical peak (Sep 2020) — structural consolidation confirmed, lag stable at 99 months. A recent Google Trends uptick is not corroborated by Wikipedia and is treated as renormalization noise. Dual-velocity case: operational attention exceeds informational.',
     monitor: 'If Wikipedia pageviews rise alongside any new Google Trends surge: a genuine second informational cycle. Clinical-trial outcomes and germline-editing regulation tracked as attention drivers. Without Wikipedia confirmation, GT-only moves stay flagged as cluster noise.',
-    whatItMeans: 'CRISPR records a historical peak of 78/100 in September 2020 and a current score of 31/100 in May 2026.\n\nWHAT IT MEANS\n\nEighteen months above threshold are recorded against a historical peak, so the lag of 99 months is stable. A 2026 uptick on Google Trends is not matched by Wikipedia readership, and is therefore read as a renormalization artifact rather than a new wave. This is a dual-velocity phenomenon: specialists search and act on it more than the general public reads about it. These values reflect observed attention patterns — not projections.'
+    whatItMeans: 'CRISPR records a historical peak of 78/100 in September 2020 and a current score of 34/100 in August 2026.\n\nWHAT IT MEANS\n\nEighteen months above threshold are recorded against a historical peak, so the lag of 99 months is stable. A 2026 uptick on Google Trends is not matched by Wikipedia readership, and is therefore read as a renormalization artifact rather than a new wave. This is a dual-velocity phenomenon: specialists search and act on it more than the general public reads about it. These values reflect observed attention patterns — not projections.'
   },
   'stablecoins': {
     title: 'Stablecoins',
     tStart: 'Oct 2014', tPeak: 'Jun 2025', L: 128,
-    peakScore: 100, monthsAbove: 12, currentScore: 53,
+    peakScore: 100, monthsAbove: 15, currentScore: 31,
     status: 'structural',
-    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,14,25,35,46,57,68,78,89,100,92,84,76,69,61,53],
-    src1: 'Operational breakout Jun–Jul 2025 around the GENIUS Act. Peak 100/100. Current score May 2026: 53/100 — active. Model case (ZCR-2026-001).',
-    src2: 'Wikipedia and Google Trends ignite together Jun–Jul 2025 — full convergence on a regulatory trigger. The clearest three-source convergence in the dataset.',
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,14,25,35,46,57,68,78,89,100,92,84,71,58,44,31],
+    src1: 'Operational breakout Jun–Jul 2025 around the GENIUS Act. Peak 100/100. Current score Aug 2026: ~31/100 — active, 15 months above threshold. Model case (ZCR-2026-001).',
+    src2: 'Wikipedia and Google Trends ignited together Jun–Jul 2025 on the GENIUS Act. Since then Wikipedia readership has fallen 46% year on year while search holds above threshold — specialists no longer need the primer.',
     src3: 'Active community discussion across crypto and treasury/finance subreddits, tied to regulatory developments.',
-    interpretation: 'Stablecoins record convergence on a policy trigger (GENIUS Act): Google Trends and Wikipedia ignite in the same window. Lag of 128 months from early issuance to structural public attention. Current score active at 53/100.',
-    monitor: 'Whether 12 consecutive months above threshold complete and hold past the cluster window. Regulatory follow-through (US, EU MiCA) tracked as the primary attention driver. A drop below 25 would re-open the observation window.',
-    whatItMeans: 'Stablecoins record a peak of 100/100 in mid-2025 and a current score of 53/100 in May 2026.\n\nWHAT IT MEANS\n\nThe breakout coincides with a formal regulatory trigger, and all three signals move together — the clearest convergence in the dataset. The documented lag of 128 months measures the distance from early issuance to the moment public attention consolidated around the category. Attention currently holds above threshold. As a recent-trigger case it is monitored on the standard revision cycle. These values reflect observed attention patterns — not projections.'
+    interpretation: 'Stablecoins record convergence on a policy trigger (GENIUS Act): Google Trends and Wikipedia ignite in the same window. Lag of 128 months from early issuance to structural public attention. Current score ~31/100, still above threshold. Attention is falling while usage rises — the Infrastructure Paradox (ZCR-2026-001).',
+    monitor: 'STRUCTURAL confirmed (15 months). Watch whether the score holds above 25 or turns Receding. Regulatory follow-through (US, EU MiCA) tracked as the primary attention driver. A drop below 25 would re-open the observation window.',
+    whatItMeans: 'Stablecoins record a peak of 100/100 in mid-2025 and a current score of about 31/100 in August 2026.\n\nWHAT IT MEANS\n\nThe breakout coincides with a formal regulatory trigger, and all three signals move together — the clearest convergence in the dataset. The documented lag of 128 months measures the distance from early issuance to the moment public attention consolidated around the category. Attention has cooled but holds above threshold, while adoption keeps rising: the technology is moving from a concept people search for to infrastructure they use. These values reflect observed attention patterns — not projections.'
   },
   'zero day vulnerability': {
     title: 'Zero Day Vulnerability',
     tStart: 'Jan 2005', tPeak: 'Apr 2024', L: 231,
-    peakScore: 85, monthsAbove: 24, currentScore: 40,
+    peakScore: 85, monthsAbove: 30, currentScore: 27,
     status: 'structural',
-    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,12,21,30,39,49,58,67,76,85,79,74,68,62,57,51,46,40],
-    src1: 'Historical peak Apr 2024 (85/100). 24 months above threshold. Current score May 2026: 40/100 — active. The longest verified lag in the dataset: 231 months.',
-    src2: 'Wikipedia baseline approx. 15 views/day — near-invisible to the general public. A textbook dual-velocity case: high operational search, minimal informational readership.',
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,12,21,30,39,49,58,67,76,85,79,74,68,62,53,44,36,27],
+    src1: 'Historical peak Apr 2024 (85/100). 30 months above threshold. Current score Aug 2026: 27/100 — active. Lag of 231 months, the longest in the Security domain.',
+    src2: 'Wikipedia approx. 75 views/day, down 42% year on year — near-invisible to the general public. A textbook dual-velocity case: high operational search, minimal informational readership.',
     src3: 'Active in security-professional communities (r/netsec, r/cybersecurity). Technical discourse, not public discourse.',
-    interpretation: 'Zero day vulnerability records 24 months above threshold with a historical peak (Apr 2024) — structural, lag stable at 231 months, the longest verified in the dataset. Pronounced dual-velocity: operational attention is high while informational (Wikipedia) is minimal.',
+    interpretation: 'Zero day vulnerability records 30 months above threshold with a historical peak (Apr 2024) — structural, lag stable at 231 months, the longest in the Security domain. Pronounced dual-velocity: operational attention is high while informational (Wikipedia) is minimal.',
     monitor: 'Whether informational signals (Wikipedia) ever rise toward operational levels — they have not. Major disclosed incidents and regulatory disclosure mandates tracked as attention drivers. The dual-velocity gap is the structural signature here.',
-    whatItMeans: 'Zero day vulnerability records a historical peak of 85/100 in April 2024 and a current score of 40/100 in May 2026.\n\nWHAT IT MEANS\n\nWith 24 months above threshold against a historical peak, the lag of 231 months is stable — the longest verified in the dataset. The defining feature is the gap between signals: heavy operational search by professionals, almost no informational readership on Wikipedia (~15 views/day). This is a phenomenon that is fully real inside technical departments and nearly invisible to the public. These values reflect observed attention patterns — not projections.'
+    whatItMeans: 'Zero day vulnerability records a historical peak of 85/100 in April 2024 and a current score of 27/100 in August 2026.\n\nWHAT IT MEANS\n\nWith 30 months above threshold against a historical peak, the lag of 231 months is stable — the longest in the Security domain. The defining feature is the gap between signals: heavy operational search by professionals, minimal and falling informational readership on Wikipedia. This is a phenomenon that is fully real inside technical departments and nearly invisible to the public. These values reflect observed attention patterns — not projections.'
   },
   'green hydrogen': {
     title: 'Green Hydrogen',
     tStart: 'Jan 2005', tPeak: 'Jun 2023', L: 204,
-    peakScore: 80, monthsAbove: 24, currentScore: 80,
+    peakScore: 80, monthsAbove: 21, currentScore: 38,
     status: 'structural',
-    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,12,20,29,37,46,54,63,71,80,80,80,80,80,80,80,80,80,80,80,80],
-    src1: 'Structural and active. Google Trends sustained around 80/100. 24 months above threshold. Lag 204 months from early industry emergence to structural attention.',
+    chartData: [4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,3,3,3,4,3,3,3,12,20,29,37,46,54,63,71,80,80,80,80,80,80,80,80,70,59,48,38],
+    src1: 'Structural and active. Current score Aug 2026: 38/100. 21 months above threshold in the current run. Lag 204 months from early industry emergence to structural attention.',
     src2: 'Wikipedia approx. 242 views/day — industry interest, not public. Dual-velocity: the signal lives in the energy sector, not the mainstream.',
     src3: 'Discussion concentrated in energy, policy and industry communities. Specialist, not public.',
-    interpretation: 'Green hydrogen is structural and currently active, with Google Trends sustained near 80/100. Lag of 204 months. A clear dual-velocity, policy-driven energy case: operationally hot among specialists, informationally quiet for the public.',
+    interpretation: 'Green hydrogen is structural and currently active, at 38/100 in August 2026. Lag of 204 months. A clear dual-velocity, policy-driven energy case: operationally hot among specialists, informationally quiet for the public.',
     monitor: 'Whether public/informational signals rise toward the high operational level — currently they do not. Subsidy and policy frameworks (US, EU) tracked as the primary attention drivers for this regime. The operational/informational gap is the structural signature.',
-    whatItMeans: 'Green hydrogen is structural and active, with Google Trends sustained around 80/100 in May 2026.\n\nWHAT IT MEANS\n\nThe documented lag is 204 months, and attention remains high on the operational signal while Wikipedia readership stays modest (~242 views/day). This is the dual-velocity pattern in its clearest form: a phenomenon that is intensely active inside the energy industry and largely off the public radar. Its diffusion is policy-driven, characteristic of the policy-trigger regime. These values reflect observed attention patterns — not projections.'
+    whatItMeans: 'Green hydrogen is structural and active, with a current score of 38/100 in August 2026.\n\nWHAT IT MEANS\n\nThe documented lag is 204 months, and attention remains high on the operational signal while Wikipedia readership stays modest (~242 views/day). This is the dual-velocity pattern in its clearest form: a phenomenon that is intensely active inside the energy industry and largely off the public radar. Its diffusion is policy-driven, characteristic of the policy-trigger regime. These values reflect observed attention patterns — not projections.'
   }
 };
 
@@ -1030,7 +1030,7 @@ function showResults(query, aiData) {
   }
 
   document.getElementById('resultTitle').textContent = data.title;
-  document.getElementById('resultMeta').textContent = `t_start: ${data.tStart}  ·  t_peak: ${data.tPeak}  ·  Analysis: May 2026`;
+  document.getElementById('resultMeta').textContent = `t_start: ${data.tStart}  ·  t_peak: ${data.tPeak}  ·  Analysis: Aug 2026`;
   document.getElementById('metricL').textContent = data.L + ' mo';
   document.getElementById('metricPeak').textContent = data.peakScore + '/100';
   document.getElementById('metricMonths').textContent = data.monthsAbove;
@@ -1098,7 +1098,7 @@ function buildSignalIntelligence(data) {
     points = [
       { icon: '◉', text: `<strong>Lag closed: ${L} months.</strong> From first emergence to mainstream attention. ${L > 100 ? 'Over 8 years elapsed before the public caught up.' : L > 60 ? 'Over 5 years elapsed before the public caught up.' : 'Faster than most technologies in the Zorthex dataset.'}` },
       { icon: '▲', text: `<strong>Peak: ${peak}/100.</strong> ${peak === 100 ? 'Maximum global search volume reached.' : peak > 75 ? 'High mainstream penetration confirmed.' : 'Moderate mainstream penetration.'}` },
-      { icon: cur >= 25 ? '●' : '○', text: `<strong>Current: ${cur}/100 (May 2026).</strong> ${cur >= 25 ? 'Still above threshold — sustained public interest confirmed.' : 'Below threshold — peak has passed, but structural classification holds.'}` },
+      { icon: cur >= 25 ? '●' : '○', text: `<strong>Current: ${cur}/100 (Aug 2026).</strong> ${cur >= 25 ? 'Still above threshold — sustained public interest confirmed.' : 'Below threshold — peak has passed, but structural classification holds.'}` },
       { icon: '→', text: `<strong>Next signal:</strong> ${data.monitor.split('.')[0]}.` }
     ];
   } else if (data.status === 'observation') {
@@ -1106,7 +1106,7 @@ function buildSignalIntelligence(data) {
     verdictHTML = `<strong class="sv-amber">${data.title}</strong> is in the <span class="sv-amber">observation window</span>. <strong>${months} of 12 consecutive months</strong> above threshold confirmed. <strong>${remaining} more months needed</strong> to reach structural consolidation. The diffusion lag is documented at <strong>${L} months</strong>.`;
     points = [
       { icon: '◎', text: `<strong>${months}/12 months above threshold.</strong> Structural status requires 12 consecutive months ≥25/100. ${remaining} months remain. The clock resets if attention drops below 25.` },
-      { icon: cur < 25 ? '▼' : '▲', text: `<strong>Current: ${cur}/100 (May 2026).</strong> ${cur < 25 ? 'Dropped below threshold. If sustained, structural consolidation will not be confirmed from this cycle.' : 'Still above threshold. The 12-month count continues.'}` },
+      { icon: cur < 25 ? '▼' : '▲', text: `<strong>Current: ${cur}/100 (Aug 2026).</strong> ${cur < 25 ? 'Dropped below threshold. If sustained, structural consolidation will not be confirmed from this cycle.' : 'Still above threshold. The 12-month count continues.'}` },
       { icon: '◈', text: `<strong>Lag so far: ${L} months.</strong> From first public emergence to peak attention. ${lagQuality} diffusion for this category.` },
       { icon: '→', text: `<strong>Key signal to watch:</strong> ${data.monitor.split('.')[0]}.` }
     ];
@@ -1114,7 +1114,7 @@ function buildSignalIntelligence(data) {
     verdictHTML = `<strong class="sv-red">${data.title}</strong> is classified as a <span class="sv-red">structural bubble</span>. Attention peaked at <strong>${peak}/100</strong> but did not sustain 12 consecutive months above threshold. The diffusion lag was <strong>${L} months</strong>. The public attention cycle has completed without structural consolidation.`;
     points = [
       { icon: '▼', text: `<strong>Bubble confirmed.</strong> Peak was ${peak}/100 — high enough to register, but duration (${months} months) was insufficient for structural classification.` },
-      { icon: '○', text: `<strong>Current: ${cur}/100 (May 2026).</strong> Below threshold. The attention cycle for this phenomenon has closed.` },
+      { icon: '○', text: `<strong>Current: ${cur}/100 (Aug 2026).</strong> Below threshold. The attention cycle for this phenomenon has closed.` },
       { icon: '◈', text: `<strong>Lag: ${L} months.</strong> The documented gap between emergence and the peak of public attention.` },
       { icon: '→', text: `<strong>Next cycle trigger:</strong> ${data.monitor.split('.')[0]}.` }
     ];
