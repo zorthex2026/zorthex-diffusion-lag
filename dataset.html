@@ -190,6 +190,17 @@
   }
   .guide-read strong { color: var(--text-muted); font-weight: 600; }
 
+  /* NOW-COLUMN LEGEND — convention, sits with the other reading rules */
+  .now-note {
+    border-top: 1px solid var(--border);
+    padding: 16px 32px 20px;
+    background: linear-gradient(165deg, var(--surface), var(--bg));
+    font-size: 12.5px;
+    color: var(--text-dim);
+    line-height: 1.65;
+  }
+  .now-note strong { color: var(--text-muted); font-weight: 600; }
+
   /* REVISION BANNER */
   .revision-banner {
     border: 1px solid rgba(90,230,122,0.25);
@@ -409,6 +420,11 @@
     <div class="guide-read">
       <strong>Example reading:</strong> "RWA Tokenization · L=103 · STRUCTURAL · Active · 40/100" → The technology existed for 103 months before the public noticed. It entered the vocabulary (STRUCTURAL). It's still above threshold right now (Active). Current attention: 40/100.
       <br><strong>Contrast:</strong> "SMR · L=243 · STRUCTURAL · Receding · 23/100" → Same classification, different story. SMR consolidated (12 months above threshold) but attention has now dropped below. The discovery phase happened; the term is fading from active search. Both are STRUCTURAL — one is alive, one is cooling.
+    </div>
+
+    <!-- NOW-COLUMN CONVENTION -->
+    <div class="now-note">
+      A blank value in the <strong>Now</strong> column is not missing data. It means the term has no measurable consumer search footprint: the phenomenon is institutional or B2B and sits below the resolution of Google Trends. Absence of public attention is itself a measurement.
     </div>
   </div>
 
